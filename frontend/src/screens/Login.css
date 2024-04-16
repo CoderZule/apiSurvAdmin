@@ -65,16 +65,14 @@ input[type="password"] {
     background: #FEE502;
     color: #fff;
     font-size: 18px;
-    border-radius: 20px
-}
+    border-radius: 20px;
+ }
 
 .loginbox input[type="submit"]:hover {
     cursor: pointer;
     background: #f4dc03;
 }
 
-
  
-
  
  

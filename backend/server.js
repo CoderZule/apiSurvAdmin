@@ -9,7 +9,7 @@ if(process.env.NODE_ENV !="production"){
 const express = require('express')
 const cors = require('cors');
 const connectToDB = require('./config/connectToDB');
-const ruchersController= require('./controllers/ruchersController');
+const apiariesController= require('./controllers/apiariesController');
 const usersController= require('./controllers/usersController');
 
 //create an express app
@@ -24,12 +24,12 @@ connectToDB();
 
 
 
-//********** Rucher routing **********
+//********** Apiary routing **********
 
-// Route to get all ruchers
-app.get('api/getAllRuchers',ruchersController.fetchRuchers);
-// Route to add a new rucher
-app.post('api/createRucher', ruchersController.createRucher);
+// Route to get all apiaries
+app.get('/api/apiary/getAllApiaries',apiariesController.fetchApiaries);
+// Route to add a new apiary
+app.post('/api/apiary/createApiary', apiariesController.createApiary);
 
 
 
@@ -37,7 +37,7 @@ app.post('api/createRucher', ruchersController.createRucher);
 
 //  add admin if not exists
 usersController.AdminUser();
-// Route to login user
+// Route to login 
 app.post('/api/user/login', usersController.loginUser);
 
 

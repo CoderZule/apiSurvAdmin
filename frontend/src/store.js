@@ -5,14 +5,14 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { getAllRuchersReducer } from './reducers/rucherReducer'
+import { getAllApiariesReducer } from './reducers/apiaryReducer'
 import { loginUserReducer } from './reducers/userReducer'
 
 
 
 const finalReducer = combineReducers({
     loginUserReducer: loginUserReducer,
-    getAllRuchersReducer : getAllRuchersReducer,
+    getAllApiariesReducer : getAllApiariesReducer,
 
 
 })

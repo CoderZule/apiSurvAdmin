@@ -6,14 +6,14 @@ import Loading from "../components/Loading";
 import './Login.css'; 
 
 const LoginScreen = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [Email, setEmail] = useState('');
+    const [Password, setPassword] = useState('');
     const loginState = useSelector((state) => state.loginUserReducer);
     const { loading, error } = loginState;
     const dispatch = useDispatch();
 
     const login = () => {
-        const user = { email, password };
+        const user = { Email, Password };
         dispatch(loginUser(user));
     };
 
@@ -24,8 +24,8 @@ const LoginScreen = () => {
             {loading && <Loading />}
             {error && <Error error="Informations invalides" />}
             <div>
-                <input required type="email" placeholder="Email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <input required type="password" placeholder="Mot de passe" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input required type="email" placeholder="Email" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} />
+                <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
                 <input onClick={login} type="submit" value="Se connecter" />
 
             </div>

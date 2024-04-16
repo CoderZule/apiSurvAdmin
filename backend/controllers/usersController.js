@@ -4,9 +4,11 @@ const mongoose = require('mongoose');
 
 // Define admin user data
 const adminUserData = {
-    username: 'admin',
-    email: 'admin@apisurv.com',
-    password: 'admin',
+    Firstname: 'Mariem',
+    Lastname: 'Derbali',
+    Cin: '09999999',
+    Email: 'admin@apisurv.com',
+    Password: 'admin',
     RoleAdmin: true
   };
 
@@ -15,7 +17,7 @@ const adminUserData = {
 async function AdminUser() {
     try {
       // Check if admin user already exists
-      const existingAdminUser = await User.findOne({ email: adminUserData.email });
+      const existingAdminUser = await User.findOne({ Email: adminUserData.Email });
       if (existingAdminUser) {
         console.log('Admin user already exists.');
       } else {
@@ -32,10 +34,10 @@ async function AdminUser() {
 
   const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { Email, Password } = req.body;
 
         // Find the user by email and password
-        const user = await User.findOne({ email, password });
+        const user = await User.findOne({ Email, Password });
 
         // If user not found, return error
         if (!user) {
@@ -44,8 +46,10 @@ async function AdminUser() {
 
         // If user found, return user data
         const currentUser = {
-            username: user.username,
-            email: user.email,
+            Firstname: user.Firstname,
+            Lastname: user.Lastname,
+            Cin: user.Cin,
+            Email: user.Email,
             RoleAdmin: user.RoleAdmin,
             _id: user._id
         };
