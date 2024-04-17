@@ -1,10 +1,10 @@
 import React from 'react';
-import Footer from './Footer';
-import Navbar from './Navbar';
+
+import { Link } from 'react-router-dom';
 
 const Sidebar = () => {
     return (
-        <div id="wrapper">
+
 
          <ul className="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style={{ backgroundColor: '#eaa408'}}>
 
@@ -18,9 +18,9 @@ const Sidebar = () => {
              <hr className="sidebar-divider my-0"/>
 
              <li className="nav-item active">
-                <a className="nav-link" href="index.html">
+                <Link className="nav-link" to="/admin/dashboard">
                     <i className="fas fa-fw fa-tachometer-alt" ></i>
-                    <span >Tableau de bord</span></a>
+                    <span >Tableau de bord</span></Link>
             </li>
 
              <hr className="sidebar-divider"/>
@@ -53,7 +53,7 @@ const Sidebar = () => {
                     data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
                          <a className="collapse-item" href="utilities-color.html" >Créer</a>
-                        <a className="collapse-item" href="utilities-border.html" >Liste</a>
+                        <Link className="collapse-item" to="/admin/apiaries" >Liste</Link>
                         
                     </div>
                 </div>
@@ -81,21 +81,9 @@ const Sidebar = () => {
 
         </ul>
          
-        <div id="content-wrapper" className="d-flex flex-column">
-
-             <div id="content">
-
-        <Navbar/>
-               
-            
+      
  
-            </div>
- 
-           <Footer/>
- 
-        </div>
- 
-    </div>
+  
     );
 };
 

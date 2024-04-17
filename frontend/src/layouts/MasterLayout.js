@@ -1,46 +1,45 @@
 import React from 'react';
 import Sidebar from './Sidebar';
+import Navbar from './Navbar.js';
+import Footer from './Footer.js';
+import { Switch, Route } from 'react-router-dom';
+import routes from '../routes/routes.js'; 
 
 import '../dashboard_assets/css/sb-admin-2.min.css';
-import  '../dashboard_assets/vendor/fontawesome-free/css/all.min.css';
+import '../dashboard_assets/vendor/fontawesome-free/css/all.min.css';
+import '../dashboard_assets/vendor/bootstrap/js/bootstrap.bundle.min.js';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min.js';
 
-
- import '../dashboard_assets/vendor/bootstrap/js/bootstrap.bundle.min.js';
- 
- 
- 
-    
 const MasterLayout = () => {
     return (
-        <div id='page-top' >
-             
+        <div id='page-top'>
+            <div id="wrapper">
                 <Sidebar/>
-
-                
-    <a className="scroll-to-top rounded" href="#page-top">
-        <i className="fas fa-angle-up"></i>
-    </a>
- 
-    <div className="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div className="modal-dialog" role="document">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button className="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div className="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div className="modal-footer">
-                    <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a className="btn btn-primary" href="login.html">Logout</a>
+                <div id="content-wrapper" className="d-flex flex-column">
+                    <div id="content">
+                        <Navbar/>
+                        <div className="container-fluid">
+                            <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                                <Switch>
+                                    {routes.map((route, idx) => (
+                                        <Route
+                                            key={idx}
+                                            path={route.path}
+                                            exact={route.exact}
+                                            name={route.name}
+                                            render={(props) => (
+                                                <route.component {...props} />
+                                            )}
+                                        />
+                                    ))}
+                                    <Redirect from="admin" to="/admin/dashboard"/>
+                                </Switch>
+                            </div>
+                        </div>
+                    </div>
+                    <Footer/>
                 </div>
             </div>
-        </div>
-    </div>
-
-    
         </div>
     );
 };

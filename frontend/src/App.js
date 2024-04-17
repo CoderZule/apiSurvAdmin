@@ -1,20 +1,21 @@
-import { BrowserRouter, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import LoginScreen from './screens/LoginScreen';
-import DashboardScreen from './screens/DashboardScreen';
-
+import MasterLayout from './layouts/MasterLayout';
 
 function App() {
   return (
     <div className="App">
       
-       <BrowserRouter>
+       <Router>
+        <Switch>
 
            <Route path="/" exact component={LoginScreen} />
-           <Route path="/admin/dashboard" exact component={DashboardScreen} />
+           <Route path="/admin" name="Admin" render={(props) => <MasterLayout {...props}/>} />
+            
 
-  
-      </BrowserRouter>
+  </Switch>
+      </Router>
 
     </div>
   );
