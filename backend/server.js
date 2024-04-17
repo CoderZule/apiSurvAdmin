@@ -39,6 +39,10 @@ app.post('/api/apiary/createApiary', apiariesController.createApiary);
 usersController.AdminUser();
 // Route to login 
 app.post('/api/user/login', usersController.loginUser);
+// Route to get all users
+app.get('/api/user/getAllUsers',usersController.fetchUsers);
+//Route to create a user
+app.post('/api/user/create',usersController.createUser);
 
 
 

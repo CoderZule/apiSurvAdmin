@@ -61,7 +61,42 @@ async function AdminUser() {
     }
 };
 
+const fetchUsers = async (req, res) => {
+  try {
+      const Users = await User.find();
+      res.json({ success: true, data: Users });
+  } catch (error) {
+      console.error('Error fetching users:', error);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+async function createUser(req, res) {
+  try {
+      // Extract user data from the request body
+      const userData = req.body;
+
+      // Check if the user already exists by email
+      const existingUser = await User.findOne({ Email: userData.Email });
+      if (existingUser) {
+          console.log('User already exists.');
+          return res.status(400).json({ message: 'User already exists' }); // Return a 400 status code and error message
+      } else {
+          // Create a new user with the provided data
+          const newUser = new User(userData);
+          await newUser.save();
+          console.log('User created successfully.');
+          return res.status(201).json({ message: 'User created successfully', user: newUser }); // Return a 201 status code and the newly created user object
+      }
+  } catch (error) {
+      console.error('Error creating user:', error);
+      return res.status(500).json({ message: 'Internal server error' }); // Return a 500 status code and error message
+  }
+}
+
 module.exports = {
     AdminUser: AdminUser,
-    loginUser: loginUser
+    loginUser: loginUser,
+    fetchUsers: fetchUsers,
+    createUser: createUser
 }
