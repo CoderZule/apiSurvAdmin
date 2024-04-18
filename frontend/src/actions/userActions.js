@@ -27,6 +27,18 @@ export const logoutUser = () => dispatch => {
 
 }
 
+ 
+
+export const createUser = (user) => async (dispatch) => {
+    dispatch({ type: 'USER_CREATE_REQUEST' });
+    try {
+        const response = await axios.post('/api/user/create', user);
+        console.log(response);
+        dispatch({ type: 'USER_CREATE_SUCCESS' });
+    } catch (error) {
+        dispatch({ type: 'USER_CREATE_FAILED', payload: error});
+    }
+}
 
 export const getAllUsers = () => async dispatch => {
     dispatch({ type: 'GET_USERS_REQUEST' })

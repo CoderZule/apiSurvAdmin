@@ -18,7 +18,26 @@ export const loginUserReducer = (state = {}, action) => {
     }
 
 }
+export const createUserReducer = (state = {}, action) => {
 
+
+    switch (action.type) {
+        case 'USER_CREATE_REQUEST': return {
+            loading: true,
+            ...state
+        }
+        case 'USER_CREATE_SUCCESS': return {
+            loading: false,
+            success: true,
+        }
+        case 'USER_CREATE_FAILED': return {
+            error: action.payload,
+            loading: false
+        }
+        default: return state
+    }
+
+}
 
 export const getAllUsersReducer = (state = { users: [] }, action) => {
     switch (action.type) {

@@ -9,7 +9,7 @@ const adminUserData = {
     Cin: '09999999',
     Email: 'admin@apisurv.com',
     Password: 'admin',
-    RoleAdmin: true
+    Role: 'Admin'
   };
 
   
@@ -50,7 +50,7 @@ async function AdminUser() {
             Lastname: user.Lastname,
             Cin: user.Cin,
             Email: user.Email,
-            RoleAdmin: user.RoleAdmin,
+            Role: user.Role,
             _id: user._id
         };
 

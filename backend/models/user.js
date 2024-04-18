@@ -7,7 +7,7 @@ const userSchema = mongoose.Schema({
     Cin:{ type: String, require },
     Email: { type: String, require },
     Password: { type: String, require },
-    RoleAdmin: { type: Boolean, require, default: true }
+    Role: { type: String, require}
 
 }, {
     timestamps: true,

@@ -6,16 +6,17 @@ const Sidebar = () => {
     return (
 
 
-         <ul className="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style={{ backgroundColor: '#eaa408'}}>
+         <ul className="navbar-nav sidebar sidebar-dark " id="accordionSidebar" style={{ backgroundColor: '#eaa408'}}>
 
          <a className="sidebar-brand d-flex align-items-center justify-content-center mt-3" href="index.html">
-    <div className="sidebar-brand-icon rotate-n-15 ">
-        <img src="/img/logo.png" alt="Logo" style={{ width: '100px', height: '100px' }} />
-    </div>
+         <div className="sidebar-brand-icon mt-4">
+    <img src="/img/logo.png" alt="Logo" style={{ maxWidth: '80%', height: 'auto' }} />
+</div>
+
  </a>
 
 
-             <hr className="sidebar-divider my-0"/>
+ <hr className="sidebar-divider my-0  mt-4"/>
 
              <li className="nav-item active">
                 <Link className="nav-link" to="/admin/dashboard">
@@ -37,7 +38,7 @@ const Sidebar = () => {
                 </a>
                 <div id="user" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
-                        <a className="collapse-item" href="buttons.html" >Créer</a>
+                        <Link className="collapse-item" to="/admin/user/create" >Créer</Link>
                         <Link className="collapse-item" to="/admin/users" >Liste</Link>
                     </div>
                 </div>

@@ -6,15 +6,16 @@ import thunk from 'redux-thunk'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { getAllApiariesReducer } from './reducers/apiaryReducer'
-import { loginUserReducer } from './reducers/userReducer'
-import { getAllUsersReducer } from './reducers/userReducer'
-
+import { createUserReducer, loginUserReducer, getAllUsersReducer } from './reducers/userReducer'
+ 
 
 
 const finalReducer = combineReducers({
     loginUserReducer: loginUserReducer,
     getAllApiariesReducer : getAllApiariesReducer,
-    getAllUsersReducer: getAllUsersReducer
+    createUserReducer: createUserReducer,
+    getAllUsersReducer: getAllUsersReducer,
+
 
 
 })
