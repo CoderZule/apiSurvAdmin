@@ -40,6 +40,8 @@ export const createUser = (user) => async (dispatch) => {
     }
 }
 
+
+
 export const getAllUsers = () => async dispatch => {
     dispatch({ type: 'GET_USERS_REQUEST' })
     try {
@@ -51,5 +53,42 @@ export const getAllUsers = () => async dispatch => {
 
     }
 
+}
+
+// Update the getUserById action creator to include the user ID in the URL
+export const getUserById = (userId) => async dispatch => {
+    dispatch({ type: 'GET_USERBYID_REQUEST' })
+
+    try {
+        const response = await axios.get(`/api/user/getUserById/${userId}`);
+        dispatch({ type: 'GET_USERBYID_SUCCESS', payload: response.data })
+    } catch (error) {
+        dispatch({ type: 'GET_USERBYID_FAILED', payload: error })
+    }
+}
+
+
+export const editUser = (editedUser) => async (dispatch) => {
+    dispatch({ type: 'EDIT_USER_REQUEST' });
+    try {
+        const response = await axios.post('/api/user/editUser', editedUser);
+        console.log(response);
+        dispatch({ type: 'EDIT_USER_SUCCESS' });
+        window.location.href = '/admin/users'
+    } catch (error) {
+        dispatch({ type: 'EDIT_USER_FAILED', payload: error });
+    }
+};
+
+
+export const deleteUser = (userid) => async dispatch => {
+    try {
+        const response = await axios.post('/api/user/deleteUser', { userid })
+        alert('Utilisateur supprimé avec succès')
+        console.log(response);
+        window.location.reload()
+    } catch (error) {
+         console.log(error);
+    }
 }
 

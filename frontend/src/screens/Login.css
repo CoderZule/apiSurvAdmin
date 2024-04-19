@@ -9,7 +9,7 @@ body {
 
 
 
-.loginbox {
+.login-screen-box {
     border-radius: 10px;
     width: 320px;
     height: 430px;
@@ -42,15 +42,14 @@ h1 {
 
  
 
-.loginbox input {
+.login-screen-box input {
     width: 100%;
     margin-bottom: 20px
 }
 
-.loginbox input[type="email"],
+.login-screen-box  input[type="email"],
 input[type="password"] {
-    border: none;
-    border-bottom: 1px solid #000;
+ 
     background: transparent;
     outline: none;
     height: 40px;
@@ -58,20 +57,23 @@ input[type="password"] {
     font-size: 16px
 }
 
-.loginbox input[type="submit"] {
+button[type="submit"] {
     border: none;
     outline: none;
     height: 40px;
+    width: 100%;
     background: #FEE502;
     color: #373737;
     font-size: 18px;
     border-radius: 20px;
- }
-
-.loginbox input[type="submit"]:hover {
-    cursor: pointer;
-    background: #f4dc03;
 }
+
+button[type="submit"]:hover {
+    cursor: pointer;
+    color: #373737;
+    background: #F5DD04;
+}
+
 
  
  

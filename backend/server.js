@@ -43,10 +43,12 @@ app.post('/api/user/login', usersController.loginUser);
 app.get('/api/user/getAllUsers',usersController.fetchUsers);
 //Route to create a user
 app.post('/api/user/create',usersController.createUser);
-
-
-
-
+// Route to get user by ID
+app.get('/api/user/getUserById/:id', usersController.getUserById);
+// Route to edit user
+app.post('/api/user/editUser', usersController.editUser);
+// Route to delete user
+app.post('/api/user/deleteUser', usersController.deleteUser);
 
 
 

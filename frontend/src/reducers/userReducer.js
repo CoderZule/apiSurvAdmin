@@ -56,3 +56,45 @@ export const getAllUsersReducer = (state = { users: [] }, action) => {
         default: return state
     }
 }
+
+
+export const getUserByIdReducer = (state = {}, action) => {
+
+    switch (action.type) {
+        case 'GET_USERBYID_REQUEST': return {
+            loading: true,
+            ...state
+        }
+        case 'GET_USERBYID_SUCCESS': return {
+            loading: false,
+            user: action.payload
+        }
+        case 'GET_USERBYID_FAILED': return {
+            error: action.payload,
+            loading: false
+        }
+        default: return state
+    }
+
+}
+
+
+
+export const editUserReducer = (state = {}, action) => {
+    switch (action.type) {
+        case 'EDIT_USER_REQUEST': return {
+            editloading: true,
+            ...state
+        }
+        case 'EDIT_USER_SUCCESS': return {
+            editloading: false,
+            editsuccess: true,
+        }
+        case 'EDIT_USER_FAILED': return {
+            editerror: action.payload,
+            editloading: false
+        }
+        default: return state
+    }
+
+}
