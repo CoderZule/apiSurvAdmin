@@ -53,7 +53,7 @@ const Sidebar = () => {
                 <div id="rucher" className="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
-                         <a className="collapse-item" href="utilities-color.html" >Créer</a>
+                    <Link className="collapse-item" to="/admin/apiary/create" >Créer</Link>
                         <Link className="collapse-item" to="/admin/apiaries" >Liste</Link>
                         
                     </div>
@@ -69,8 +69,8 @@ const Sidebar = () => {
                 <div id="ruche" className="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div className="bg-white py-2 collapse-inner rounded">
-                         <a className="collapse-item" href="utilities-color.html">Créer</a>
-                        <a className="collapse-item" href="utilities-border.html" >Liste</a>
+                    <Link className="collapse-item" to="/admin/hive/create" >Créer</Link>
+                        <Link className="collapse-item" to="/admin/hives" >Liste</Link>
                         
                     </div>
                 </div>
