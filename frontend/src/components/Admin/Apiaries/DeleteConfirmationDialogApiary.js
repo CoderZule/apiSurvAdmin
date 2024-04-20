@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function DeleteConfirmationDialog({ open, onClose, onConfirm }) {
+export default function DeleteConfirmationDialogApiary({ open, onClose, onConfirm }) {
     return (
         <div className={`modal ${open ? 'show' : ''}`} style={{ display: open ? 'block' : 'none' }}>
             <div className="modal-dialog">
@@ -12,7 +12,7 @@ export default function DeleteConfirmationDialog({ open, onClose, onConfirm }) {
                         </button>
                     </div>
                     <div className="modal-body">
-                        <p>Êtes-vous sûr de vouloir supprimer cet utilisateur ?</p>
+                        <p>Êtes-vous sûr de vouloir supprimer ce rucher ?</p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" onClick={onClose}>Annuler</button>

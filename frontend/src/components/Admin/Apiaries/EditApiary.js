@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../../actions/userActions';
-import { createApiary } from '../../../actions/apiaryActions';
+import { getApiaryById, editApiary } from '../../../actions/apiaryActions';
 import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
 
-export default function CreateApiary() {
+export default function EditApiary(props) {
+  const dispatch = useDispatch();
+
     const governorates = ["Ariana", "Beja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "Le Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"];
 
     const citiesByGovernorate = {
@@ -36,15 +38,13 @@ export default function CreateApiary() {
         "Zaghouan": ["Zaghouan", "Nadhour", "El Fahs"]
     };
 
-    const dispatch = useDispatch();
-    const usersState = useSelector(state => state.getAllUsersReducer);
+     const usersState = useSelector(state => state.getAllUsersReducer);
     const { users } = usersState;
 
-
     useEffect(() => {
-        dispatch(getAllUsers());
-    }, []);
-
+      dispatch(getAllUsers());
+  }, []);
+  
     const [Name, setName] = useState('');
     const [Forages, setForages] = useState('');
     const [Type, setType] = useState('');
@@ -56,46 +56,70 @@ export default function CreateApiary() {
         governorate: ''
     });
     const [Owner, setOwner] = useState('');
+ 
 
-    const createApiaryState = useSelector((state) => state.createApiaryReducer);
-    const { error, loading, success } = createApiaryState;
+    const apiaryId = props.match.params._id
 
+    const getApiaryByIdState = useSelector((state) => state.getApiaryByIdReducer);
+    const { loading, error, apiary } = getApiaryByIdState;
 
+    const editApiaryState = useSelector((state) => state.editApiaryReducer);
+    const { editloading, editerror, editsuccess } = editApiaryState;
 
-    function handleCreateApiary(e) {
-        e.preventDefault();
-
-        const apiary = {
-            Name,
-            Forages,
-            Type,
-            SunExposure,
-            Location,
-            Owner
-
-        };
-
-        console.log(apiary);
-        dispatch(createApiary(apiary)).then(() => {
-            window.location.reload();
+    useEffect(() => {
+      console.log("APIARY ID:", apiaryId);  
+      dispatch(getApiaryById(apiaryId));  
+  }, [dispatch, apiaryId]);
+  
+  useEffect(() => {
+    if (apiary) {
+        setName(apiary.Name);
+        setForages(apiary.Forages);
+        setType(apiary.Type);
+        setSunExposure(apiary.SunExposure);
+        setLocation({
+            ...Location,
+            latitude: apiary.Location.latitude,
+            longitude: apiary.Location.longitude,
+            city: apiary.Location.city,
+            governorate: apiary.Location.governorate
         });
-
+        setOwner(apiary.Owner);  
     }
+}, [apiary]);
+
+function handleEditApiary(e) {
+    e.preventDefault();
+
+    const editedApiary = {
+        _id: apiaryId,
+        Name,
+        Forages,
+        Type,
+        SunExposure,
+        Location,
+        Owner
+    };
+
+    dispatch(editApiary(editedApiary));
+}
+  
 
 
     return (
         <div className="row justify-content-center">
             <div className="col-8">
-                {loading && <Loading />}
-                {success && <Success success="Rucher créé avec succès" />}
-                {error && <Error error="Quelque chose s'est mal passé" />}
+            {loading && <Loading />}
+                {editsuccess && <Success success="Rucher mis à jour avec succès" />}
+                {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour du rucher" />}
+
 
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
-                        <h6>Créer Rucher</h6>
+                        <h6>Modifier Rucher</h6>
                     </div>
                     <div className="card-body">
-                        <form className="row" onSubmit={handleCreateApiary}>
+                        <form className="row" onSubmit={handleEditApiary}>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Nom</label>
                                 <input required type="text" placeholder="Nom" className="form-control" value={Name} onChange={(e) => setName(e.target.value)} />
@@ -197,7 +221,7 @@ export default function CreateApiary() {
 
 
                             <div className="col-md-6 mb-3">
-                                <button type="submit" className="btn btn-primary">Créer</button>
+                                <button type="submit" className="btn btn-primary">Modifier</button>
                             </div>
                         </form>
                     </div>

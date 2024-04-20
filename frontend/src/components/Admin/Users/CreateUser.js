@@ -48,7 +48,7 @@ export default function CreateUser() {
     
             <div className="card shadow-lg bg-white rounded">
                 <div className="card-header pb-0">
-                    <h6>Créer utilisateur</h6>
+                    <h6>Créer Utilisateur</h6>
                 </div>
                 <div className="card-body">
                     <form className="row" onSubmit={handleCreateUser}>

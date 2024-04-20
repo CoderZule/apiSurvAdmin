@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import MaterialTable from 'material-table';
 import tableIcons from '../../MaterialTableIcons';
-import DeleteConfirmationDialog from './DeleteConfirmationDialog';
+import DeleteConfirmationDialogUser from './DeleteConfirmationDialogUser';
 import { getAllUsers, deleteUser } from '../../../actions/userActions';
 
 export default function Users() {
@@ -66,7 +66,7 @@ export default function Users() {
                     }
                 ]}
                 data={users.data}
-                title={<h6>Liste utilisateurs</h6>}
+                title={<h6>Liste Utilisateurs</h6>}
                 icons={tableIcons}
                 options={{
                     padding: 'dense',
@@ -75,7 +75,7 @@ export default function Users() {
                 }}
             />
 
-            <DeleteConfirmationDialog
+            <DeleteConfirmationDialogUser
                 open={deleteUserId !== null}
                 onClose={() => setDeleteUserId(null)}
                 onConfirm={handleDeleteUser}

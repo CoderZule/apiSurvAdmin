@@ -24,13 +24,13 @@ export default function EditUser(props) {
     const { editloading, editerror, editsuccess } = editUserState;
 
     useEffect(() => {
-      console.log("User ID:", userId); // Log the userId
-      dispatch(getUserById(userId)); // Fetch the user data when the component mounts
+      console.log("User ID:", userId);  
+      dispatch(getUserById(userId));  
   }, [dispatch, userId]);
   
     useEffect(() => {
         if (user) {
-            // Populate the form fields with the user data
+ 
             setFirstname(user.Firstname);
             setLastname(user.Lastname);
             setCin(user.Cin);
@@ -67,7 +67,7 @@ export default function EditUser(props) {
 
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
-                        <h6>Modifier utilisateur</h6>
+                        <h6>Modifier Utilisateur</h6>
                     </div>
                     <div className="card-body">
                         <form className="row" onSubmit={handleEditUser}>

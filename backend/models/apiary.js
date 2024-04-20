@@ -12,11 +12,8 @@ const apiarySchema = new mongoose.Schema({
     governorate: { type: String, required: true }
   },
   Owner: {
-    ID: mongoose.Schema.Types.ObjectId,
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    cin:{ type: String, require },
-    email: { type: String, require },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, {
   timestamps: true,

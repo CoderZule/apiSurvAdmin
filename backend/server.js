@@ -29,7 +29,14 @@ connectToDB();
 // Route to get all apiaries
 app.get('/api/apiary/getAllApiaries',apiariesController.fetchApiaries);
 // Route to add a new apiary
-app.post('/api/apiary/createApiary', apiariesController.createApiary);
+app.post('/api/apiary/create', apiariesController.createApiary);
+// Route to get apiary by ID
+app.get('/api/apiary/getApiaryById/:id', apiariesController.getApiaryById);
+// Route to edit apiary
+app.post('/api/apiary/editApiary', apiariesController.editApiary);
+// Route to delete apiary
+app.post('/api/apiary/deleteApiary', apiariesController.deleteApiary);
+
 
 
 

@@ -55,8 +55,7 @@ export const getAllUsers = () => async dispatch => {
 
 }
 
-// Update the getUserById action creator to include the user ID in the URL
-export const getUserById = (userId) => async dispatch => {
+ export const getUserById = (userId) => async dispatch => {
     dispatch({ type: 'GET_USERBYID_REQUEST' })
 
     try {
