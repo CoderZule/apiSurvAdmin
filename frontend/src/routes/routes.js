@@ -13,6 +13,8 @@ import DeleteConfirmationDialogApiary from "../components/Admin/Apiaries/DeleteC
 
 import Hives from "../components/Admin/Hives/Hives";
 import CreateHive from "../components/Admin/Hives/CreateHive";
+import EditHive from "../components/Admin/Hives/EditHive";
+import DeleteConfirmationDialogHive from "../components/Admin/Hives/DeleteConfirmationDialogHive";
 
 const routes =  [
     {path : '/admin', exact: true, name: 'Admin'},
@@ -33,7 +35,9 @@ const routes =  [
     //Hives Crud Routes
     {path: '/admin/hives', exact:true, name:'Hives', component:Hives},
     {path: '/admin/hive/create', exact:true, name:'CreateHive', component:CreateHive},
-
+    {path: '/admin/hive/edit/:_id', exact:true, name:'EditHive', component:EditHive},
+    {path: '/admin/hive/delete/:_id', exact:true, name:'DeleteHive', component:DeleteConfirmationDialogHive},
+   
 
 
 ]

@@ -9,8 +9,10 @@ if(process.env.NODE_ENV !="production"){
 const express = require('express')
 const cors = require('cors');
 const connectToDB = require('./config/connectToDB');
-const apiariesController= require('./controllers/apiariesController');
 const usersController= require('./controllers/usersController');
+const apiariesController= require('./controllers/apiariesController');
+const hivesController = require('./controllers/hivesController');
+
 
 //create an express app
 const app = express()
@@ -21,22 +23,6 @@ app.use(cors());
 
 //connect to database
 connectToDB();
-
-
-
-//********** Apiary routing **********
-
-// Route to get all apiaries
-app.get('/api/apiary/getAllApiaries',apiariesController.fetchApiaries);
-// Route to add a new apiary
-app.post('/api/apiary/create', apiariesController.createApiary);
-// Route to get apiary by ID
-app.get('/api/apiary/getApiaryById/:id', apiariesController.getApiaryById);
-// Route to edit apiary
-app.post('/api/apiary/editApiary', apiariesController.editApiary);
-// Route to delete apiary
-app.post('/api/apiary/deleteApiary', apiariesController.deleteApiary);
-
 
 
 
@@ -56,6 +42,35 @@ app.get('/api/user/getUserById/:id', usersController.getUserById);
 app.post('/api/user/editUser', usersController.editUser);
 // Route to delete user
 app.post('/api/user/deleteUser', usersController.deleteUser);
+
+
+//********** Apiary routing **********
+
+// Route to get all apiaries
+app.get('/api/apiary/getAllApiaries',apiariesController.fetchApiaries);
+// Route to add a new apiary
+app.post('/api/apiary/create', apiariesController.createApiary);
+// Route to get apiary by ID
+app.get('/api/apiary/getApiaryById/:id', apiariesController.getApiaryById);
+// Route to edit apiary
+app.post('/api/apiary/editApiary', apiariesController.editApiary);
+// Route to delete apiary
+app.post('/api/apiary/deleteApiary', apiariesController.deleteApiary);
+
+
+//********** Hive routing **********
+
+// Route to get all hives
+app.get('/api/hive/getAllHives',hivesController.fetchHives);
+// Route to add a new hive
+app.post('/api/hive/create', hivesController.createHive);
+// Route to get hive by ID
+app.get('/api/hive/getHiveById/:id', hivesController.getHiveById);
+// Route to edit hive
+app.post('/api/hive/editHive', hivesController.editHive);
+// Route to delete hive
+app.post('/api/hive/deleteApiary', hivesController.deleteHive);
+
 
 
 
