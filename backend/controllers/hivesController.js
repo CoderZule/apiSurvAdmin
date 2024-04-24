@@ -13,14 +13,14 @@ const fetchHives = async (req, res) => {
 
 const createHive = async (req, res) => {
     try {
-        const { Color, Type, Source, Purpose, Note, Colony, Queen, Apiary } = req.body;
+        const { Color, Type, Source, Purpose, Added, Note, Colony, Queen, Apiary } = req.body;
 
-         if (!Color || !Type || !Source || !Purpose || !Note || !Colony || !Queen || !Apiary) {
+         if (!Color || !Type || !Source || !Purpose || !Added || !Note || !Colony || !Queen || !Apiary) {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
 
          const newHive = new Hive({
-            Color, Type, Source, Purpose, Note, Colony, Queen, Apiary
+            Color, Type, Source, Purpose, Added, Note, Colony, Queen, Apiary
         });
 
          await newHive.save();

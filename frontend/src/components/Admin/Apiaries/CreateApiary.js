@@ -36,6 +36,13 @@ export default function CreateApiary() {
         "Zaghouan": ["Zaghouan", "Nadhour", "El Fahs"]
     };
 
+    const forages = ["Thym", "Lavande", "Romarin", "Eucalyptus", "Arbres d'agrumes", "Luzerne", "Trèfle", "Fleurs sauvages", "Caroubier", "Acacia"];
+    
+    const types = ["Base", "Migratoire", "Fixe", "Autre"];
+    
+    const sunExposureOptions = ["Ensoleillé", "Semi-ombragé", "Ombragé", "Autre"];
+
+
     const dispatch = useDispatch();
     const usersState = useSelector(state => state.getAllUsersReducer);
     const { users } = usersState;
@@ -96,6 +103,7 @@ export default function CreateApiary() {
                     </div>
                     <div className="card-body">
                         <form className="row" onSubmit={handleCreateApiary}>
+
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Nom</label>
                                 <input required type="text" placeholder="Nom" className="form-control" value={Name} onChange={(e) => setName(e.target.value)} />
@@ -107,28 +115,20 @@ export default function CreateApiary() {
                                 <label className="form-label">Fourrage</label>
                                 <select name="Forages" className="form-select" value={Forages} onChange={(e) => setForages(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un fourrage</option>
-                                    <option value="Thym">Thym</option>
-                                    <option value="Lavande">Lavande</option>
-                                    <option value="Romarin">Romarin</option>
-                                    <option value="Eucalyptus">Eucalyptus</option>
-                                    <option value="Arbres d'agrumes">Arbres d'agrumes</option>
-                                    <option value="Luzerne">Luzerne</option>
-                                    <option value="Trèfle">Trèfle</option>
-                                    <option value="Fleurs sauvages">Fleurs sauvages</option>
-                                    <option value="Caroubier">Caroubier</option>
-                                    <option value="Acacia">Acacia</option>
+                                    {forages.map((forage, index) => (
+                                        <option key={index} value={forage}>{forage}</option>
+                                    ))}
                                 </select>
-
                             </div>
+
+                            
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Type</label>
-                                <select name="Type" className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
+                                 <select name="Type" className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un type</option>
-                                    <option value="Base">Base</option>
-                                    <option value="Migratoire">Migratoire</option>
-                                    <option value="Fixe">Fixe</option>
-                                    <option value="Autre">Autre</option>
-
+                                    {types.map((type, index) => (
+                                        <option key={index} value={type}>{type}</option>
+                                    ))}
                                 </select>
 
 
@@ -138,11 +138,9 @@ export default function CreateApiary() {
                                 <label className="form-label">Exposition au soleil</label>
                                 <select name="SunExposure" className="form-select" value={SunExposure} onChange={(e) => setSunExposure(e.target.value)}>
                                     <option value="" disabled>Sélectionnez une exposition au soleil</option>
-                                    <option value="Ensoleillé">Ensoleillé</option>
-                                    <option value="Semi-ombragé">Semi-ombragé</option>
-                                    <option value="Ombragé">Ombragé</option>
-                                    <option value="Autre">Autre</option>
-
+                                    {sunExposureOptions.map((option, index) => (
+                                        <option key={index} value={option}>{option}</option>
+                                    ))}
                                 </select>
 
 

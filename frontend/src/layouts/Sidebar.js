@@ -6,7 +6,7 @@ const Sidebar = () => {
     return (
 
 
-         <ul className="navbar-nav sidebar sidebar-dark " id="accordionSidebar" style={{ backgroundColor: '#eaa408'}}>
+         <ul className="navbar-nav sidebar sidebar-dark " id="accordionSidebar" style={{ backgroundColor: '#977700'}}>
 
          <a className="sidebar-brand d-flex align-items-center justify-content-center mt-3" href="index.html">
          <div className="sidebar-brand-icon mt-4">

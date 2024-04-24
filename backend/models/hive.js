@@ -6,6 +6,7 @@ const hiveSchema = new mongoose.Schema({
   Type: { type: String,  required: true },
   Source: { type: String, required: true },
   Purpose: { type: String, required: true },
+  Added: { type: Date,  required: true, default: Date.now },
   Note: { type: String },
 
   Colony: {
