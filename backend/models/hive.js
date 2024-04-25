@@ -18,15 +18,15 @@ const hiveSchema = new mongoose.Schema({
 
   Queen: {
     seen: { type: Boolean},
-    color: { type: String,  required: true },
-    hatched: { type: Number, required: true  },
-    status: { type: String, required: true },
+    color: { type: String },
+    hatched: { type: Number},
+    status: { type: String },
     installed: { type: Date, default: Date.now },
-    queen_state: { type: String, required: true },
-    race: { type: String, required: true   },
+    queen_state: { type: String},
+    race: { type: String },
     clipped: { type: Boolean, default: false },
-    origin: { type: String, required: true  },
-    temperament: { type: String, required: true  },
+    origin: { type: String  },
+    temperament: { type: String },
     note: { type: String},
 
   }

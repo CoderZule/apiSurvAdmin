@@ -69,7 +69,7 @@ app.get('/api/hive/getHiveById/:id', hivesController.getHiveById);
 // Route to edit hive
 app.post('/api/hive/editHive', hivesController.editHive);
 // Route to delete hive
-app.post('/api/hive/deleteApiary', hivesController.deleteHive);
+app.post('/api/hive/deleteHive', hivesController.deleteHive);
 
 
 

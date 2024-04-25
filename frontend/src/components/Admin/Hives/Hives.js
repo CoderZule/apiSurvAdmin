@@ -55,8 +55,8 @@ export default function Hives() {
                     },
                     {
                         title: 'But',
-                        render: rowData => (<p className="text-xs font-weight-bold mb-0">{rowData.SunExposure}</p>),
-                        customFilterAndSearch: (term, rowData) => ((rowData.SunExposure).toLowerCase()).indexOf(term.toLowerCase()) !== -1
+                        render: rowData => (<p className="text-xs font-weight-bold mb-0">{rowData.Purpose}</p>),
+                        customFilterAndSearch: (term, rowData) => ((rowData.Purpose).toLowerCase()).indexOf(term.toLowerCase()) !== -1
 
                      },
                      {

@@ -37,9 +37,9 @@ export default function CreateApiary() {
     };
 
     const forages = ["Thym", "Lavande", "Romarin", "Eucalyptus", "Arbres d'agrumes", "Luzerne", "Trèfle", "Fleurs sauvages", "Caroubier", "Acacia"];
-    
+
     const types = ["Base", "Migratoire", "Fixe", "Autre"];
-    
+
     const sunExposureOptions = ["Ensoleillé", "Semi-ombragé", "Ombragé", "Autre"];
 
 
@@ -94,8 +94,7 @@ export default function CreateApiary() {
         <div className="row justify-content-center">
             <div className="col-8">
                 {loading && <Loading />}
-                {success && <Success success="Rucher créé avec succès" />}
-                {error && <Error error="Quelque chose s'est mal passé" />}
+
 
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
@@ -121,10 +120,10 @@ export default function CreateApiary() {
                                 </select>
                             </div>
 
-                            
+
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Type</label>
-                                 <select name="Type" className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
+                                <select name="Type" className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un type</option>
                                     {types.map((type, index) => (
                                         <option key={index} value={type}>{type}</option>
@@ -174,7 +173,7 @@ export default function CreateApiary() {
                                 <input required type="number" placeholder="Longitude" className="form-control" value={Location.longitude} onChange={(e) => setLocation({ ...Location, longitude: e.target.value })} />
                             </div>
 
-                            <div className="col-md-6 mb-3">
+                            <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>
                                 <select
                                     name="owner"
@@ -193,9 +192,14 @@ export default function CreateApiary() {
                                 </select>
                             </div>
 
+ 
 
-                            <div className="col-md-6 mb-3">
-                                <button type="submit" className="btn btn-primary">Créer</button>
+                            <div className='row justify-content-center'>
+                                {success && <Success success="Rucher créé avec succès" />}
+                                {error && <Error error="Quelque chose s'est mal passé" />}
+                                <div className="col-md-6 mb-3">
+                                    <button type="submit" className="btn btn-primary">Créer</button>
+                                </div>
                             </div>
                         </form>
                     </div>

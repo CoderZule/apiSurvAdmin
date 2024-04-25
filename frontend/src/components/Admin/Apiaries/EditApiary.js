@@ -7,7 +7,7 @@ import Loading from '../../Loading';
 import Success from '../../Success';
 
 export default function EditApiary(props) {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const governorates = ["Ariana", "Beja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "Le Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"];
 
@@ -38,13 +38,13 @@ export default function EditApiary(props) {
         "Zaghouan": ["Zaghouan", "Nadhour", "El Fahs"]
     };
 
-     const usersState = useSelector(state => state.getAllUsersReducer);
+    const usersState = useSelector(state => state.getAllUsersReducer);
     const { users } = usersState;
 
     useEffect(() => {
-      dispatch(getAllUsers());
-  }, []);
-  
+        dispatch(getAllUsers());
+    }, []);
+
     const [Name, setName] = useState('');
     const [Forages, setForages] = useState('');
     const [Type, setType] = useState('');
@@ -56,7 +56,7 @@ export default function EditApiary(props) {
         governorate: ''
     });
     const [Owner, setOwner] = useState('');
- 
+
 
     const apiaryId = props.match.params._id
 
@@ -67,52 +67,49 @@ export default function EditApiary(props) {
     const { editloading, editerror, editsuccess } = editApiaryState;
 
     useEffect(() => {
-      console.log("APIARY ID:", apiaryId);  
-      dispatch(getApiaryById(apiaryId));  
-  }, [dispatch, apiaryId]);
-  
-  useEffect(() => {
-    if (apiary) {
-        setName(apiary.Name);
-        setForages(apiary.Forages);
-        setType(apiary.Type);
-        setSunExposure(apiary.SunExposure);
-        setLocation({
-            ...Location,
-            latitude: apiary.Location.latitude,
-            longitude: apiary.Location.longitude,
-            city: apiary.Location.city,
-            governorate: apiary.Location.governorate
-        });
-        setOwner(apiary.Owner);  
+        console.log("APIARY ID:", apiaryId);
+        dispatch(getApiaryById(apiaryId));
+    }, [dispatch, apiaryId]);
+
+    useEffect(() => {
+        if (apiary) {
+            setName(apiary.Name);
+            setForages(apiary.Forages);
+            setType(apiary.Type);
+            setSunExposure(apiary.SunExposure);
+            setLocation({
+                ...Location,
+                latitude: apiary.Location.latitude,
+                longitude: apiary.Location.longitude,
+                city: apiary.Location.city,
+                governorate: apiary.Location.governorate
+            });
+            setOwner(apiary.Owner);
+        }
+    }, [apiary]);
+
+    function handleEditApiary(e) {
+        e.preventDefault();
+
+        const editedApiary = {
+            _id: apiaryId,
+            Name,
+            Forages,
+            Type,
+            SunExposure,
+            Location,
+            Owner
+        };
+
+        dispatch(editApiary(editedApiary));
     }
-}, [apiary]);
 
-function handleEditApiary(e) {
-    e.preventDefault();
-
-    const editedApiary = {
-        _id: apiaryId,
-        Name,
-        Forages,
-        Type,
-        SunExposure,
-        Location,
-        Owner
-    };
-
-    dispatch(editApiary(editedApiary));
-}
-  
 
 
     return (
         <div className="row justify-content-center">
             <div className="col-8">
-            {loading && <Loading />}
-                {editsuccess && <Success success="Rucher mis à jour avec succès" />}
-                {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour du rucher" />}
-
+                {loading && <Loading />}
 
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
@@ -200,7 +197,7 @@ function handleEditApiary(e) {
                                 <input required type="number" placeholder="Longitude" className="form-control" value={Location.longitude} onChange={(e) => setLocation({ ...Location, longitude: e.target.value })} />
                             </div>
 
-                            <div className="col-md-6 mb-3">
+                            <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>
                                 <select
                                     name="owner"
@@ -220,8 +217,14 @@ function handleEditApiary(e) {
                             </div>
 
 
-                            <div className="col-md-6 mb-3">
-                                <button type="submit" className="btn btn-primary">Modifier</button>
+
+                            <div className='row justify-content-center'>
+                                {editsuccess && <Success success="Rucher mis à jour avec succès" />}
+                                {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour du rucher" />}
+
+                                <div className="col-md-6 mb-3">
+                                    <button type="submit" className="btn btn-primary">Modifier</button>
+                                </div>
                             </div>
                         </form>
                     </div>

@@ -6,6 +6,8 @@ import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
 
+import swal from 'sweetalert';
+
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -15,7 +17,6 @@ export default function CreateHive() {
 
     //Ruche infos
     const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
-
     const types = [
         '12x10',
         '14x12',
@@ -49,7 +50,6 @@ export default function CreateHive() {
         'Warre',
         'Zander'
     ];
-
     const source = ['Colonie Achetée', 'Noyau Acheté', 'Paquet Acheté', 'Noyau Capturé', 'Découpé', 'Piège Sorti', 'Divisé', 'Supplanté'];
     const purpose = ['Production de Miel', 'Production d\'Abeilles', 'Élevage de Reines', 'R&D', 'Autre'];
     const strength = ['Très Faible', 'Faible', 'Modérée', 'Forte', 'Très forte'];
@@ -58,7 +58,6 @@ export default function CreateHive() {
     //Queen Details
     const [hasQueen, setHasQueen] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
-
     const status = ['Acceptée', 'Cellule royale', 'Vierge', 'Insérée'];
     const queen_state = ['Cellule découverte', 'Cellule operculée', 'Émergée', 'Accouplée', 'Mature', 'Vieille', 'Inconnue'];
     const race = [
@@ -70,6 +69,8 @@ export default function CreateHive() {
     ];
     const queenColors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Blanc'];
     const queen_origin = ['Achetée', 'Fabriquée', 'Essaim capturé', 'Autre'];
+
+
 
 
     const dispatch = useDispatch();
@@ -111,8 +112,8 @@ export default function CreateHive() {
         setAdded(date);
     };
 
-    const createApiaryState = useSelector((state) => state.createApiaryReducer);
-    const { error, loading, success } = createApiaryState;
+    const createHiveState = useSelector((state) => state.createHiveReducer);
+    const { error, loading, success } = createHiveState;
 
 
 
@@ -136,6 +137,8 @@ export default function CreateHive() {
         console.log(hive);
         dispatch(createHive(hive)).then(() => {
             window.location.reload();
+
+
         });
 
     }
@@ -145,8 +148,6 @@ export default function CreateHive() {
         <div className="row justify-content-center">
             <div className="col-8">
                 {loading && <Loading />}
-                {success && <Success success="Ruche créée avec succès" />}
-                {error && <Error error="Quelque chose s'est mal passé" />}
 
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
@@ -175,7 +176,7 @@ export default function CreateHive() {
                             </div>
 
                             <div className="col-md-6 mb-3">
-                                <select required className="form-select" value={Type} onChange={(e) => setSource(e.target.value)}>
+                                <select required className="form-select" value={Source} onChange={(e) => setSource(e.target.value)}>
                                     <label className="form-label">Source</label>
                                     <option value="" disabled>Sélectionnez la source</option>
                                     {source.map((source, index) => (
@@ -411,7 +412,9 @@ export default function CreateHive() {
                                 )}
                             </fieldset>
 
-                            <div className='row justify-content-center'> 
+                            <div className='row justify-content-center'>
+                                {success && <Success success="Ruche créée avec succès" />}
+                                {error && <Error error="Quelque chose s'est mal passé" />}
 
                                 <div className="col-md-6 mb-3">
                                     <button type="submit" className="btn btn-primary">Créer</button>

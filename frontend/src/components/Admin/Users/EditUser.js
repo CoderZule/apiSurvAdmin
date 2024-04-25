@@ -4,7 +4,7 @@ import { getUserById, editUser } from '../../../actions/userActions';
 import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
- 
+
 export default function EditUser(props) {
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
@@ -24,47 +24,45 @@ export default function EditUser(props) {
     const { editloading, editerror, editsuccess } = editUserState;
 
     useEffect(() => {
-      console.log("User ID:", userId);  
-      dispatch(getUserById(userId));  
-  }, [dispatch, userId]);
-  
+        console.log("User ID:", userId);
+        dispatch(getUserById(userId));
+    }, [dispatch, userId]);
+
     useEffect(() => {
         if (user) {
- 
+
             setFirstname(user.Firstname);
             setLastname(user.Lastname);
             setCin(user.Cin);
             setRole(user.Role);
             setEmail(user.Email);
             setPassword(user.Password);
-           
+
         }
     }, [user]);
 
     function handleEditUser(e) {
-      e.preventDefault();
-  
-      const editedUser = {
-          _id: userId,
-          Firstname,
-          Lastname,
-          Cin,
-          Role,
-          Email,
-          Password
-      };
-  
-      dispatch(editUser(editedUser));
-  }
-  
+        e.preventDefault();
+
+        const editedUser = {
+            _id: userId,
+            Firstname,
+            Lastname,
+            Cin,
+            Role,
+            Email,
+            Password
+        };
+
+        dispatch(editUser(editedUser));
+    }
+
 
     return (
         <div className="row justify-content-center">
             <div className="col-8">
                 {loading && <Loading />}
-                {editsuccess && <Success success="Utilisateur mis à jour avec succès" />}
-                {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour de l'utilisateur" />}
-
+  
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
                         <h6>Modifier Utilisateur</h6>
@@ -103,8 +101,15 @@ export default function EditUser(props) {
                                 <label className="form-label">Mot de passe</label>
                                 <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
-                            <div className="col-md-6 mb-3">
-                                <button type="submit" className="btn btn-primary">Modifier</button>
+                            
+
+                            <div className='row justify-content-center'>
+                                {editsuccess && <Success success="Utilisateur mis à jour avec succès" />}
+                                {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour de l'utilisateur" />}
+
+                                <div className="col-md-6 mb-3">
+                                    <button type="submit" className="btn btn-primary">Modifier</button>
+                                </div>
                             </div>
                         </form>
                     </div>
