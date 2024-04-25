@@ -13,6 +13,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 export default function CreateHive() {
 
 
+    //Ruche infos
     const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
 
     const types = [
@@ -50,11 +51,25 @@ export default function CreateHive() {
     ];
 
     const source = ['Colonie Achetée', 'Noyau Acheté', 'Paquet Acheté', 'Noyau Capturé', 'Découpé', 'Piège Sorti', 'Divisé', 'Supplanté'];
-
     const purpose = ['Production de Miel', 'Production d\'Abeilles', 'Élevage de Reines', 'R&D', 'Autre'];
-
     const strength = ['Très Faible', 'Faible', 'Modérée', 'Forte', 'Très forte'];
     const temperament = ['Calme', 'Nerveuse', 'Agressive'];
+
+    //Queen Details
+    const [hasQueen, setHasQueen] = useState(false);
+    const [isMarked, setIsMarked] = useState(false);
+
+    const status = ['Acceptée', 'Cellule royale', 'Vierge', 'Insérée'];
+    const queen_state = ['Cellule découverte', 'Cellule operculée', 'Émergée', 'Accouplée', 'Mature', 'Vieille', 'Inconnue'];
+    const race = [
+        'Abeille intermissa d\'Afrique du Nord',
+        'Abeille saharienne',
+        'Abeille de l\'Atlas',
+        'Abeille carnica',
+        'Abeille italienne'
+    ];
+    const queenColors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Blanc'];
+    const queen_origin = ['Achetée', 'Fabriquée', 'Essaim capturé', 'Autre'];
 
 
     const dispatch = useDispatch();
@@ -79,8 +94,6 @@ export default function CreateHive() {
         frames: 0
     });
     const [Queen, setQueen] = useState({
-        seen: false,
-        marked: false,
         color: '',
         hatched: 0,
         status: '',
@@ -223,8 +236,7 @@ export default function CreateHive() {
                                 />
                             </div>
                             <fieldset>
-                                <legend>Informations sur la colonie</legend>
-                                <div className="row">
+                                <legend className='text-center'>Colonie</legend>                                <div className="row">
                                     <div className="col-md-6 mb-3">
                                         <select required className="form-select" value={Colony.strength} onChange={(e) => setColony({ ...Colony, strength: e.target.value })}>
                                             <label className="form-label">Force</label>
@@ -258,10 +270,152 @@ export default function CreateHive() {
                             </fieldset>
 
 
+                            <fieldset>
+                                <legend className='text-center'>Reine</legend>
+
+                                <div className="col-md-6 mb-3">
+                                    <div className="form-check">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            id="hasQueen"
+                                            checked={hasQueen}
+                                            onChange={(e) => setHasQueen(e.target.checked)}
+                                        />
+                                        <label className="form-check-label" htmlFor="hasQueen">
+                                            A une reine
+                                        </label>
+                                    </div>
+                                </div>
+
+                                {hasQueen && (
+                                    <div className='row'>
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">Statut</label>
+                                            <select required className="form-select" value={Queen.status} onChange={(e) => setQueen({ ...Queen, status: e.target.value })}>
+                                                <option value="" disabled>Sélectionner le statut de reine</option>
+                                                {status.map((status, index) => (
+                                                    <option key={index} value={status}>{status}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">Éclos</label>
+                                            <select required className="form-select" value={Queen.hatched} onChange={(e) => setQueen({ ...Queen, hatched: e.target.value })}>
+                                                <option value="" disabled>Sélectionnez l'année d'éclos</option>
+                                                {Array.from({ length: 10 }).map((_, index) => {
+                                                    const year = new Date().getFullYear() - index;
+                                                    return <option key={year} value={year}>{year}</option>;
+                                                })}
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
+                                            <div>
+                                                <label className="form-label">Date d'installation</label>
+                                            </div>
+                                            <div>
+                                                <DatePicker
+                                                    selected={Queen.installed}
+                                                    onChange={handleDateChange}
+                                                    dateFormat="dd/MM/yyyy"
+                                                    className="form-control"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">État de reine</label>
+                                            <select required className="form-select" value={Queen.queen_state} onChange={(e) => setQueen({ ...Queen, queen_state: e.target.value })}>
+                                                <option value="" disabled>Sélectionnez l'état de la Reine</option>
+                                                {queen_state.map((queen_state, index) => (
+                                                    <option key={index} value={queen_state}>{queen_state}</option>
+                                                ))}
+                                            </select>
+                                        </div>
 
 
-                            <div className="col-md-6 mb-3">
-                                <button type="submit" className="btn btn-primary">Créer</button>
+                                        <div className='row'>
+                                            <div className="col-md-6 mb-3">
+                                                <div className="form-check">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="form-check-input"
+                                                        id="clipped"
+                                                        checked={Queen.clipped}
+                                                        onChange={(e) => setQueen({ ...Queen, clipped: e.target.checked })}
+                                                    />
+                                                    <label className="form-check-label" htmlFor='clipped'>Clipped</label>
+                                                </div>
+                                            </div>
+
+                                            <div className="col-md-6 mb-3">
+                                                <div className="form-check">
+                                                    <input
+                                                        type="checkbox"
+
+                                                        className="form-check-input"
+                                                        id="isMarked"
+                                                        checked={isMarked}
+                                                        onChange={(e) => setIsMarked(e.target.checked)}
+                                                    />
+                                                    <label className="form-check-label" htmlFor='marked'>  Marked
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {isMarked && (
+                                            <div className="col-md-6 mb-3">
+                                                <label className="form-label">Couleur</label>
+                                                <select required className="form-select" value={Queen.color} onChange={(e) => setQueen({ ...Queen, color: e.target.value })}>
+                                                    <option value="" disabled>Sélectionnez la couleur</option>
+                                                    {queenColors.map((color, index) => (
+                                                        <option key={index} value={color}>{color}</option>
+                                                    ))}
+                                                </select>
+                                            </div>
+                                        )}
+
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">Race</label>
+                                            <select required className="form-select" value={Queen.race} onChange={(e) => setQueen({ ...Queen, race: e.target.value })}>
+                                                <option value="" disabled>Sélectionnez la race reine</option>
+                                                {race.map((race, index) => (
+                                                    <option key={index} value={race}>{race}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+                                        <div className="col-md-6 mb-3">
+                                            <label className="form-label">Origine de la reine</label>
+                                            <select required className="form-select" value={Queen.origin} onChange={(e) => setQueen({ ...Queen, origin: e.target.value })}>
+                                                <option value="" disabled>Sélectionnez l'origine de la reine</option>
+                                                {queen_origin.map((queen_origin, index) => (
+                                                    <option key={index} value={queen_origin}>{queen_origin}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+
+
+                                        <div className="col-md-12 mb-3">
+                                            <label className="form-label">Note</label>
+                                            <textarea
+                                                className="form-control"
+                                                rows="2"
+                                                value={Queen.note} onChange={(e) => setQueen({ ...Queen, note: e.target.value })} />
+                                        </div>
+
+                                    </div>
+                                )}
+                            </fieldset>
+
+                            <div className='row justify-content-center'> 
+
+                                <div className="col-md-6 mb-3">
+                                    <button type="submit" className="btn btn-primary">Créer</button>
+                                </div>
                             </div>
                         </form>
                     </div>

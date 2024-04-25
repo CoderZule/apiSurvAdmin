@@ -17,8 +17,7 @@ const hiveSchema = new mongoose.Schema({
   },
 
   Queen: {
-    seen: { type: Boolean, required: true },
-    marked: { type: Boolean, required: true  },
+    seen: { type: Boolean},
     color: { type: String,  required: true },
     hatched: { type: Number, required: true  },
     status: { type: String, required: true },
@@ -28,7 +27,7 @@ const hiveSchema = new mongoose.Schema({
     clipped: { type: Boolean, default: false },
     origin: { type: String, required: true  },
     temperament: { type: String, required: true  },
-    note: { type: String, required: true },
+    note: { type: String},
 
   }
   ,
