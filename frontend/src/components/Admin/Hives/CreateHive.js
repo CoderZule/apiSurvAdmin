@@ -6,15 +6,12 @@ import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
 
-import swal from 'sweetalert';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function CreateHive() {
-
-
     //Ruche infos
     const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
     const types = [
@@ -70,9 +67,6 @@ export default function CreateHive() {
     const queenColors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Blanc'];
     const queen_origin = ['Achetée', 'Fabriquée', 'Essaim capturé', 'Autre'];
 
-
-
-
     const dispatch = useDispatch();
     const apiariesState = useSelector(state => state.getAllApiariesReducer);
     const { apiaries } = apiariesState;
@@ -112,15 +106,18 @@ export default function CreateHive() {
         setAdded(date);
     };
 
+    const handleQueenInstalledDateChange = (date) => {
+        setQueen({ ...Queen, installed: date });
+    };
+    
     const createHiveState = useSelector((state) => state.createHiveReducer);
     const { error, loading, success } = createHiveState;
 
 
-
     function handleCreateApiary(e) {
         e.preventDefault();
-
-        const hive = {
+    
+        let hive = {
             Color,
             Type,
             Source,
@@ -128,21 +125,22 @@ export default function CreateHive() {
             Added,
             Note,
             Colony,
-            Queen,
             Apiary
-
-
         };
-
+    
+        if (hasQueen) {
+            hive = {
+                ...hive,
+                Queen
+            };
+        }
+    
         console.log(hive);
         dispatch(createHive(hive)).then(() => {
             window.location.reload();
-
-
         });
-
     }
-
+    
 
     return (
         <div className="row justify-content-center">
@@ -319,7 +317,7 @@ export default function CreateHive() {
                                             <div>
                                                 <DatePicker
                                                     selected={Queen.installed}
-                                                    onChange={handleDateChange}
+                                                    onChange={handleQueenInstalledDateChange} 
                                                     dateFormat="dd/MM/yyyy"
                                                     className="form-control"
                                                 />

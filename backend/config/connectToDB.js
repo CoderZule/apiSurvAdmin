@@ -1,18 +1,58 @@
-if(process.env.NODE_ENV !="production"){
-    require('dotenv').config()
-
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
 }
+const mongoose = require("mongoose");
+const socketIO = require('socket.io');
 
-const mongoose= require("mongoose");
+let io;
 
-async function connectToDB() {
-    try{
+async function connectToDB(server) {
+    try {
         await mongoose.connect(process.env.DB_URL);
-        console.log("Connected to DB")
+        console.log("Connected to DB");
 
-    } catch(err){
+        const db = mongoose.connection;
+
+        // Initialize socket.io
+        io = socketIO(server);
+
+        // Set up change stream for 'users' collection
+        const usersChangeStream = db.collection('users').watch();
+        usersChangeStream.on('change', (change) => {
+            console.log('User collection change:', change);
+
+            // Emit event to clients specific to 'users' collection change
+            io.emit('usersChange', change);
+        });
+
+        // Set up change stream for 'apiaries' collection
+        const apiariesChangeStream = db.collection('apiaries').watch();
+        apiariesChangeStream.on('change', (change) => {
+            console.log('Apiaries collection change:', change);
+
+            // Emit event to clients specific to 'apiaries' collection change
+            io.emit('apiariesChange', change);
+        });
+
+        // Set up change stream for 'hives' collection
+        const hivesChangeStream = db.collection('hives').watch();
+        hivesChangeStream.on('change', (change) => {
+            console.log('Hives collection change:', change);
+
+            // Emit event to clients specific to 'hives' collection change
+            io.emit('hivesChange', change);
+        });
+
+    } catch (err) {
         console.log(err);
     }
 }
 
-module.exports = connectToDB;
+function getIO() {
+    return io;
+}
+
+module.exports = {
+    connectToDB,
+    getIO
+};

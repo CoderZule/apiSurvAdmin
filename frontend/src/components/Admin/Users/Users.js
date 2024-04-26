@@ -5,6 +5,7 @@ import MaterialTable from 'material-table';
 import tableIcons from '../../MaterialTableIcons';
 import DeleteConfirmationDialogUser from './DeleteConfirmationDialogUser';
 import { getAllUsers, deleteUser } from '../../../actions/userActions';
+import io from 'socket.io-client'; // Import socket.io-client
 
 export default function Users() {
     const dispatch = useDispatch();
@@ -14,7 +15,23 @@ export default function Users() {
 
     useEffect(() => {
         dispatch(getAllUsers());
-    }, []);
+
+        // Initialize socket connection
+        const socket = io('http://localhost:3001'); 
+
+        // Listen for 'usersChange' event from the server
+        socket.on('usersChange', (change) => {
+            console.log('Real-time update received:', change);
+
+            // Trigger fetchUsers to update the user list
+            dispatch(getAllUsers());
+        });
+
+        // Clean up socket connection when component unmounts
+        return () => {
+            socket.disconnect();
+        };
+    }, [dispatch]);
 
     const handleDeleteUser = () => {
         dispatch(deleteUser(deleteUserId));

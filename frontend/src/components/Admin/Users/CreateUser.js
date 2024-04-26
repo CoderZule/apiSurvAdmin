@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../../../actions/userActions';
 import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
+import io from 'socket.io-client';
 
 export default function CreateUser() {
     const [Firstname, setFirstname] = useState('');
@@ -16,8 +17,15 @@ export default function CreateUser() {
     const createUserState = useSelector((state) => state.createUserReducer);
     const { error, loading, success } = createUserState;
 
-
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const socket = io('http://localhost:3001');
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []); // Only run once on component mount and clean up on unmount
 
     function handleCreateUser(e) {
         e.preventDefault();
@@ -31,11 +39,10 @@ export default function CreateUser() {
             Role
         };
 
-        console.log(user);
         dispatch(createUser(user)).then(() => {
-            window.location.reload();
+            // Do not reload the entire window after creating user
+            // Handle success and error states in the component
         });
-
     }
 
 

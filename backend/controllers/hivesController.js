@@ -15,7 +15,7 @@ const createHive = async (req, res) => {
     try {
         const { Color, Type, Source, Purpose, Added, Note, Colony, Queen, Apiary } = req.body;
 
-         if (!Color || !Type || !Source || !Purpose || !Added || !Note || !Colony || !Queen || !Apiary) {
+         if (!Color || !Type || !Source || !Purpose || !Added || !Note || !Colony || !Apiary) {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
 
