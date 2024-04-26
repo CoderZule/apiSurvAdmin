@@ -100,6 +100,7 @@ export default function CreateHive() {
     });
     const [Queen, setQueen] = useState({
         color: '',
+        isMarked: false,
         hatched: 0,
         status: '',
         installed: new Date(),
@@ -366,8 +367,8 @@ export default function CreateHive() {
 
                                                         className="form-check-input"
                                                         id="isMarked"
-                                                        checked={isMarked}
-                                                        onChange={(e) => setIsMarked(e.target.checked)}
+                                                        checked={Queen.isMarked}
+                                                        onChange={(e) => setQueen({ ...Queen, isMarked: e.target.checked })}
                                                     />
                                                     <label className="form-check-label" htmlFor='marked'>  Marked
                                                     </label>
@@ -375,7 +376,7 @@ export default function CreateHive() {
                                             </div>
                                         </div>
 
-                                        {isMarked && (
+                                        {Queen.isMarked && (
                                             <div className="col-md-6 mb-3">
                                                 <label className="form-label">Couleur</label>
                                                 <select required className="form-select" value={Queen.color} onChange={(e) => setQueen({ ...Queen, color: e.target.value })}>

@@ -16,9 +16,9 @@ export default function EditHive(props) {
     const socket = io('http://localhost:3001');
 
     return () => {
-        socket.disconnect();
+      socket.disconnect();
     };
-}, []);  
+  }, []);
   const dispatch = useDispatch();
 
   //Ruche infos
@@ -98,6 +98,7 @@ export default function EditHive(props) {
   });
   const [Queen, setQueen] = useState({
     color: '',
+    isMarked: false,
     hatched: 0,
     status: '',
     installed: new Date(),
@@ -111,8 +112,7 @@ export default function EditHive(props) {
   const [Apiary, setApiary] = useState('');
   const [hasQueen, setHasQueen] = useState(false);
 
-  const [isMarked, setIsMarked] = useState(false);
-
+ 
 
   const hiveId = props.match.params._id;
 
@@ -128,6 +128,12 @@ export default function EditHive(props) {
   useEffect(() => {
     dispatch(getHiveById(hiveId));
   }, [dispatch, hiveId]);
+
+  useEffect(() => {
+    if (!Queen.isMarked) {
+      setQueen({ ...Queen, color: '' }); // Reset color if isMarked is false
+    }
+  }, [Queen.isMarked]);
 
 
   useEffect(() => {
@@ -145,9 +151,9 @@ export default function EditHive(props) {
         setHasQueen(true);
         setQueen(hive.Queen);
       }
-      if (hive.Queen && hive.Queen.Color !== '') {
-        setIsMarked(true);
-      }
+
+  
+      
     }
   }, [hive]);
 
@@ -159,8 +165,13 @@ export default function EditHive(props) {
   };
 
 
-  function handleEditHive(e) {
+ 
+
+   const handleEditHive = (e) => {
     e.preventDefault();
+
+    let editedQueen = hasQueen ? Queen : null;  
+ 
     const editedHive = {
       _id: hiveId,
       Color,
@@ -170,13 +181,12 @@ export default function EditHive(props) {
       Added,
       Note,
       Colony,
-      Queen,
+      Queen: editedQueen,
       Apiary
     };
+
     dispatch(editHive(editedHive));
-  }
-
-
+  };
   return (
     <div className="row justify-content-center">
       <div className="col-8">
@@ -383,19 +393,16 @@ export default function EditHive(props) {
                           <label className="form-check-label" htmlFor='clipped'>Clipped</label>
                         </div>
                       </div>
+
+
                       <div className="col-md-6 mb-3">
                         <div className="form-check">
                           <input
                             type="checkbox"
                             className="form-check-input"
                             id="isMarked"
-                            checked={isMarked}
-                            onChange={(e) => {
-                              setIsMarked(e.target.checked);
-                              if (!e.target.checked) {
-                                setQueen({ ...Queen, color: '' });
-                              }
-                            }}
+                            checked={Queen.isMarked}
+                            onChange={(e) => setQueen({ ...Queen, isMarked: e.target.checked })}
                           />
                           <label className="form-check-label" htmlFor='marked'>Marked</label>
                         </div>
@@ -404,10 +411,15 @@ export default function EditHive(props) {
 
                     </div>
 
-                    {(isMarked || Queen.color !== '') && (
+                    {Queen.isMarked && (
                       <div className="col-md-6 mb-3">
                         <label className="form-label">Couleur</label>
-                        <select required className="form-select" value={Queen.color} onChange={(e) => setQueen({ ...Queen, color: e.target.value })}>
+                        <select
+                          required
+                          className="form-select"
+                          value={Queen.color}
+                          onChange={(e) => setQueen({ ...Queen, color: e.target.value })}
+                        >
                           <option value="" disabled>Sélectionnez la couleur</option>
                           {queenColors.map((color, index) => (
                             <option key={index} value={color}>{color}</option>
@@ -415,7 +427,6 @@ export default function EditHive(props) {
                         </select>
                       </div>
                     )}
-
                     <div className="col-md-6 mb-3">
                       <label className="form-label">Race</label>
                       <select required className="form-select" value={Queen.race} onChange={(e) => setQueen({ ...Queen, race: e.target.value })}>

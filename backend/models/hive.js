@@ -18,6 +18,7 @@ const hiveSchema = new mongoose.Schema({
 
   Queen: {
     seen: { type: Boolean},
+    isMarked: { type: Boolean},
     color: { type: String },
     hatched: { type: Number},
     status: { type: String },
