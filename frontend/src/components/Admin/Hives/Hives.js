@@ -5,10 +5,29 @@ import MaterialTable from 'material-table';
 import tableIcons from '../../MaterialTableIcons';
 import DeleteConfirmationDialogHive from './DeleteConfirmationDialogHive';
 import { getAllHives, deleteHive } from '../../../actions/hiveActions';
+import io from 'socket.io-client';
 
 export default function Hives() {
 
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllHives());
+
+         const socket = io('http://localhost:3001'); 
+
+         socket.on('hivesChange', (change) => {
+            console.log('Real-time update received:', change);
+
+             dispatch(getAllHives());
+        });
+
+         return () => {
+            socket.disconnect();
+        };
+    }, [dispatch]);
+    
     const hivesState = useSelector(state => state.getAllHivesReducer);
     const { error, loading, hives } = hivesState;
     const [deleteHiveId, setDeleteHiveId] = useState(null);

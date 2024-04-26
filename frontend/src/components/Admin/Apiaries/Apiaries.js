@@ -5,6 +5,7 @@ import MaterialTable from 'material-table';
 import tableIcons from '../../MaterialTableIcons';
 import DeleteConfirmationDialogApiary from './DeleteConfirmationDialogApiary';
 import { getAllApiaries, deleteApiary } from '../../../actions/apiaryActions';
+import io from 'socket.io-client';
 
 export default function Apiaries() {
     const dispatch = useDispatch();
@@ -12,9 +13,24 @@ export default function Apiaries() {
     const { error, loading, apiaries } = apiariesState;
     const [deleteApiaryId, setDeleteApiaryId] = useState(null);
 
+
     useEffect(() => {
         dispatch(getAllApiaries());
-    }, []);
+
+         const socket = io('http://localhost:3001'); 
+
+         socket.on('apiariesChange', (change) => {
+            console.log('Real-time update received:', change);
+
+             dispatch(getAllApiaries());
+        });
+
+         return () => {
+            socket.disconnect();
+        };
+    }, [dispatch]);
+
+  
 
     const handleDeleteApiary = () => {
         dispatch(deleteApiary(deleteApiaryId));

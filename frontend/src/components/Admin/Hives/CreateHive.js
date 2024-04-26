@@ -5,13 +5,23 @@ import { createHive } from '../../../actions/hiveActions';
 import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
-
+import io from 'socket.io-client';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default function CreateHive() {
+
+
+    useEffect(() => {
+        const socket = io('http://localhost:3001');
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);  
+
     //Ruche infos
     const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
     const types = [

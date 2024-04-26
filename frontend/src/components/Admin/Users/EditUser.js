@@ -4,8 +4,18 @@ import { getUserById, editUser } from '../../../actions/userActions';
 import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
+import io from 'socket.io-client';
 
 export default function EditUser(props) {
+
+    useEffect(() => {
+        const socket = io('http://localhost:3001');
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);  
+
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
     const [Cin, setCin] = useState('');

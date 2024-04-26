@@ -25,7 +25,7 @@ export default function CreateUser() {
         return () => {
             socket.disconnect();
         };
-    }, []); // Only run once on component mount and clean up on unmount
+    }, []);  
 
     function handleCreateUser(e) {
         e.preventDefault();

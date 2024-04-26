@@ -8,8 +8,17 @@ import Loading from '../../Loading';
 import Success from '../../Success';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import io from 'socket.io-client';
 
 export default function EditHive(props) {
+
+  useEffect(() => {
+    const socket = io('http://localhost:3001');
+
+    return () => {
+        socket.disconnect();
+    };
+}, []);  
   const dispatch = useDispatch();
 
   //Ruche infos

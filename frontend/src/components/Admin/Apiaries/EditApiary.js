@@ -5,8 +5,18 @@ import { getApiaryById, editApiary } from '../../../actions/apiaryActions';
 import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
+import io from 'socket.io-client';
 
 export default function EditApiary(props) {
+
+
+    useEffect(() => {
+        const socket = io('http://localhost:3001');
+
+        return () => {
+            socket.disconnect();
+        };
+    }, []);  
     const dispatch = useDispatch();
 
     const governorates = ["Ariana", "Beja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "Le Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"];
