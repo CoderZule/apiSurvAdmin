@@ -16,7 +16,7 @@ export default function CreateApiary() {
         return () => {
             socket.disconnect();
         };
-    }, []);  
+    }, []);
     const governorates = ["Ariana", "Beja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "Le Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"];
 
     const citiesByGovernorate = {
@@ -77,9 +77,9 @@ export default function CreateApiary() {
     const createApiaryState = useSelector((state) => state.createApiaryReducer);
     const { error, loading, success } = createApiaryState;
 
+    const [showSuccess, setShowSuccess] = useState(false); 
 
-
-    function handleCreateApiary(e) {
+     function handleCreateApiary(e) {
         e.preventDefault();
 
         const apiary = {
@@ -89,15 +89,30 @@ export default function CreateApiary() {
             SunExposure,
             Location,
             Owner
-
         };
 
-        console.log(apiary);
         dispatch(createApiary(apiary)).then(() => {
-            window.location.reload();
+            // Clear input fields
+            setName('');
+            setForages('');
+            setType('');
+            setSunExposure('');
+            setLocation({
+                latitude: 0,
+                longitude: 0,
+                city: '',
+                governorate: ''
+            });
+            setOwner('');
+            // Show success message
+            setShowSuccess(true);
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 3000);
         });
-
     }
+
 
 
     return (
@@ -202,10 +217,10 @@ export default function CreateApiary() {
                                 </select>
                             </div>
 
- 
+
 
                             <div className='row justify-content-center'>
-                                {success && <Success success="Rucher créé avec succès" />}
+                            {showSuccess && <Success success="Rucher créé avec succès" />}
                                 {error && <Error error="Quelque chose s'est mal passé" />}
                                 <div className="col-md-6 mb-3">
                                     <button type="submit" className="btn btn-primary">Créer</button>

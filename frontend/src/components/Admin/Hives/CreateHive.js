@@ -20,7 +20,7 @@ export default function CreateHive() {
         return () => {
             socket.disconnect();
         };
-    }, []);  
+    }, []);
 
     //Ruche infos
     const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
@@ -120,14 +120,15 @@ export default function CreateHive() {
     const handleQueenInstalledDateChange = (date) => {
         setQueen({ ...Queen, installed: date });
     };
-    
+
     const createHiveState = useSelector((state) => state.createHiveReducer);
     const { error, loading, success } = createHiveState;
+    const [showSuccess, setShowSuccess] = useState(false);
 
 
-    function handleCreateApiary(e) {
+    function handleCreateHive(e) {
         e.preventDefault();
-    
+
         let hive = {
             Color,
             Type,
@@ -138,20 +139,49 @@ export default function CreateHive() {
             Colony,
             Apiary
         };
-    
+
         if (hasQueen) {
             hive = {
                 ...hive,
                 Queen
             };
         }
-    
-        console.log(hive);
+
         dispatch(createHive(hive)).then(() => {
-            window.location.reload();
+            setColor('');
+            setType('');
+            setSource('');
+            setPurpose('');
+            setAdded(new Date());
+            setNote('');
+            setColony({
+                strength: '',
+                temperament: '',
+                supers: 0,
+                frames: 0
+            });
+            setQueen({
+                color: '',
+                isMarked: false,
+                hatched: 0,
+                status: '',
+                installed: new Date(),
+                queen_state: '',
+                race: '',
+                clipped: false,
+                origin: '',
+                temperament: '',
+                note: ''
+            });
+            setHasQueen(false);
+
+             setShowSuccess(true);
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 3000);  
         });
     }
-    
+
 
     return (
         <div className="row justify-content-center">
@@ -163,7 +193,7 @@ export default function CreateHive() {
                         <h6>Créer Ruche</h6>
                     </div>
                     <div className="card-body">
-                        <form className="row" onSubmit={handleCreateApiary}>
+                        <form className="row" onSubmit={handleCreateHive}>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Couleur</label>
@@ -328,7 +358,7 @@ export default function CreateHive() {
                                             <div>
                                                 <DatePicker
                                                     selected={Queen.installed}
-                                                    onChange={handleQueenInstalledDateChange} 
+                                                    onChange={handleQueenInstalledDateChange}
                                                     dateFormat="dd/MM/yyyy"
                                                     className="form-control"
                                                 />
@@ -422,7 +452,7 @@ export default function CreateHive() {
                             </fieldset>
 
                             <div className='row justify-content-center'>
-                                {success && <Success success="Ruche créée avec succès" />}
+                                {showSuccess && <Success success="Ruche créée avec succès" />}
                                 {error && <Error error="Quelque chose s'est mal passé" />}
 
                                 <div className="col-md-6 mb-3">

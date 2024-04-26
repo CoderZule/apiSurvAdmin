@@ -14,7 +14,7 @@ export default function EditUser(props) {
         return () => {
             socket.disconnect();
         };
-    }, []);  
+    }, []); 
 
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');

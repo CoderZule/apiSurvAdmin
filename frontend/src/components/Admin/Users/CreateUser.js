@@ -13,6 +13,7 @@ export default function CreateUser() {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
     const [Role, setRole] = useState('');
+    const [showSuccess, setShowSuccess] = useState(false); 
 
     const createUserState = useSelector((state) => state.createUserReducer);
     const { error, loading, success } = createUserState;
@@ -25,7 +26,7 @@ export default function CreateUser() {
         return () => {
             socket.disconnect();
         };
-    }, []);  
+    }, []);
 
     function handleCreateUser(e) {
         e.preventDefault();
@@ -40,12 +41,24 @@ export default function CreateUser() {
         };
 
         dispatch(createUser(user)).then(() => {
-            // Do not reload the entire window after creating user
-            // Handle success and error states in the component
+            // Reset input fields to empty values after successful user creation
+            setFirstname('');
+            setLastname('');
+            setCin('');
+            setEmail('');
+            setPassword('');
+            setRole('');
+            // Show success message
+            setShowSuccess(true);
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                setShowSuccess(false);
+            }, 3000);
+        }).catch((error) => {
+            // Handle error if dispatch fails
+            console.error('Error creating user:', error);
         });
     }
-
-
     return (
         <div className="row justify-content-center">
             <div className="col-8">
@@ -91,7 +104,7 @@ export default function CreateUser() {
                                 <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
                             <div className='row justify-content-center'>
-                                {success && <Success success="Utilisateur créé avec succès" />}
+                                {showSuccess && <Success success="Utilisateur créé avec succès" />}
                                 {error && <Error error="Quelque chose s'est mal passé" />}
 
                                 <div className="col-md-6 mb-3">
