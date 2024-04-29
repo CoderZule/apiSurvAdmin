@@ -18,6 +18,7 @@ export default function EditUser(props) {
 
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
+    const [Phone, setPhone] = useState('');
     const [Cin, setCin] = useState('');
     const [Role, setRole] = useState('');
     const [Email, setEmail] = useState('');
@@ -43,6 +44,7 @@ export default function EditUser(props) {
 
             setFirstname(user.Firstname);
             setLastname(user.Lastname);
+            setPhone(user.Phone);
             setCin(user.Cin);
             setRole(user.Role);
             setEmail(user.Email);
@@ -58,6 +60,7 @@ export default function EditUser(props) {
             _id: userId,
             Firstname,
             Lastname,
+            Phone,
             Cin,
             Role,
             Email,
@@ -87,6 +90,10 @@ export default function EditUser(props) {
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Prénom</label>
                                 <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={(e) => setFirstname(e.target.value)} />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Tel</label>
+                                <input required type="text" placeholder="Tel" className="form-control" value={Phone} onChange={(e) => setPhone(e.target.value)} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Cin</label>

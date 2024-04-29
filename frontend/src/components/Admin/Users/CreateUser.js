@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 export default function CreateUser() {
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
+    const [Phone, setPhone] = useState('');
     const [Cin, setCin] = useState('');
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
@@ -34,6 +35,7 @@ export default function CreateUser() {
         const user = {
             Firstname,
             Lastname,
+            Phone,
             Cin,
             Email,
             Password,
@@ -44,6 +46,7 @@ export default function CreateUser() {
             // Reset input fields to empty values after successful user creation
             setFirstname('');
             setLastname('');
+            setPhone('');
             setCin('');
             setEmail('');
             setPassword('');
@@ -79,6 +82,10 @@ export default function CreateUser() {
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Prénom</label>
                                 <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={(e) => setFirstname(e.target.value)} />
+                            </div>
+                            <div className="col-md-6 mb-3">
+                                <label className="form-label">Tel</label>
+                                <input required type="text" placeholder="Tel" className="form-control" value={Phone} onChange={(e) => setPhone(e.target.value)} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Cin</label>

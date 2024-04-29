@@ -1,33 +1,42 @@
 import axios from 'axios';
 
 
-export const loginUser = (user) => async dispatch => {
-
-    dispatch({ type: 'USER_LOGIN_REQUEST' })
+export const loginUser = (user) => async (dispatch) => {
+    dispatch({ type: 'USER_LOGIN_REQUEST' });
 
     try {
-        const response = await axios.post('/api/user/login', user)
-        console.log(response);
-        dispatch({ type: 'USER_LOGIN_SUCCESS', payload: response.data })
-        localStorage.setItem('currentUser', JSON.stringify(response.data))
-        window.location.href = '/admin/dashboard'
+        const response = await axios.post('/api/user/login', user);
+        const { currentUser, token } = response.data;
+
+        dispatch({
+            type: 'USER_LOGIN_SUCCESS',
+            payload: { currentUser, token }
+        });
+
+        localStorage.setItem('currentUser', JSON.stringify({ currentUser, token }));
+      //  window.location.href = '/admin/dashboard';
     } catch (error) {
-        dispatch({ type: 'USER_LOGIN_FAILED', payload: error })
+        dispatch({ type: 'USER_LOGIN_FAILED', payload: error });
     }
-
-}
-
-
-export const logoutUser = () => dispatch => {
-
-
-    localStorage.removeItem('currentUser')
- 
-    window.location.href = '/'
-
-}
+};
 
  
+
+export const logoutUser = () => (dispatch) => {
+    // Remove currentUser and token from localStorage
+    localStorage.removeItem('currentUser');
+
+    // Dispatch USER_LOGOUT action to reset Redux state
+    dispatch({ type: 'USER_LOGOUT' });
+
+    // Redirect user to home page after a short delay
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 100); // Adjust delay as needed
+};
+
+
+
 
 export const createUser = (user) => async (dispatch) => {
     dispatch({ type: 'USER_CREATE_REQUEST' });
@@ -36,7 +45,7 @@ export const createUser = (user) => async (dispatch) => {
         console.log(response);
         dispatch({ type: 'USER_CREATE_SUCCESS' });
     } catch (error) {
-        dispatch({ type: 'USER_CREATE_FAILED', payload: error});
+        dispatch({ type: 'USER_CREATE_FAILED', payload: error });
     }
 }
 
@@ -55,7 +64,7 @@ export const getAllUsers = () => async dispatch => {
 
 }
 
- export const getUserById = (userId) => async dispatch => {
+export const getUserById = (userId) => async dispatch => {
     dispatch({ type: 'GET_USERBYID_REQUEST' })
 
     try {
@@ -87,7 +96,7 @@ export const deleteUser = (userid) => async dispatch => {
         console.log(response);
         window.location.reload()
     } catch (error) {
-         console.log(error);
+        console.log(error);
     }
 }
 

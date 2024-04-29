@@ -2,14 +2,13 @@ import React from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar.js';
 import Footer from './Footer.js';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import routes from '../routes/routes.js'; 
 
 import '../dashboard_assets/css/sb-admin-2.min.css';
 import '../dashboard_assets/vendor/fontawesome-free/css/all.min.css';
 import '../dashboard_assets/vendor/bootstrap/js/bootstrap.bundle.min.js';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min.js';
-
+ 
 const MasterLayout = () => {
     return (
         <div id='page-top'>

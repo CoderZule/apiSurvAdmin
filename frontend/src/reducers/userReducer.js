@@ -1,23 +1,26 @@
-export const loginUserReducer = (state = {}, action) => {
-
+const initialState = {
+    currentUser: null,
+    token: null,
+    loading: false,
+    error: null
+};
+export const loginUserReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case 'USER_LOGIN_REQUEST': return {
-            loading: true
-        }
-        case 'USER_LOGIN_SUCCESS': return {
-            loading: false,
-            success: true,
-            currentUser: action.payload
-        }
-        case 'USER_LOGIN_FAILED': return {
-            loading: false,
-            error: action.payload
-        }
-        default: return state
+        case 'USER_LOGIN_REQUEST':
+            return { ...state, loading: true, error: null };
+        case 'USER_LOGIN_SUCCESS':
+            const { currentUser, token } = action.payload;
+            return { ...state, currentUser, token, loading: false };
+        case 'USER_LOGIN_FAILED':
+            return { ...state, loading: false, error: action.payload };
+        case 'USER_LOGOUT':
+            return { ...initialState }; // Reset state to initial state
+        default:
+            return state;
     }
+};
 
-}
 export const createUserReducer = (state = {}, action) => {
 
 

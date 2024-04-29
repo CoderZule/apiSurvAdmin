@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from "../actions/userActions";
+import { Redirect } from 'react-router-dom';
 import Error from "../components/Error";
 import Loading from "../components/Loading";
-import './Login.css'; 
+import './Login.css';
 
 const LoginScreen = () => {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
     const loginState = useSelector((state) => state.loginUserReducer);
-    const { loading, error } = loginState;
+    const { loading, error, currentUser } = loginState; // Get currentUser from state
     const dispatch = useDispatch();
 
     const login = () => {
         const user = { Email, Password };
         dispatch(loginUser(user));
     };
+
+    // Redirect to dashboard if currentUser exists (user is authenticated)
+    if (currentUser) {
+        return <Redirect to="/admin/dashboard" />;
+    }
 
     return (
         <div className='login-screen-box '>

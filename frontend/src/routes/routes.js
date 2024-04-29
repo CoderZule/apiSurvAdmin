@@ -1,4 +1,5 @@
 import Dashboard from "../components/Admin/Dashboard";
+import Profile from "../components/Admin/Profile/Profile";
 
 import Users from "../components/Admin/Users/Users";
 import CreateUser from "../components/Admin/Users/CreateUser";
@@ -17,9 +18,12 @@ import EditHive from "../components/Admin/Hives/EditHive";
 import DeleteConfirmationDialogHive from "../components/Admin/Hives/DeleteConfirmationDialogHive";
 
 const routes =  [
+
+    //Admin Perso Routes
     {path : '/admin', exact: true, name: 'Admin'},
     {path: '/admin/dashboard', exact:true, name:'Dashboard', component:Dashboard},
-   
+    {path: '/admin/profile', exact:true, name:'Dashboard', component:Profile},
+
     //Users Crud Routes
     {path: '/admin/users', exact:true, name:'Users', component:Users},
     {path: '/admin/user/create', exact:true, name:'CreateUser', component:CreateUser},

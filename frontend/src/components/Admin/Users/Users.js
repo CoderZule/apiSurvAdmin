@@ -12,6 +12,7 @@ export default function Users() {
     const usersState = useSelector(state => state.getAllUsersReducer);
     const { error, loading, users } = usersState;
     const [deleteUserId, setDeleteUserId] = useState(null);
+    const currentUser = useSelector(state => state.loginUserReducer.currentUser); // Get current user from Redux state
 
     useEffect(() => {
         dispatch(getAllUsers());
@@ -37,6 +38,7 @@ export default function Users() {
         dispatch(deleteUser(deleteUserId));
         setDeleteUserId(null); // Reset deleteUserId after delete action
     };
+    const filteredUsers = users.data ? users.data.filter(user => user._id !== currentUser._id) : [];
 
     return (
         <div style={{ overflowX: 'auto', width: '100vw' }}>
@@ -61,6 +63,11 @@ export default function Users() {
                             </p>
                         )
                     },
+                    
+                    {
+                        title: 'Tel',
+                        render: rowData => <p className="text-xs font-weight-bold mb-0">{rowData.Phone}</p>
+                    },
                     {
                         title: 'Cin',
                         render: rowData => <p className="text-xs font-weight-bold mb-0">{rowData.Cin}</p>
@@ -82,7 +89,7 @@ export default function Users() {
                         )
                     }
                 ]}
-                data={users.data}
+                data={filteredUsers}
                 title={<h6>Liste Utilisateurs</h6>}
                 icons={tableIcons}
                 options={{
