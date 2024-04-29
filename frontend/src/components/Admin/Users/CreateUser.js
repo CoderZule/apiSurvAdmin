@@ -6,6 +6,9 @@ import Loading from '../../Loading';
 import Success from '../../Success';
 import io from 'socket.io-client';
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 export default function CreateUser() {
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
@@ -14,7 +17,7 @@ export default function CreateUser() {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
     const [Role, setRole] = useState('');
-    const [showSuccess, setShowSuccess] = useState(false); 
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const createUserState = useSelector((state) => state.createUserReducer);
     const { error, loading, success } = createUserState;
@@ -64,7 +67,7 @@ export default function CreateUser() {
     }
     return (
         <div className="row justify-content-center">
-            <div className="col-8">
+            <div className="col-12">
                 {loading && <Loading />}
 
 
@@ -85,8 +88,14 @@ export default function CreateUser() {
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Tel</label>
-                                <input required type="text" placeholder="Tel" className="form-control" value={Phone} onChange={(e) => setPhone(e.target.value)} />
+                                <PhoneInput
+                                
+                                    country="FR"
+                                    value={Phone}
+                                    onChange={setPhone}
+                                />
                             </div>
+
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Cin</label>
                                 <input required type="text" placeholder="Cin" className="form-control" value={Cin} onChange={(e) => setCin(e.target.value)} />
@@ -106,7 +115,7 @@ export default function CreateUser() {
                                 <label className="form-label">Email</label>
                                 <input required type="email" placeholder="Email" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <div className="col-md-6 mb-3">
+                            <div className="col-md-12 mb-3">
                                 <label className="form-label">Mot de passe</label>
                                 <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
@@ -114,7 +123,7 @@ export default function CreateUser() {
                                 {showSuccess && <Success success="Utilisateur créé avec succès" />}
                                 {error && <Error error="Quelque chose s'est mal passé" />}
 
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-4 mb-3">
                                     <button type="submit" className="btn btn-primary">Créer</button>
                                 </div>
                             </div>

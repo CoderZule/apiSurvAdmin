@@ -7,6 +7,9 @@ import Success from '../../Success';
 import './Profile.css';
 import io from 'socket.io-client';
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 export default function Profile() {
 
     useEffect(() => {
@@ -134,13 +137,12 @@ export default function Profile() {
                                 </div>
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div className="form-group">
-                                        <label htmlFor="tel">Tel</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="tel"
+                                        <label className="form-label">Tel</label>
+                                        <PhoneInput
+
+                                            country="FR"
                                             value={Phone}
-                                            onChange={(e) => setPhone(e.target.value)}
+                                            onChange={setPhone}
                                         />
                                     </div>
                                 </div>

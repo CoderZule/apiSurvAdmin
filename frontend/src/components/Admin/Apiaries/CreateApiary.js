@@ -117,7 +117,7 @@ export default function CreateApiary() {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-8">
+            <div className="col-12">
                 {loading && <Loading />}
 
 
@@ -222,7 +222,7 @@ export default function CreateApiary() {
                             <div className='row justify-content-center'>
                             {showSuccess && <Success success="Rucher créé avec succès" />}
                                 {error && <Error error="Quelque chose s'est mal passé" />}
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-4 mb-3">
                                     <button type="submit" className="btn btn-primary">Créer</button>
                                 </div>
                             </div>

@@ -118,7 +118,7 @@ export default function EditApiary(props) {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-8">
+            <div className="col-12">
                 {loading && <Loading />}
 
                 <div className="card shadow-lg bg-white rounded">
@@ -232,7 +232,7 @@ export default function EditApiary(props) {
                                 {editsuccess && <Success success="Rucher mis à jour avec succès" />}
                                 {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour du rucher" />}
 
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-4 mb-3">
                                     <button type="submit" className="btn btn-primary">Modifier</button>
                                 </div>
                             </div>

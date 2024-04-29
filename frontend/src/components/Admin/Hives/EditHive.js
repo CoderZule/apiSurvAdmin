@@ -189,7 +189,7 @@ export default function EditHive(props) {
   };
   return (
     <div className="row justify-content-center">
-      <div className="col-8">
+      <div className="col-12">
         {loading && <Loading />}
 
         <div className="card shadow-lg bg-white rounded">
@@ -464,7 +464,7 @@ export default function EditHive(props) {
                 {editloading && <Loading />}
                 {editsuccess && <Success success="Ruche modifiée avec succès" />}
                 {editerror && <Error error="Quelque chose s'est mal passé" />}
-                <div className="col-md-6 mb-3">
+                <div className="col-md-4 mb-3">
                   <button type="submit" className="btn btn-primary">Modifier</button>
                 </div>
               </div>

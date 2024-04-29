@@ -6,6 +6,9 @@ import Loading from '../../Loading';
 import Success from '../../Success';
 import io from 'socket.io-client';
 
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+
 export default function EditUser(props) {
 
     useEffect(() => {
@@ -14,7 +17,7 @@ export default function EditUser(props) {
         return () => {
             socket.disconnect();
         };
-    }, []); 
+    }, []);
 
     const [Firstname, setFirstname] = useState('');
     const [Lastname, setLastname] = useState('');
@@ -73,9 +76,9 @@ export default function EditUser(props) {
 
     return (
         <div className="row justify-content-center">
-            <div className="col-8">
+            <div className="col-12">
                 {loading && <Loading />}
-  
+
                 <div className="card shadow-lg bg-white rounded">
                     <div className="card-header pb-0">
                         <h6>Modifier Utilisateur</h6>
@@ -93,7 +96,12 @@ export default function EditUser(props) {
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Tel</label>
-                                <input required type="text" placeholder="Tel" className="form-control" value={Phone} onChange={(e) => setPhone(e.target.value)} />
+                                <PhoneInput
+
+                                    country="FR"
+                                    value={Phone}
+                                    onChange={setPhone}
+                                />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Cin</label>
@@ -114,17 +122,17 @@ export default function EditUser(props) {
                                 <label className="form-label">Email</label>
                                 <input required type="email" placeholder="Email" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <div className="col-md-6 mb-3">
+                            <div className="col-md-12 mb-3">
                                 <label className="form-label">Mot de passe</label>
                                 <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
-                            
+
 
                             <div className='row justify-content-center'>
                                 {editsuccess && <Success success="Utilisateur mis à jour avec succès" />}
                                 {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour de l'utilisateur" />}
 
-                                <div className="col-md-6 mb-3">
+                                <div className="col-md-4 mb-3">
                                     <button type="submit" className="btn btn-primary">Modifier</button>
                                 </div>
                             </div>
