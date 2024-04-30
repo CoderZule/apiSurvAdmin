@@ -59,8 +59,8 @@ export default function EditApiary(props) {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             width: '80%',
-            height: '50%', // Adjust the width of the modal content
-            overflow: 'auto' // Allow the modal content to scroll if needed
+            height: '50%',
+            overflow: 'auto'
         }
     };
     const usersState = useSelector(state => state.getAllUsersReducer);
@@ -264,7 +264,7 @@ export default function EditApiary(props) {
                                 />
                             </div>
                             {/* Button to open the modal */}
-                            <button type="button" className="btn mb-3" style={{backgroundColor:"#e3e6f0", color:"#373737"}} onClick={openModal}>
+                            <button type="button" className="btn mb-3" style={{ backgroundColor: "#e3e6f0", color: "#373737" }} onClick={openModal}>
                                 Sélectionner les coordonnées
                             </button>
 
@@ -275,11 +275,9 @@ export default function EditApiary(props) {
                                 onRequestClose={closeModal}
                                 contentLabel="Select Coordinates"
                             >
-                                <div >
-                                    <h3>Sélectionner les coordonnées</h3>
-                                    <GoogleMap onLocationSelect={setSelectedLocation} />
 
-                                </div>
+                                <GoogleMap onLocationSelect={setSelectedLocation} />
+
                             </Modal>
                             <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>

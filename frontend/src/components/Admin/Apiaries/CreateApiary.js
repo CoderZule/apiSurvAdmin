@@ -64,9 +64,9 @@ import Modal from 'react-modal';
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '80%',
-            height: '50%', // Adjust the width of the modal content
-             overflow: 'auto' // Allow the modal content to scroll if needed
+            width: '90%',
+            height: '60%',  
+             overflow: 'auto'  
         }
     };
     
@@ -267,12 +267,10 @@ import Modal from 'react-modal';
                                 onRequestClose={closeModal}
                                 contentLabel="Select Coordinates"
                             >
-                                <div >
-                                    <h3>Sélectionner les coordonnées</h3>
+                                
                                      <GoogleMap onLocationSelect={setSelectedLocation} />
                                    
-                                </div>
-                            </Modal>
+                             </Modal>
                             <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>
                                 <select
