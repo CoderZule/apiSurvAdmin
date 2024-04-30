@@ -6,6 +6,9 @@ import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
 import io from 'socket.io-client';
+import GoogleMap from './GoogleMap';
+import Modal from 'react-modal';
+
 
 export default function EditApiary(props) {
 
@@ -16,7 +19,7 @@ export default function EditApiary(props) {
         return () => {
             socket.disconnect();
         };
-    }, []);  
+    }, []);
     const dispatch = useDispatch();
 
     const governorates = ["Ariana", "Beja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "Le Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"];
@@ -47,7 +50,19 @@ export default function EditApiary(props) {
         "Tunis": ["Tunis", "La Marsa", "Carthage"],
         "Zaghouan": ["Zaghouan", "Nadhour", "El Fahs"]
     };
-
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: '80%',
+            height: '50%', // Adjust the width of the modal content
+            overflow: 'auto' // Allow the modal content to scroll if needed
+        }
+    };
     const usersState = useSelector(state => state.getAllUsersReducer);
     const { users } = usersState;
 
@@ -95,8 +110,43 @@ export default function EditApiary(props) {
                 governorate: apiary.Location.governorate
             });
             setOwner(apiary.Owner);
+            setSelectedLocation({
+                latitude: apiary.Location.latitude,
+                longitude: apiary.Location.longitude
+            });
         }
     }, [apiary]);
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState({
+        latitude: 0,
+        longitude: 0
+    });
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
+
+
+    const handleLatitudeChange = (e) => {
+        setSelectedLocation({
+            ...selectedLocation,
+            latitude: e.target.value
+        });
+    };
+
+    const handleLongitudeChange = (e) => {
+        setSelectedLocation({
+            ...selectedLocation,
+            longitude: e.target.value
+        });
+    };
 
     function handleEditApiary(e) {
         e.preventDefault();
@@ -107,7 +157,11 @@ export default function EditApiary(props) {
             Forages,
             Type,
             SunExposure,
-            Location,
+            Location: {
+                ...Location,
+                latitude: selectedLocation.latitude,
+                longitude: selectedLocation.longitude
+            },
             Owner
         };
 
@@ -199,14 +253,34 @@ export default function EditApiary(props) {
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Latitude</label>
-                                <input required type="number" placeholder="Latitude" className="form-control" value={Location.latitude} onChange={(e) => setLocation({ ...Location, latitude: e.target.value })} />
+                                <input required type="number" placeholder="Latitude" className="form-control"
+                                    value={selectedLocation.latitude} onChange={handleLatitudeChange}
+                                />
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Longitude</label>
-                                <input required type="number" placeholder="Longitude" className="form-control" value={Location.longitude} onChange={(e) => setLocation({ ...Location, longitude: e.target.value })} />
+                                <input required type="number" placeholder="Longitude" className="form-control" value={selectedLocation.longitude} onChange={handleLongitudeChange}
+                                />
                             </div>
+                            {/* Button to open the modal */}
+                            <button type="button" className="btn btn-primary mb-3" onClick={openModal}>
+                                Sélectionner les coordonnées
+                            </button>
 
+                            <Modal
+                                isOpen={isModalOpen}
+                                style={customStyles}
+
+                                onRequestClose={closeModal}
+                                contentLabel="Select Coordinates"
+                            >
+                                <div >
+                                    <h3>Sélectionner les coordonnées</h3>
+                                    <GoogleMap onLocationSelect={setSelectedLocation} />
+
+                                </div>
+                            </Modal>
                             <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>
                                 <select

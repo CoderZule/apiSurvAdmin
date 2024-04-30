@@ -6,8 +6,11 @@ import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
 import io from 'socket.io-client';
+import GoogleMap from './GoogleMap';
+import Modal from 'react-modal';  
 
-export default function CreateApiary() {
+
+ export default function CreateApiary() {
 
 
     useEffect(() => {
@@ -53,6 +56,23 @@ export default function CreateApiary() {
     const sunExposureOptions = ["Ensoleillé", "Semi-ombragé", "Ombragé", "Autre"];
 
 
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: '80%',
+            height: '50%', // Adjust the width of the modal content
+             overflow: 'auto' // Allow the modal content to scroll if needed
+        }
+    };
+    
+    
+      
+
     const dispatch = useDispatch();
     const usersState = useSelector(state => state.getAllUsersReducer);
     const { users } = usersState;
@@ -77,20 +97,54 @@ export default function CreateApiary() {
     const createApiaryState = useSelector((state) => state.createApiaryReducer);
     const { error, loading, success } = createApiaryState;
 
-    const [showSuccess, setShowSuccess] = useState(false); 
+    const [showSuccess, setShowSuccess] = useState(false);
 
-     function handleCreateApiary(e) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedLocation, setSelectedLocation] = useState({
+        latitude: 0,
+        longitude: 0
+    });
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+ 
+
+     
+    const handleLatitudeChange = (e) => {
+        setSelectedLocation({
+            ...selectedLocation,
+            latitude: e.target.value
+        });
+    };
+
+    const handleLongitudeChange = (e) => {
+        setSelectedLocation({
+            ...selectedLocation,
+            longitude: e.target.value
+        });
+    };
+ 
+    function handleCreateApiary(e) {
         e.preventDefault();
-
+    
         const apiary = {
             Name,
             Forages,
             Type,
             SunExposure,
-            Location,
+            Location: {
+                ...Location,
+                latitude: selectedLocation.latitude,
+                longitude: selectedLocation.longitude
+            },
             Owner
         };
-
+    
         dispatch(createApiary(apiary)).then(() => {
             // Clear input fields
             setName('');
@@ -112,6 +166,7 @@ export default function CreateApiary() {
             }, 3000);
         });
     }
+    
 
 
 
@@ -190,14 +245,34 @@ export default function CreateApiary() {
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Latitude</label>
-                                <input required type="number" placeholder="Latitude" className="form-control" value={Location.latitude} onChange={(e) => setLocation({ ...Location, latitude: e.target.value })} />
+                                <input required type="number" placeholder="Latitude" className="form-control"
+                                    value={selectedLocation.latitude} onChange={handleLatitudeChange}
+                                />
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Longitude</label>
-                                <input required type="number" placeholder="Longitude" className="form-control" value={Location.longitude} onChange={(e) => setLocation({ ...Location, longitude: e.target.value })} />
+                                <input required type="number" placeholder="Longitude" className="form-control" value={selectedLocation.longitude} onChange={handleLongitudeChange}
+                                />
                             </div>
+                            {/* Button to open the modal */}
+                            <button type="button" className="btn btn-primary mb-3" onClick={openModal}>
+                                Sélectionner les coordonnées
+                            </button>
 
+                            <Modal
+                                isOpen={isModalOpen}
+                                style={customStyles}
+
+                                onRequestClose={closeModal}
+                                contentLabel="Select Coordinates"
+                            >
+                                <div >
+                                    <h3>Sélectionner les coordonnées</h3>
+                                     <GoogleMap onLocationSelect={setSelectedLocation} />
+                                   
+                                </div>
+                            </Modal>
                             <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>
                                 <select
@@ -220,7 +295,7 @@ export default function CreateApiary() {
 
 
                             <div className='row justify-content-center'>
-                            {showSuccess && <Success success="Rucher créé avec succès" />}
+                                {showSuccess && <Success success="Rucher créé avec succès" />}
                                 {error && <Error error="Quelque chose s'est mal passé" />}
                                 <div className="col-md-4 mb-3">
                                     <button type="submit" className="btn btn-primary">Créer</button>
