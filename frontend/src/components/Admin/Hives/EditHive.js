@@ -465,7 +465,7 @@ export default function EditHive(props) {
                 {editsuccess && <Success success="Ruche modifiée avec succès" />}
                 {editerror && <Error error="Quelque chose s'est mal passé" />}
                 <div className="col-md-4 mb-3">
-                  <button type="submit" className="btn btn-primary">Modifier</button>
+                  <button type="submit" className="btn ">Modifier</button>
                 </div>
               </div>
             </form>

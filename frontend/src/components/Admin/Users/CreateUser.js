@@ -65,6 +65,20 @@ export default function CreateUser() {
             console.error('Error creating user:', error);
         });
     }
+
+    const namePattern = /^[a-zA-Z' -]+$/;
+
+  function handleFirstnameChange(value) {
+     if (namePattern.test(value) || value === '' ) {
+      setFirstname(value);
+    }
+  }
+
+  function handleLastnameChange(value) {
+     if (namePattern.test(value) || value === '' ) {
+      setLastname(value);
+    }
+  }
     return (
         <div className="row justify-content-center">
             <div className="col-12">
@@ -79,17 +93,18 @@ export default function CreateUser() {
                         <form className="row" onSubmit={handleCreateUser}>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Nom</label>
-                                <input required type="text" placeholder="Nom" className="form-control" value={Lastname} onChange={(e) => setLastname(e.target.value)} />
+                                <input required type="text" placeholder="Nom" className="form-control" value={Lastname} onChange={e => handleLastnameChange(e.target.value)}
+                                />
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Prénom</label>
-                                <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={(e) => setFirstname(e.target.value)} />
+                                <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={e => handleFirstnameChange(e.target.value)} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Tel</label>
                                 <PhoneInput
-                                
+
                                     country="FR"
                                     value={Phone}
                                     onChange={setPhone}
@@ -124,7 +139,7 @@ export default function CreateUser() {
                                 {error && <Error error="Quelque chose s'est mal passé" />}
 
                                 <div className="col-md-4 mb-3">
-                                    <button type="submit" className="btn btn-primary">Créer</button>
+                                    <button type="submit" className="btn ">Créer</button>
                                 </div>
                             </div>
 

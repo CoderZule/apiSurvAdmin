@@ -8,7 +8,7 @@ const Sidebar = () => {
 
          <ul className="navbar-nav sidebar sidebar-dark " id="accordionSidebar" style={{ backgroundColor: '#977700'}}>
 
-         <a className="sidebar-brand d-flex align-items-center justify-content-center mt-3" href="index.html">
+         <a className="sidebar-brand d-flex align-items-center justify-content-center mt-3" href="/admin/dashboard">
          <div className="sidebar-brand-icon mt-4">
     <img src="/img/logo.png" alt="Logo" style={{ maxWidth: '80%', height: 'auto' }} />
 </div>

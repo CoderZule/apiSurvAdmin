@@ -70,6 +70,19 @@ export default function Profile() {
         dispatch(editUser(editedUser));
     };
 
+    const namePattern = /^[a-zA-Z' -]+$/;
+
+    function handleFirstnameChange(value) {
+        if (namePattern.test(value) || value === '') {
+            setFirstname(value);
+        }
+    }
+
+    function handleLastnameChange(value) {
+        if (namePattern.test(value) || value === '') {
+            setLastname(value);
+        }
+    }
     return (
         <div className="container">
             <div className="row gutters">
@@ -106,7 +119,7 @@ export default function Profile() {
                                             className="form-control"
                                             id="fullName"
                                             value={Lastname}
-                                            onChange={(e) => setLastname(e.target.value)}
+                                            onChange={e => handleLastnameChange(e.target.value)}
                                         />
                                     </div>
                                 </div>
@@ -119,7 +132,7 @@ export default function Profile() {
                                             className="form-control"
                                             id="fullName"
                                             value={Firstname}
-                                            onChange={(e) => setFirstname(e.target.value)}
+                                            onChange={e => handleFirstnameChange(e.target.value)}
                                         />
                                     </div>
                                 </div>

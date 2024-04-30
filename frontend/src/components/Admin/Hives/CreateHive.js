@@ -456,7 +456,7 @@ export default function CreateHive() {
                                 {error && <Error error="Quelque chose s'est mal passé" />}
 
                                 <div className="col-md-4 mb-3">
-                                    <button type="submit" className="btn btn-primary">Créer</button>
+                                    <button type="submit" className="btn ">Créer</button>
                                 </div>
                             </div>
                         </form>

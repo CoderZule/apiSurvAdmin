@@ -264,7 +264,7 @@ export default function EditApiary(props) {
                                 />
                             </div>
                             {/* Button to open the modal */}
-                            <button type="button" className="btn btn-primary mb-3" onClick={openModal}>
+                            <button type="button" className="btn mb-3" style={{backgroundColor:"#e3e6f0", color:"#373737"}} onClick={openModal}>
                                 Sélectionner les coordonnées
                             </button>
 
@@ -307,7 +307,7 @@ export default function EditApiary(props) {
                                 {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour du rucher" />}
 
                                 <div className="col-md-4 mb-3">
-                                    <button type="submit" className="btn btn-primary">Modifier</button>
+                                    <button type="submit" className="btn ">Modifier</button>
                                 </div>
                             </div>
                         </form>

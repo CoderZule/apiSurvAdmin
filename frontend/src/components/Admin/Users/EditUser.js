@@ -72,7 +72,19 @@ export default function EditUser(props) {
 
         dispatch(editUser(editedUser));
     }
+    const namePattern = /^[a-zA-Z' -]+$/;
 
+    function handleFirstnameChange(value) {
+       if (namePattern.test(value) || value === '' ) {
+        setFirstname(value);
+      }
+    }
+  
+    function handleLastnameChange(value) {
+       if (namePattern.test(value) || value === '' ) {
+        setLastname(value);
+      }
+    }
 
     return (
         <div className="row justify-content-center">
@@ -87,12 +99,12 @@ export default function EditUser(props) {
                         <form className="row" onSubmit={handleEditUser}>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Nom</label>
-                                <input required type="text" placeholder="Nom" className="form-control" value={Lastname} onChange={(e) => setLastname(e.target.value)} />
+                                <input required type="text" placeholder="Nom" className="form-control" value={Lastname} onChange={e => handleLastnameChange(e.target.value)} />
                             </div>
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Prénom</label>
-                                <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={(e) => setFirstname(e.target.value)} />
+                                <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={e => handleFirstnameChange(e.target.value)}  />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Tel</label>
@@ -133,7 +145,7 @@ export default function EditUser(props) {
                                 {editerror && <Error error="Quelque chose s'est mal passé lors de la mise à jour de l'utilisateur" />}
 
                                 <div className="col-md-4 mb-3">
-                                    <button type="submit" className="btn btn-primary">Modifier</button>
+                                    <button type="submit" className="btn ">Modifier</button>
                                 </div>
                             </div>
                         </form>
