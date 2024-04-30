@@ -8,7 +8,8 @@ const userSchema = mongoose.Schema({
     Cin:{ type: String, require },
     Email: { type: String, require },
     Password: { type: String, require },
-    Role: { type: String, require}
+    Role: { type: String, require},
+    FirstTimeLogin: { type: Boolean, default: false }
 
 }, {
     timestamps: true,
