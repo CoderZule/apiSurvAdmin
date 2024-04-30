@@ -271,7 +271,7 @@ export default function EditApiary(props) {
                             <Modal
                                 isOpen={isModalOpen}
                                 style={customStyles}
-
+                                appElement={document.getElementById('root')} 
                                 onRequestClose={closeModal}
                                 contentLabel="Select Coordinates"
                             >

@@ -7,10 +7,10 @@ import Loading from '../../Loading';
 import Success from '../../Success';
 import io from 'socket.io-client';
 import GoogleMap from './GoogleMap';
-import Modal from 'react-modal';  
+import Modal from 'react-modal';
 
 
- export default function CreateApiary() {
+export default function CreateApiary() {
 
 
     useEffect(() => {
@@ -65,13 +65,13 @@ import Modal from 'react-modal';
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             width: '70%',
-            height: '50%',  
-             overflow: 'auto'  
+            height: '50%',
+            overflow: 'auto'
         }
     };
-    
-    
-      
+
+
+
 
     const dispatch = useDispatch();
     const usersState = useSelector(state => state.getAllUsersReducer);
@@ -112,9 +112,9 @@ import Modal from 'react-modal';
     const closeModal = () => {
         setIsModalOpen(false);
     };
- 
 
-     
+
+
     const handleLatitudeChange = (e) => {
         setSelectedLocation({
             ...selectedLocation,
@@ -128,10 +128,10 @@ import Modal from 'react-modal';
             longitude: e.target.value
         });
     };
- 
+
     function handleCreateApiary(e) {
         e.preventDefault();
-    
+
         const apiary = {
             Name,
             Forages,
@@ -144,7 +144,7 @@ import Modal from 'react-modal';
             },
             Owner
         };
-    
+
         dispatch(createApiary(apiary)).then(() => {
             // Clear input fields
             setName('');
@@ -166,7 +166,7 @@ import Modal from 'react-modal';
             }, 3000);
         });
     }
-    
+
 
 
 
@@ -256,21 +256,21 @@ import Modal from 'react-modal';
                                 />
                             </div>
                             {/* Button to open the modal */}
-                            <button type="button" className="btn mb-3" style={{backgroundColor:"#e3e6f0", color:"#373737"}} onClick={openModal}>
+                            <button type="button" className="btn mb-3" style={{ backgroundColor: "#e3e6f0", color: "#373737" }} onClick={openModal}>
                                 Sélectionner les coordonnées
                             </button>
 
                             <Modal
                                 isOpen={isModalOpen}
                                 style={customStyles}
-
+                                appElement={document.getElementById('root')} 
                                 onRequestClose={closeModal}
                                 contentLabel="Select Coordinates"
                             >
-                                
-                                     <GoogleMap onLocationSelect={setSelectedLocation} />
-                                   
-                             </Modal>
+
+                                <GoogleMap onLocationSelect={setSelectedLocation} />
+
+                            </Modal>
                             <div className="col-md-12 mb-3">
                                 <label className="form-label">Propriétaire</label>
                                 <select
