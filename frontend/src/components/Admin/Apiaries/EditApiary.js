@@ -58,8 +58,8 @@ export default function EditApiary(props) {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '80%',
-            height: '50%',
+            width: '70%',
+            height: '50%', 
             overflow: 'auto'
         }
     };

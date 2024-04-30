@@ -64,8 +64,8 @@ import Modal from 'react-modal';
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '90%',
-            height: '60%',  
+            width: '70%',
+            height: '50%',  
              overflow: 'auto'  
         }
     };
