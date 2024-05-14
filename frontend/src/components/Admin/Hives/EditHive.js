@@ -9,6 +9,7 @@ import Success from '../../Success';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import io from 'socket.io-client';
+import QRCode from 'react-qr-code';
 
 export default function EditHive(props) {
 
@@ -112,7 +113,7 @@ export default function EditHive(props) {
   const [Apiary, setApiary] = useState('');
   const [hasQueen, setHasQueen] = useState(false);
 
- 
+
 
   const hiveId = props.match.params._id;
 
@@ -147,13 +148,14 @@ export default function EditHive(props) {
       setColony(hive.Colony);
       setApiary(hive.Apiary);
 
+
       if (hive.Queen && hive.Queen.status !== '') {
         setHasQueen(true);
         setQueen(hive.Queen);
       }
 
-  
-      
+
+
     }
   }, [hive]);
 
@@ -165,13 +167,13 @@ export default function EditHive(props) {
   };
 
 
- 
 
-   const handleEditHive = (e) => {
+
+  const handleEditHive = (e) => {
     e.preventDefault();
 
-    let editedQueen = hasQueen ? Queen : null;  
- 
+    let editedQueen = hasQueen ? Queen : null;
+
     const editedHive = {
       _id: hiveId,
       Color,
@@ -197,6 +199,7 @@ export default function EditHive(props) {
             <h6>Modifier Ruche</h6>
           </div>
           <div className="card-body">
+        
             <form className="row" onSubmit={handleEditHive}>
 
               <div className="col-md-6 mb-3">
@@ -467,6 +470,9 @@ export default function EditHive(props) {
                 <div className="col-md-4 mb-3">
                   <button type="submit" className="btn ">Modifier</button>
                 </div>
+
+                <QRCode value={hiveId} size={100} />
+
               </div>
             </form>
           </div>
