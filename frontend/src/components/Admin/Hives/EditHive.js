@@ -393,7 +393,7 @@ export default function EditHive(props) {
                             checked={Queen.clipped}
                             onChange={(e) => setQueen({ ...Queen, clipped: e.target.checked })}
                           />
-                          <label className="form-check-label" htmlFor='clipped'>Clipped</label>
+                          <label className="form-check-label" htmlFor='clipped'>Clippée</label>
                         </div>
                       </div>
 
@@ -407,7 +407,7 @@ export default function EditHive(props) {
                             checked={Queen.isMarked}
                             onChange={(e) => setQueen({ ...Queen, isMarked: e.target.checked })}
                           />
-                          <label className="form-check-label" htmlFor='marked'>Marked</label>
+                          <label className="form-check-label" htmlFor='marked'>Marquée</label>
                         </div>
                       </div>
 
@@ -441,7 +441,7 @@ export default function EditHive(props) {
                     </div>
 
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">Origine de la reine</label>
+                      <label className="form-label">Origine</label>
                       <select required className="form-select" value={Queen.origin} onChange={(e) => setQueen({ ...Queen, origin: e.target.value })}>
                         <option value="" disabled>Sélectionnez l'origine de la reine</option>
                         {queen_origin.map((queen_origin, index) => (
