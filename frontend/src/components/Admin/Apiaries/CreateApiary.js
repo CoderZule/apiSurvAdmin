@@ -8,6 +8,7 @@ import Success from '../../Success';
 import io from 'socket.io-client';
 import GoogleMap from './GoogleMap';
 import Modal from 'react-modal';
+import { GovDeleg } from './GovDeleg';
 
 
 export default function CreateApiary() {
@@ -20,34 +21,8 @@ export default function CreateApiary() {
             socket.disconnect();
         };
     }, []);
-    const governorates = ["Ariana", "Beja", "Ben Arous", "Bizerte", "Gabes", "Gafsa", "Jendouba", "Kairouan", "Kasserine", "Kebili", "Le Kef", "Mahdia", "Manouba", "Medenine", "Monastir", "Nabeul", "Sfax", "Sidi Bouzid", "Siliana", "Sousse", "Tataouine", "Tozeur", "Tunis", "Zaghouan"];
 
-    const citiesByGovernorate = {
-        "Ariana": ["Ariana", "Raoued", "La Soukra"],
-        "Beja": ["Béja", "Nefza", "Testour"],
-        "Ben Arous": ["Ben Arous", "Mégrine", "Hammam Lif"],
-        "Bizerte": ["Bizerte", "Menzel Bourguiba", "Mateur"],
-        "Gabes": ["Gabès", "Métouia", "El Hamma"],
-        "Gafsa": ["Gafsa", "Métlaoui", "Redeyef"],
-        "Jendouba": ["Jendouba", "Tabarka", "Aïn Draham"],
-        "Kairouan": ["Kairouan", "Sousse", "Hajeb El Ayoun"],
-        "Kasserine": ["Kasserine", "Sbeitla", "Fériana"],
-        "Kebili": ["Kébili", "Douz", "Souk Lahad"],
-        "Le Kef": ["Le Kef", "Dahmani", "Tajerouine"],
-        "Mahdia": ["Mahdia", "Bou Merdes", "Chebba"],
-        "Manouba": ["Manouba", "Douar Hicher", "Oued Ellil"],
-        "Medenine": ["Médenine", "Ben Gardane", "Zarzis"],
-        "Monastir": ["Monastir", "Moknine", "Ksar Hellal"],
-        "Nabeul": ["Nabeul", "Hammamet", "Kelibia", "Takelsa", "Menzel Bouzelfa", "Menzel Temime", "El Maâmoura", "Soliman", "Korba", "Beni Khiar", "Grombalia", "Bou Argoub"],
-        "Sfax": ["Sfax", "Sakiet Ezzit", "El Jem"],
-        "Sidi Bouzid": ["Sidi Bouzid", "Regueb", "Jilma"],
-        "Siliana": ["Siliana", "Bou Arada", "Gaafour"],
-        "Sousse": ["Sousse", "Ezzouhour", "Akouda"],
-        "Tataouine": ["Tataouine", "Ghomrassen", "Remada"],
-        "Tozeur": ["Tozeur", "Nefta", "Degache"],
-        "Tunis": ["Tunis", "La Marsa", "Carthage"],
-        "Zaghouan": ["Zaghouan", "Nadhour", "El Fahs"]
-    };
+
 
     const forages = ["Thym", "Lavande", "Romarin", "Eucalyptus", "Arbres d'agrumes", "Luzerne", "Trèfle", "Fleurs sauvages", "Caroubier", "Acacia"];
 
@@ -92,6 +67,27 @@ export default function CreateApiary() {
         city: '',
         governorate: ''
     });
+
+    function getCitiesByGovernorate(data) {
+        const citiesByGovernorate = {};
+
+        data.forEach(entry => {
+            const { Gov, Deleg } = entry;
+
+            if (!citiesByGovernorate[Gov]) {
+                citiesByGovernorate[Gov] = [Deleg];
+            } else {
+                if (!citiesByGovernorate[Gov].includes(Deleg)) {
+                    citiesByGovernorate[Gov].push(Deleg);
+                }
+            }
+        });
+
+        return citiesByGovernorate;
+    }
+
+     const citiesByGovernorate = getCitiesByGovernorate(GovDeleg);
+
     const [Owner, setOwner] = useState('');
 
     const createApiaryState = useSelector((state) => state.createApiaryReducer);
@@ -229,15 +225,15 @@ export default function CreateApiary() {
                                 <label className="form-label">Gouvernorat</label>
                                 <select name="gouvernorat" className="form-select" value={Location.governorate} onChange={(e) => setLocation({ ...Location, governorate: e.target.value })}>
                                     <option value="" disabled>Sélectionnez un gouvernorat</option>
-                                    {governorates.map((governorate, index) => (
+                                    {Object.keys(citiesByGovernorate).map((governorate, index) => (
                                         <option key={index} value={governorate}>{governorate}</option>
                                     ))}
                                 </select>
                             </div>
                             <div className="col-md-6 mb-3">
-                                <label className="form-label">Ville</label>
+                                <label className="form-label">Délégation</label>
                                 <select name="ville" className="form-select" value={Location.city} onChange={(e) => setLocation({ ...Location, city: e.target.value })}>
-                                    <option value="" disabled>Sélectionnez une ville</option>
+                                    <option value="" disabled>Sélectionnez une Délégation</option>
                                     {Location.governorate && citiesByGovernorate[Location.governorate].map((city, index) => (
                                         <option key={index} value={city}>{city}</option>
                                     ))}
@@ -263,7 +259,7 @@ export default function CreateApiary() {
                             <Modal
                                 isOpen={isModalOpen}
                                 style={customStyles}
-                                appElement={document.getElementById('root')} 
+                                appElement={document.getElementById('root')}
                                 onRequestClose={closeModal}
                                 contentLabel="Select Coordinates"
                             >
