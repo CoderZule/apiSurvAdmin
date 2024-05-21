@@ -13,7 +13,8 @@ const hiveSchema = new mongoose.Schema({
     strength: { type: String,  required: true },
     temperament: { type: String, required: true },
     supers: { type: Number, required: true },
-    frames: { type: Number, required: true }
+    frames: { type: Number, required: true },
+    honey_frames: { type: Number, required: true },
   },
 
   Queen: {
@@ -29,6 +30,9 @@ const hiveSchema = new mongoose.Schema({
     origin: { type: String  },
     temperament: { type: String },
     note: { type: String},
+
+    queen_cells: { type: String},
+    isSwarmed: { type: Boolean}
 
   }
   ,
