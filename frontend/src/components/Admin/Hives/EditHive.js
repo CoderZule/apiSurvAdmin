@@ -222,8 +222,8 @@ export default function EditHive(props) {
               </div>
 
               <div className="col-md-6 mb-3">
+              <label className="form-label">Source</label>
                 <select required className="form-select" value={Source} onChange={(e) => setSource(e.target.value)}>
-                  <label className="form-label">Source</label>
                   <option value="" disabled>Sélectionnez la source</option>
                   {source.map((source, index) => (
                     <option key={index} value={source}>{source}</option>
@@ -232,8 +232,8 @@ export default function EditHive(props) {
               </div>
 
               <div className="col-md-6 mb-3">
+              <label className="form-label">But</label>
                 <select required className="form-select" value={Purpose} onChange={(e) => setPurpose(e.target.value)}>
-                  <label className="form-label">But</label>
                   <option value="" disabled>Sélectionnez le but</option>
                   {purpose.map((purpose, index) => (
                     <option key={index} value={purpose}>{purpose}</option>
@@ -285,8 +285,8 @@ export default function EditHive(props) {
               <fieldset>
                 <legend className='text-center'>Colonie</legend>                                <div className="row">
                   <div className="col-md-6 mb-3">
+                  <label className="form-label">Force</label>
                     <select required className="form-select" value={Colony.strength} onChange={(e) => setColony({ ...Colony, strength: e.target.value })}>
-                      <label className="form-label">Force</label>
                       <option value="" disabled>Sélectionnez la force</option>
                       {strength.map((strength, index) => (
                         <option key={index} value={strength}>{strength}</option>
@@ -295,8 +295,8 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
+                  <label className="form-label">Tempérament</label>
                     <select required className="form-select" value={Colony.temperament} onChange={(e) => setColony({ ...Colony, temperament: e.target.value })}>
-                      <label className="form-label">Tempérament</label>
                       <option value="" disabled>Sélectionnez le tempérament</option>
                       {temperament.map((temperament, index) => (
                         <option key={index} value={temperament}>{temperament}</option>
