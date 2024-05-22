@@ -14,7 +14,7 @@ const hiveSchema = new mongoose.Schema({
     temperament: { type: String, required: true },
     supers: { type: Number, required: true },
     frames: { type: Number, required: true },
-    honey_frames: { type: Number, required: true },
+    honeyframes: { type: Number, required: true },
   },
 
   Queen: {
@@ -31,7 +31,7 @@ const hiveSchema = new mongoose.Schema({
     temperament: { type: String },
     note: { type: String},
 
-    queen_cells: { type: String},
+    queencells: { type: String},
     isSwarmed: { type: Boolean}
 
   }
