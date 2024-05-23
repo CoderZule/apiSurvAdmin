@@ -80,7 +80,7 @@ export default function Apiaries() {
                         render: rowData => <p className="text-xs font-weight-bold mb-0">{rowData.Location.governorate}</p>,
                     },
                     {
-                        title: 'Ville',
+                        title: 'Délégation',
                         field: 'Location.city',
                         render: rowData => <p className="text-xs font-weight-bold mb-0">{rowData.Location.city}</p>,
                     },

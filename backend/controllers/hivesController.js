@@ -1,4 +1,6 @@
 const Hive = require('../models/hive');
+const Apiary = require('../models/apiary');
+const User = require('../models/user');
 
 const fetchHives = async (req, res) => {
     try {
@@ -33,20 +35,20 @@ const createHive = async (req, res) => {
 };
 
 async function getHiveById(req, res) {
-    try {
-      const { id } = req.params; 
-      const hive = await Hive.findById(id);
+  try {
+      const { id } = req.params;
+      const hive = await Hive.findById(id).populate('Apiary').populate({ path: 'Apiary', populate: { path: 'Owner' } });
       
       if (!hive) {
-        return res.status(404).json({ message: 'Hive not found' });
+          return res.status(404).json({ message: 'Hive not found' });
       }
-      
+
       res.json(hive);
-    } catch (error) {
+  } catch (error) {
       console.error('Error getting hive:', error);
       return res.status(500).json({ message: 'Internal server error' });
-    }
   }
+}
   
   
   
