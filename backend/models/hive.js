@@ -7,14 +7,15 @@ const hiveSchema = new mongoose.Schema({
   Source: { type: String, required: true },
   Purpose: { type: String, required: true },
   Added: { type: Date,  required: true, default: Date.now },
-  Note: { type: String },
 
   Colony: {
     strength: { type: String,  required: true },
     temperament: { type: String, required: true },
     supers: { type: Number, required: true },
     frames: { type: Number, required: true },
-    honeyframes: { type: Number, required: true },
+    honeyframes: { type: Number},
+    note: { type: String},
+
   },
 
   Queen: {

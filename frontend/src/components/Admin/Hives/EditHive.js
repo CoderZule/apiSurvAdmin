@@ -60,8 +60,12 @@ export default function EditHive(props) {
   const source = ['Colonie Achetée', 'Noyau Acheté', 'Paquet Acheté', 'Noyau Capturé', 'Découpé', 'Piège Sorti', 'Divisé', 'Supplanté'];
   const purpose = ['Production de Miel', 'Production d\'Abeilles', 'Élevage de Reines', 'R&D', 'Autre'];
   const strength = ['Très Faible', 'Faible', 'Modérée', 'Forte', 'Très forte'];
-  const temperament = ['Calme', 'Nerveuse', 'Agressive'];
-
+  const temperament = [
+    "Agressive",
+    "Nerveuse",
+    "Calme",
+ 
+  ];
   //Queen Details
   const status = ['Acceptée', 'Cellule royale', 'Vierge', 'Insérée'];
   const queen_state = ['Cellule découverte', 'Cellule operculée', 'Émergée', 'Accouplée', 'Mature', 'Vieille', 'Inconnue'];
@@ -90,7 +94,6 @@ export default function EditHive(props) {
   const [Source, setSource] = useState('');
   const [Purpose, setPurpose] = useState('');
   const [Added, setAdded] = useState(new Date());
-  const [Note, setNote] = useState('');
   const [Colony, setColony] = useState({
     strength: '',
     temperament: '',
@@ -107,8 +110,7 @@ export default function EditHive(props) {
     race: '',
     clipped: false,
     origin: '',
-    temperament: '',
-    note: ''
+    temperament: ''
   });
   const [Apiary, setApiary] = useState('');
   const [hasQueen, setHasQueen] = useState(false);
@@ -144,7 +146,6 @@ export default function EditHive(props) {
       setSource(hive.Source);
       setPurpose(hive.Purpose);
       setAdded(new Date(hive.Added));
-      setNote(hive.Note);
       setColony(hive.Colony);
       setApiary(hive.Apiary);
 
@@ -181,7 +182,6 @@ export default function EditHive(props) {
       Source,
       Purpose,
       Added,
-      Note,
       Colony,
       Queen: editedQueen,
       Apiary
@@ -199,93 +199,91 @@ export default function EditHive(props) {
             <h6>Modifier Ruche</h6>
           </div>
           <div className="card-body">
-        
+
             <form className="row" onSubmit={handleEditHive}>
 
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Couleur</label>
-                <select required className="form-select" value={Color} onChange={(e) => setColor(e.target.value)}>
-                  <option value="" disabled>Choisissez une couleur</option>
-                  {colors.map((color, index) => (
-                    <option key={index} value={color}>{color}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Type</label>
-                <select required className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
-                  <option value="" disabled>Sélectionnez un type</option>
-                  {types.map((type, index) => (
-                    <option key={index} value={type}>{type}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-md-6 mb-3">
-              <label className="form-label">Source</label>
-                <select required className="form-select" value={Source} onChange={(e) => setSource(e.target.value)}>
-                  <option value="" disabled>Sélectionnez la source</option>
-                  {source.map((source, index) => (
-                    <option key={index} value={source}>{source}</option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-md-6 mb-3">
-              <label className="form-label">But</label>
-                <select required className="form-select" value={Purpose} onChange={(e) => setPurpose(e.target.value)}>
-                  <option value="" disabled>Sélectionnez le but</option>
-                  {purpose.map((purpose, index) => (
-                    <option key={index} value={purpose}>{purpose}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-6 mb-3">
-                <div>
-                  <label className="form-label">Date d'ajout</label>
-                </div>
-                <div>
-                  <DatePicker
-                    selected={Added}
-                    onChange={handleDateChange}
-                    dateFormat="dd/MM/yyyy"
-                    className="form-control"
-                  />
-                </div>
-              </div>
-
-              <div className="col-md-6 mb-3">
-                <label className="form-label">Rucher</label>
-                <select
-                  name="apiary"
-                  className="form-select"
-                  value={Apiary}
-                  onChange={(e) => setApiary(e.target.value)}
-                >
-                  <option value="" disabled>Sélectionnez rucher</option>
-                  {Array.isArray(apiaries.data) && apiaries.data.map((apiary) => (
-
-                    <option key={apiary._id} value={apiary._id}>
-                      {apiary.Name}
-                    </option>
-
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-md-12 mb-3">
-                <label className="form-label">Note</label>
-                <textarea
-                  className="form-control"
-                  rows="2"
-                  value={Note}
-                  onChange={(e) => setNote(e.target.value)}
-                />
-              </div>
               <fieldset>
-                <legend className='text-center'>Colonie</legend>                                <div className="row">
+                <legend className='text-center'>Générales</legend>
+                <div className='row'>
                   <div className="col-md-6 mb-3">
-                  <label className="form-label">Force</label>
+                    <label className="form-label">Couleur</label>
+                    <select required className="form-select" value={Color} onChange={(e) => setColor(e.target.value)}>
+                      <option value="" disabled>Choisissez une couleur</option>
+                      {colors.map((color, index) => (
+                        <option key={index} value={color}>{color}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Type</label>
+                    <select required className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
+                      <option value="" disabled>Sélectionnez un type</option>
+                      {types.map((type, index) => (
+                        <option key={index} value={type}>{type}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Source</label>
+                    <select required className="form-select" value={Source} onChange={(e) => setSource(e.target.value)}>
+                      <option value="" disabled>Sélectionnez la source</option>
+                      {source.map((source, index) => (
+                        <option key={index} value={source}>{source}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">But</label>
+                    <select required className="form-select" value={Purpose} onChange={(e) => setPurpose(e.target.value)}>
+                      <option value="" disabled>Sélectionnez le but</option>
+                      {purpose.map((purpose, index) => (
+                        <option key={index} value={purpose}>{purpose}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <div>
+                      <label className="form-label">Date d'ajout</label>
+                    </div>
+                    <div>
+                      <DatePicker
+                        selected={Added}
+                        onChange={handleDateChange}
+                        dateFormat="dd/MM/yyyy"
+                        className="form-control"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Rucher</label>
+                    <select
+                      name="apiary"
+                      className="form-select"
+                      value={Apiary}
+                      onChange={(e) => setApiary(e.target.value)}
+                    >
+                      <option value="" disabled>Sélectionnez rucher</option>
+                      {Array.isArray(apiaries.data) && apiaries.data.map((apiary) => (
+
+                        <option key={apiary._id} value={apiary._id}>
+                          {apiary.Name}
+                        </option>
+
+                      ))}
+                    </select>
+                  </div>
+
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend className='text-center'>Colonie</legend>
+                <div className="row">
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Force</label>
                     <select required className="form-select" value={Colony.strength} onChange={(e) => setColony({ ...Colony, strength: e.target.value })}>
                       <option value="" disabled>Sélectionnez la force</option>
                       {strength.map((strength, index) => (
@@ -295,7 +293,7 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                  <label className="form-label">Tempérament</label>
+                    <label className="form-label">Tempérament</label>
                     <select required className="form-select" value={Colony.temperament} onChange={(e) => setColony({ ...Colony, temperament: e.target.value })}>
                       <option value="" disabled>Sélectionnez le tempérament</option>
                       {temperament.map((temperament, index) => (
@@ -350,7 +348,7 @@ export default function EditHive(props) {
                     <div className="col-md-6 mb-3">
                       <label className="form-label">Éclos</label>
                       <select required className="form-select" value={Queen.hatched} onChange={(e) => setQueen({ ...Queen, hatched: e.target.value })}>
-                        <option value="" disabled>Sélectionnez l'année d'éclos</option>
+                        <option value="" disabled>Sélectionnez l'année d'éclosion</option>
                         {Array.from({ length: 10 }).map((_, index) => {
                           const year = new Date().getFullYear() - index;
                           return <option key={year} value={year}>{year}</option>;
@@ -451,13 +449,7 @@ export default function EditHive(props) {
                     </div>
 
 
-                    <div className="col-md-12 mb-3">
-                      <label className="form-label">Note</label>
-                      <textarea
-                        className="form-control"
-                        rows="2"
-                        value={Queen.note} onChange={(e) => setQueen({ ...Queen, note: e.target.value })} />
-                    </div>
+
 
                   </div>
                 )}
