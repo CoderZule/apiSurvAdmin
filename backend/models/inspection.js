@@ -2,14 +2,26 @@ const mongoose = require('mongoose');
 
 const inspectionSchema = new mongoose.Schema({
 
-  InspectorName: { type: String, required: true },
-  InspectionDate: { type: Date, required: true, default: Date.now },
-  Brood: { type: String, required: true }, //حضنة						
-  MaleBrood: { type: String, required: true },//حضنة الذكور	
-  TotalBrood: { type: Number, required: true, default: 0 },//جملي الحضنة
+  Inspector: { 
+    firstName: {type: String, required: true },
+    lastName: {type: String, required: true },
+    cin: {type: String, required: true },
+  }, //المتفقد		
+
+  InspectionDateTime: { 
+    date: {type: Date, required: true, default: Date.now },
+    time: {type: Date, required: true, default: Date.now },
+  }, //التاريخ								
+  
+  Brood: {
+    state:   { type: String, required: true }, //حضنة		
+    maleBrood: { type: String, required: true },//حضنة الذكور	
+    totalBrood: { type: Number, required: true, default: 0 },//جملي الحضنة
+  },
+ 
   DronesSeen:{ type: Boolean}, //ذكور	
 
-  Supplies: {
+  Supplies: { //التغذية 
     product: { type: String, required: true },
    // totalbeefeed: { type: Number, required: true, default: 0 }, //جملي المؤونة
     ingredients: {
@@ -19,11 +31,6 @@ const inspectionSchema = new mongoose.Schema({
     },
     note: { type: String }
   },
-
-  ActivityAdd: { type: String },
-  ActivityRemove: { type: String },
-  HoneyStores: { type: String, required: true },
-  PollenStores: { type: String, required: true },
 
   BeeHealth: {
     disease: { type: String, required: true },
@@ -35,23 +42,23 @@ const inspectionSchema = new mongoose.Schema({
     quantity: { type: Number, required: true, default: 0 },
     doses: { type: String, required: true },
     note: { type: String }
+  },
 
-  },
-  SpottedProblems: {
-    pests: { type: String },
-    predation: { type: String },
-    equipment: { type: String },
-    actiontaken: { type: String },
-    note: { type: String }
-  },
+  HoneyStores: { type: String, required: true },
+  PollenStores: { type: String, required: true },
+
+  ActivityAdd: { type: String }, //إضافة 
+  ActivityRemove: { type: String }, //حدف		
+
   Weather: {
-    conditions: { type: String, required: true },
-    temperature: { type: Number, required: true, default: 0 },
-    humidity: { type: Number, required: true, default: 0 },
-    pressure: { type: Number, required: true, default: 0 },
-    windspeed: { type: Number, required: true, default: 0 },
-    winddirection: { type: Number, required: true, default: 0 }
+    conditions: { type: String},
+    temperature: { type: Number, default: 0 },
+    humidity: { type: Number, default: 0 },
+    pressure: { type: Number, default: 0 },
+    windspeed: { type: Number, default: 0 },
+    winddirection: { type: Number, default: 0 }
   },
+
   Note: { type: String },
 
   Hive: { type: mongoose.Schema.Types.ObjectId, ref: 'Hive', required: true },

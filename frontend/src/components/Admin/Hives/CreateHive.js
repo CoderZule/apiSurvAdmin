@@ -294,7 +294,7 @@ export default function CreateHive() {
                                     </div>
 
                                     <div className="col-md-6 mb-3">
-                                        <label className="form-label">Supers</label>
+                                        <label className="form-label">Hausses</label>
                                         <input required type="number" placeholder="Supers" className="form-control" value={Colony.supers} onChange={(e) => setColony({ ...Colony, supers: e.target.value })} />
                                     </div>
 
