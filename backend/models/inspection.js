@@ -51,12 +51,12 @@ const inspectionSchema = new mongoose.Schema({
   ActivityRemove: { type: String }, //حدف		
 
   Weather: {
-    conditions: { type: String},
+    condition: { type: String},
     temperature: { type: Number, default: 0 },
     humidity: { type: Number, default: 0 },
     pressure: { type: Number, default: 0 },
-    windspeed: { type: Number, default: 0 },
-    winddirection: { type: Number, default: 0 }
+    windSpeed: { type: Number, default: 0 },
+    windDirection: { type: Number, default: 0 }
   },
 
   Note: { type: String },
