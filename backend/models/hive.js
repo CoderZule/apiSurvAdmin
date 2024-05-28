@@ -13,8 +13,8 @@ const hiveSchema = new mongoose.Schema({
     temperament: { type: String, required: true },
     deadBees: { type: Boolean},
     supers: { type: Number, required: true },
-    frames: { type: Number, required: true },
-    honeyframes: { type: Number},
+    pollenFrames: { type: Number},
+    TotalFrames: { type: Number, required: true },
     note: { type: String},
 
   },

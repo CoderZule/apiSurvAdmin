@@ -98,7 +98,7 @@ export default function EditHive(props) {
     strength: '',
     temperament: '',
     supers: 0,
-    frames: 0
+    TotalFrames: 0
   });
   const [Queen, setQueen] = useState({
     color: '',
@@ -308,8 +308,8 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Cadres</label>
-                    <input required type="number" placeholder="Cadres" className="form-control" value={Colony.frames} onChange={(e) => setColony({ ...Colony, frames: e.target.value })} />
+                    <label className="form-label">Cadres totaux</label>
+                    <input required type="number" placeholder="Cadres" className="form-control" value={Colony.TotalFrames} onChange={(e) => setColony({ ...Colony, TotalFrames: e.target.value })} />
                   </div>
                 </div>
               </fieldset>
