@@ -2,56 +2,77 @@ const mongoose = require('mongoose');
 
 const inspectionSchema = new mongoose.Schema({
 
-  Inspector: { 
-    firstName: {type: String, required: true },
-    lastName: {type: String, required: true },
-    cin: {type: String, required: true },
+  Inspector: {
+    firstName: { type: String },
+    lastName: { type: String },
+    cin: { type: String  },
   }, //المتفقد		
 
-  InspectionDateTime: { 
-    date: {type: Date, required: true, default: Date.now },
-    time: {type: Date, required: true, default: Date.now },
-  }, //التاريخ								
-  
-  Brood: {
-    state:   { type: String, required: true }, //حضنة		
-    maleBrood: { type: String, required: true },//حضنة الذكور	
-    totalBrood: { type: Number, required: true, default: 0 },//جملي الحضنة
+  InspectionDateTime: { type: Date, default: Date.now },
+  //التاريخ		
+
+  ApiaryAndHive: {
+    apiaryName:{ type: String },
+    hiveType: { type: String },
   },
- 
-  DronesSeen:{ type: Boolean}, //ذكور	
+  Queen: {
+    seen: { type: Boolean },
+    isMarked: { type: Boolean },
+    color: { type: String },
+    clipped: { type: Boolean },
+    temperament: { type: String },
+    note: { type: String },
+    queenCells: { type: String },
+    isSwarmed: { type: Boolean }
+  },
+  Colony: {
+    strength: { type: String },
+    temperament: { type: String },
+    deadBees: { type: Boolean},
+    supers: { type: Number },
+    pollenFrames: { type: Number},
+    TotalFrames: { type: Number },
+    note: { type: String},
+
+  },
+  Brood: {
+    state: { type: String }, //حضنة		
+    maleBrood: { type: String },//حضنة الذكور	
+    totalBrood: { type: Number, default: 0 },//جملي الحضنة
+  },
+
+  DronesSeen: { type: Boolean }, //ذكور	
 
   Supplies: { //التغذية 
-    product: { type: String, required: true },
-   // totalbeefeed: { type: Number, required: true, default: 0 }, //جملي المؤونة
+    product: { type: String },
     ingredients: {
-      name: { type: String, required: true },
-      quantity: { type: Number, required: true, default: 0 },
-      unit: { type: String, required: true }
+      name: { type: String },
+      quantity: { type: Number, default: 0 },
+      unit: { type: String }
     },
     note: { type: String }
   },
 
   BeeHealth: {
-    disease: { type: String, required: true },
-    treatment: { type: String, required: true },
+    disease: { type: String },
+    treatment: { type: String },
     duration: {
-      from: { type: Date, required: true, default: Date.now },
-      to: { type: Date, required: true, default: Date.now }
+      from: { type: Date, default: Date.now },
+      to: { type: Date, default: Date.now }
     },
-    quantity: { type: Number, required: true, default: 0 },
-    doses: { type: String, required: true },
+    quantity: { type: Number, default: 0 },
+    doses: { type: String },
     note: { type: String }
   },
 
-  HoneyStores: { type: String, required: true },
-  PollenStores: { type: String, required: true },
+  HoneyStores: { type: String },
+  PollenStores: { type: String },
 
   ActivityAdd: { type: String }, //إضافة 
   ActivityRemove: { type: String }, //حدف		
 
   Weather: {
-    condition: { type: String},
+    condition: { type: String },
     temperature: { type: Number, default: 0 },
     humidity: { type: Number, default: 0 },
     pressure: { type: Number, default: 0 },

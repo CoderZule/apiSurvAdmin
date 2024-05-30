@@ -14,24 +14,19 @@ const fetchInspections = async (req, res) => {
 const createInspection = async (req, res) => {
     try {
         // Destructure required fields from req.body
-        const { Inspector, InspectionDateTime, Brood, DronesSeen, Supplies,
-            BeeHealth,
-            HoneyStores,
-            PollenStores,
-            ActivityAdd,
-            ActivityRemove,
-            Weather,
-            Note,
-            Hive } = req.body;
+        const { Inspector, InspectionDateTime, ApiaryAndHive, Queen, Colony,  Brood, DronesSeen,Supplies,  BeeHealth, HoneyStores, PollenStores,   ActivityAdd, ActivityRemove,  Hive } = req.body;
 
         // Validate required fields
-        if (!Inspector || !InspectionDateTime || !Brood || !DronesSeen  || !HoneyStores || !PollenStores || !Weather || !Hive) {
+        if (!Inspector || !InspectionDateTime || !ApiaryAndHive || !Queen || !Colony  ||  !Brood || !DronesSeen || !Supplies || !Hive) {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
 
         const newInspection = new Inspection({
             Inspector,
-            InspectionDateTime,
+            InspectionDateTime, 
+            ApiaryAndHive,
+            Colony,
+            Queen,
             Brood,
             DronesSeen,
             Supplies,
@@ -40,8 +35,6 @@ const createInspection = async (req, res) => {
             PollenStores,
             ActivityAdd,
             ActivityRemove,
-            Weather,
-            Note,
             Hive
         });
 
