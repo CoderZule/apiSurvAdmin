@@ -68,6 +68,14 @@ const inspectionSchema = new mongoose.Schema({
   HoneyStores: { type: String },
   PollenStores: { type: String },
 
+  Adding: {
+    ActivityAdd: { type: String },
+    QuantityAdded: { type: Number, default: 0 }
+  },
+ Removing: {
+  ActivityRemove: { type: String },
+  QuantityRemoved:{ type: Number, default: 0 }
+ },
   ActivityAdd: { type: String }, //إضافة 
   ActivityRemove: { type: String }, //حدف		
 
