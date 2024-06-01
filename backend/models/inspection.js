@@ -3,51 +3,51 @@ const mongoose = require('mongoose');
 const inspectionSchema = new mongoose.Schema({
 
   Inspector: {
-    firstName: { type: String },
-    lastName: { type: String },
-    cin: { type: String  },
+    firstName: { type: String ,required: true  },
+    lastName: { type: String , required: true },
+    cin: { type: String ,required: true  },
   }, //المتفقد		
 
-  InspectionDateTime: { type: Date, default: Date.now },
+  InspectionDateTime: { type: Date, default: Date.now ,required: true   },
   //التاريخ		
 
   ApiaryAndHive: {
-    apiaryName:{ type: String },
-    hiveType: { type: String },
+    apiaryName:{ type: String ,required: true   },
+    hiveType: { type: String ,required: true   },
   },
   Queen: {
-    seen: { type: Boolean },
+    seen: { type: Boolean, required: true },
     isMarked: { type: Boolean },
     color: { type: String },
     clipped: { type: Boolean },
-    temperament: { type: String },
+    temperament: { type: String},
     note: { type: String },
     queenCells: { type: String },
     isSwarmed: { type: Boolean }
   },
   Colony: {
-    strength: { type: String },
-    temperament: { type: String },
-    deadBees: { type: Boolean},
-    supers: { type: Number },
-    pollenFrames: { type: Number},
-    TotalFrames: { type: Number },
+    strength: { type: String , required: true },
+    temperament: { type: String, required: true  },
+    deadBees: { type: Boolean, required: true },
+    supers: { type: Number , required: true },
+    pollenFrames: { type: Number, required: true },
+    TotalFrames: { type: Number, required: true  },
     note: { type: String},
 
   },
   Brood: {
-    state: { type: String }, //حضنة		
-    maleBrood: { type: String },//حضنة الذكور	
-    totalBrood: { type: Number, default: 0 },//جملي الحضنة
+    state: { type: String , required: true }, //حضنة		
+    maleBrood: { type: String, required: true  },//حضنة الذكور	
+    totalBrood: { type: Number, default: 0 , required: true },//جملي الحضنة
   },
 
-  DronesSeen: { type: Boolean }, //ذكور	
+  DronesSeen: { type: Boolean, required: true  }, //ذكور	
 
   Supplies: { //التغذية 
     product: { type: String },
     ingredients: {
       name: { type: String },
-      quantity: { type: Number, default: 0 },
+      quantity: { type: Number},
       unit: { type: String }
     },
     note: { type: String }
@@ -57,35 +57,33 @@ const inspectionSchema = new mongoose.Schema({
     disease: { type: String },
     treatment: { type: String },
     duration: {
-      from: { type: Date, default: Date.now },
-      to: { type: Date, default: Date.now }
+      from: { type: Date },
+      to: { type: Date}
     },
-    quantity: { type: Number, default: 0 },
+    quantity: { type: Number},
     doses: { type: String },
     note: { type: String }
   },
 
-  HoneyStores: { type: String },
-  PollenStores: { type: String },
+  HoneyStores: { type: String , required: true },
+  PollenStores: { type: String , required: true },
 
   Adding: {
     ActivityAdd: { type: String },
-    QuantityAdded: { type: Number, default: 0 }
+    QuantityAdded: { type: Number}
   },
  Removing: {
   ActivityRemove: { type: String },
-  QuantityRemoved:{ type: Number, default: 0 }
+  QuantityRemoved:{ type: Number}
  },
-  ActivityAdd: { type: String }, //إضافة 
-  ActivityRemove: { type: String }, //حدف		
-
+ 
   Weather: {
-    condition: { type: String },
-    temperature: { type: Number, default: 0 },
-    humidity: { type: Number, default: 0 },
-    pressure: { type: Number, default: 0 },
-    windSpeed: { type: Number, default: 0 },
-    windDirection: { type: Number, default: 0 }
+    condition: { type: String, required: true  },
+    temperature: { type: Number, default: 0 , required: true },
+    humidity: { type: Number, default: 0 , required: true },
+    pressure: { type: Number, default: 0 , required: true },
+    windSpeed: { type: Number, default: 0 , required: true },
+    windDirection: { type: Number, default: 0, required: true  }
   },
 
   Note: { type: String },
