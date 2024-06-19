@@ -10,11 +10,7 @@ const inspectionSchema = new mongoose.Schema({
 
   InspectionDateTime: { type: Date, default: Date.now ,required: true   },
   //التاريخ		
-
-  ApiaryAndHive: {
-    apiaryName:{ type: String ,required: true   },
-    hiveType: { type: String ,required: true   },
-  },
+ 
   Queen: {
     seen: { type: Boolean, required: true },
     isMarked: { type: Boolean },

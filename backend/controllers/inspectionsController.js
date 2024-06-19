@@ -14,7 +14,7 @@ const fetchInspections = async (req, res) => {
 const createInspection = async (req, res) => {
     try {
         const {
-            Inspector, InspectionDateTime, ApiaryAndHive, Queen, Colony, Brood,
+            Inspector, InspectionDateTime, Queen, Colony, Brood,
             DronesSeen,
             Supplies,
             BeeHealth,
@@ -31,7 +31,6 @@ const createInspection = async (req, res) => {
         const data = {
             Inspector,
             InspectionDateTime,
-            ApiaryAndHive,
             Queen,
             Colony,
             Brood,
@@ -78,22 +77,20 @@ const removeEmptyFields = (obj) => {
 
 
 
-async function getInspectionById(req, res) {
+async function getInspectionByHiveId(req, res) {
     try {
-        const { id } = req.params;
-        const inspection = await Inspection.findById(id);
-
-        if (!inspection) {
-            return res.status(404).json({ message: 'Inspection not found' });
+        const { id } = req.params;  
+        const inspections = await Inspection.find({ Hive: id });
+        if (!inspections || inspections.length === 0) {
+            return res.status(404).json({ message: 'Inspections not found' });
         }
 
-        res.json(inspection);
+        res.json(inspections);
     } catch (error) {
-        console.error('Error getting inspection:', error);
+        console.error('Error getting inspections:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
-
 async function editInspection(req, res) {
     try {
         const editedInspectionData = req.body;
@@ -131,7 +128,7 @@ async function deleteInspection(req, res) {
 module.exports = {
     fetchInspections: fetchInspections,
     createInspection: createInspection,
-    getInspectionById: getInspectionById,
+    getInspectionByHiveId: getInspectionByHiveId,
     editInspection: editInspection,
     deleteInspection: deleteInspection
 }

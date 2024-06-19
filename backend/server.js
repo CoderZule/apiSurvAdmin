@@ -106,12 +106,12 @@ app.post('/api/user/login', usersController.loginUser);
   // Route to add a new inspections
     app.post('/api/inspection/create', inspectionsController.createInspection);
 
-  // Route to get inspection by ID
-    app.get('/api/inspection/getInspectionById/:id', inspectionsController.getInspectionById);
+  // Route to get inspection by Hive ID
+    app.get('/api/inspection/getInspectionByHiveId/:id', inspectionsController.getInspectionByHiveId);
 
   // Route to edit inspection
     app.post('/api/inspection/editInspection', inspectionsController.editInspection);
-
+    
   // Route to delete inspection
     app.post('/api/inspection/deleteInspection', inspectionsController.deleteInspection);
 
