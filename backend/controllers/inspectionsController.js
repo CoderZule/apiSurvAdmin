@@ -1,4 +1,5 @@
 const Inspection = require('../models/inspection');
+const HiveModel = require('../models/hive');
 
 
 const fetchInspections = async (req, res) => {
@@ -53,6 +54,27 @@ const createInspection = async (req, res) => {
 
         await newInspection.save();
 
+         const updatedHiveData = {
+            'Queen.seen': Queen.seen,
+            'Queen.isMarked': Queen.isMarked,
+            'Queen.color': Queen.color,
+            'Queen.clipped': Queen.clipped,
+            'Queen.temperament': Queen.temperament,
+            'Queen.note': Queen.note,
+            'Queen.queenCells': Queen.queenCells,
+            'Queen.isSwarmed': Queen.isSwarmed,
+            'Colony.strength': Colony.strength,
+            'Colony.temperament': Colony.temperament,
+            'Colony.deadBees': Colony.deadBees,
+            'Colony.supers': Colony.supers,
+            'Colony.pollenFrames': Colony.pollenFrames,
+            'Colony.TotalFrames': Colony.TotalFrames,
+            'Colony.note': Colony.note
+        };
+
+        await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+
+
         res.status(201).json({ success: true, message: 'Inspection ajoutée avec succès', data: newInspection });
     } catch (error) {
         console.error('Erreur lors de l\'ajout de l\'inspection :', error);
@@ -79,7 +101,7 @@ const removeEmptyFields = (obj) => {
 
 async function getInspectionByHiveId(req, res) {
     try {
-        const { id } = req.params;  
+        const { id } = req.params;
         const inspections = await Inspection.find({ Hive: id });
         if (!inspections || inspections.length === 0) {
             return res.status(404).json({ message: 'Inspections not found' });
