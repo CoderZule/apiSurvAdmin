@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
     Email: { type: String, require },
     Password: { type: String, require },
     Role: { type: String, require},
-    FirstTimeLogin: { type: Boolean, default: false }
+    FirstTimeLogin: { type: Boolean, default: true }
 
 }, {
     timestamps: true,

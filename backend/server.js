@@ -62,6 +62,10 @@ app.post('/api/user/login', usersController.loginUser);
   // Route to delete user
    app.post('/api/user/deleteUser', usersController.deleteUser);
 
+  // Route to change password on first login
+   app.post('/api/user/changePassword', usersController.changePassword);
+
+
 //********** Apiary routing **********
 
   // Route to get all apiaries

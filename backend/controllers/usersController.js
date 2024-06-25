@@ -68,9 +68,12 @@ async function loginUser(req, res) {
       Firstname: user.Firstname,
       Lastname: user.Lastname,
       Cin: user.Cin,
+      Phone:user.Phone,
       Email: user.Email,
       Role: user.Role,
+      FirstTimeLogin: user.FirstTimeLogin,
       _id: user._id
+
     };
 
 
@@ -186,6 +189,34 @@ async function deleteUser(req, res) {
 }
 
 
+async function changePassword(req, res) {
+  const { userId, newPassword } = req.body;
+
+  try {
+    // Fetch the current user from the database
+    const user = await User.findById(userId);
+
+    // Check if the new password is the same as the current password
+    if (user) {
+      const isCurrentPassword = await bcrypt.compare(newPassword, user.Password);
+      if (isCurrentPassword) {
+        return res.status(400).json({ success: false, message: "Le nouveau mot de passe ne peut pas être le même que l'ancien." });
+      }
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update user's password and set FirstTimeLogin to false
+    await User.findByIdAndUpdate(userId, { Password: hashedPassword, FirstTimeLogin: false });
+
+    res.json({ success: true, message: 'Password changed successfully' });
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).json({ success: false, message: 'Error changing password' });
+  }
+}
+
 
 module.exports = {
   AdminUser: AdminUser,
@@ -194,5 +225,6 @@ module.exports = {
   createUser: createUser,
   getUserById: getUserById,
   editUser: editUser,
-  deleteUser: deleteUser
+  deleteUser: deleteUser,
+  changePassword: changePassword
 }

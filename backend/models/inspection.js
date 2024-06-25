@@ -6,6 +6,7 @@ const inspectionSchema = new mongoose.Schema({
     firstName: { type: String ,required: true  },
     lastName: { type: String , required: true },
     cin: { type: String ,required: true  },
+    phone : { type: String,required: true  },
   }, //المتفقد		
 
   InspectionDateTime: { type: Date, default: Date.now ,required: true   },
