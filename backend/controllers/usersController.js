@@ -70,7 +70,7 @@ async function loginUser(req, res) {
       Cin: user.Cin,
       Phone:user.Phone,
       Email: user.Email,
-      Role: user.Role,
+       Role: user.Role,
       FirstTimeLogin: user.FirstTimeLogin,
       _id: user._id
 
@@ -189,7 +189,7 @@ async function deleteUser(req, res) {
 }
 
 
-async function changePassword(req, res) {
+async function changePasswordFirstLogin(req, res) {
   const { userId, newPassword } = req.body;
 
   try {
@@ -202,7 +202,8 @@ async function changePassword(req, res) {
       if (isCurrentPassword) {
         return res.status(400).json({ success: false, message: "Le nouveau mot de passe ne peut pas être le même que l'ancien." });
       }
-    }
+
+     }
 
     // Hash the new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -217,6 +218,35 @@ async function changePassword(req, res) {
   }
 }
 
+async function changeProfilPassword(req, res) {
+  const { userId, newPassword, currentPassword } = req.body;
+
+  try {
+    // Fetch the current user from the database
+    const user = await User.findById(userId);
+
+    if (user) {
+      // Check if the current password is correct
+      const isPasswordCorrect = await bcrypt.compare(currentPassword, user.Password);
+      if (!isPasswordCorrect) {
+        return res.status(400).json({ success: false, message: "Le mot de passe actuel est incorrect." });
+      }
+
+      // Hash the new password
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+      // Update user's password and set FirstTimeLogin to false
+      await User.findByIdAndUpdate(userId, { Password: hashedPassword });
+
+      res.json({ success: true, message: 'Password changed successfully' });
+    } else {
+      res.status(404).json({ success: false, message: 'User not found' });
+    }
+  } catch (error) {
+    console.error('Error changing password:', error);
+    res.status(500).json({ success: false, message: 'Error changing password' });
+  }
+}
 
 module.exports = {
   AdminUser: AdminUser,
@@ -226,5 +256,6 @@ module.exports = {
   getUserById: getUserById,
   editUser: editUser,
   deleteUser: deleteUser,
-  changePassword: changePassword
+  changePasswordFirstLogin: changePasswordFirstLogin,
+  changeProfilPassword: changeProfilPassword
 }

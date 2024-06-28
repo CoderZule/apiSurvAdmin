@@ -63,7 +63,10 @@ app.post('/api/user/login', usersController.loginUser);
    app.post('/api/user/deleteUser', usersController.deleteUser);
 
   // Route to change password on first login
-   app.post('/api/user/changePassword', usersController.changePassword);
+   app.post('/api/user/changePasswordFirstLogin', usersController.changePasswordFirstLogin);
+
+  // Route to change profil password
+   app.post('/api/user/changeProfilPassword', usersController.changeProfilPassword);
 
 
 //********** Apiary routing **********
