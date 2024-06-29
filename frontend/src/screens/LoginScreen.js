@@ -24,19 +24,19 @@ const LoginScreen = () => {
     }
 
     return (
-        <div className='login-screen-box '>
-            <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="avatar" alt="User Avatar" />
-            <h1>Connectez-vous</h1>
-            {loading && <Loading />}
-            {error && <Error error="Informations invalides" />}
-            <div>
-                <input required type="email" placeholder="Email" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} />
-                <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
-                <button onClick={login} type="submit">Se connecter </button>
+             <div className='login-screen-box '>
+                <img src="https://icons.veryicon.com/png/o/miscellaneous/two-color-icon-library/user-286.png" className="avatar" alt="User Avatar" />
+                <h1>Connectez-vous</h1>
+                {loading && <Loading />}
+                {error && <Error error="Informations invalides" />}
+                <div>
+                    <input required type="email" placeholder="Email" className="form-control" value={Email} onChange={(e) => setEmail(e.target.value)} />
+                    <input required type="password" placeholder="Mot de passe" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} />
+                    <button onClick={login} type="submit">Se connecter </button>
 
+                </div>
             </div>
-        </div>
-    );
+     );
 };
 
 export default LoginScreen;

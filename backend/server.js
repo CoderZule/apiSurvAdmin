@@ -12,6 +12,7 @@ const usersController = require('./controllers/usersController');
 const apiariesController = require('./controllers/apiariesController');
 const hivesController = require('./controllers/hivesController');
 const inspectionsController = require('./controllers/inspectionsController');
+const tasksController = require('./controllers/tasksController');
 
 // Create an express app
 const app = express();
@@ -110,7 +111,7 @@ app.post('/api/user/login', usersController.loginUser);
   // Route to get all inspections
      app.get('/api/inspection/getAllInspections', inspectionsController.fetchInspections);
 
-  // Route to add a new inspections
+  // Route to add a new inspection
     app.post('/api/inspection/create', inspectionsController.createInspection);
 
   // Route to get inspection by Hive ID
@@ -122,6 +123,22 @@ app.post('/api/user/login', usersController.loginUser);
   // Route to delete inspection
     app.post('/api/inspection/deleteInspection', inspectionsController.deleteInspection);
 
+//********** Task routing **********
+
+ // Route to get all tasks
+ app.get('/api/task/getAllTasks', tasksController.fetchTasks);
+
+ // Route to add a new task
+   app.post('/api/task/create', tasksController.createTask);
+
+ // Route to get task by ID
+   app.get('/api/task/getTaskById/:id', tasksController.getTaskById);
+
+ // Route to edit task
+   app.post('/api/task/editTask', tasksController.editTask);
+   
+ // Route to delete task
+   app.post('/api/task/deleteTask', tasksController.deleteTask);
 
 
 

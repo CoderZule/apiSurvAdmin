@@ -2,9 +2,10 @@ body {
     margin: 0;
     padding: 0;
     background: url(https://cdn.hswstatic.com/gif/beekeep-1.jpg);
-    background-size: cover; /* Ensure the background image covers the entire viewport */
+     background-size: cover; /* Ensure the background image covers the entire viewport */
      background-repeat: no-repeat;
     font-family: sans-serif;
+    
 }
 
 
@@ -22,7 +23,7 @@ body {
     box-sizing: border-box;
     padding: 70px 30px;
 }
-
+ 
 
 .avatar {
     width: 100px;
