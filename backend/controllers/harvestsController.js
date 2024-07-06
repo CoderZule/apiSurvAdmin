@@ -1,1 +1,95 @@
 const Harvest = require('../models/harvest');
+
+async function fetchHarvests(req, res) {
+    try {
+        const harvests = await Harvest.find();
+        res.json({ success: true, data: harvests });
+    } catch (error) {
+        console.error('Error fetching harvests:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+async function createHarvest(req, res) {
+    try {
+        const harvestData = req.body;
+
+        const newHarvest = new Harvest({
+            Product: harvestData.Product,
+            Quantity: harvestData.Quantity,
+            Unit: harvestData.Unit,
+            Season: harvestData.Season,
+            HarvestMethods: harvestData.HarvestMethods,
+            QualityTestResults: harvestData.QualityTestResults,
+            Date: harvestData.Date
+        });
+
+        await newHarvest.save();
+        console.log('Harvest entry created successfully.');
+        return res.status(201).json({ message: 'Harvest entry created successfully', harvest: newHarvest });
+    } catch (error) {
+        console.error('Error creating harvest entry:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+async function getHarvestById(req, res) {
+    try {
+        const { id } = req.params;
+        const harvest = await Harvest.findById(id);
+
+        if (!harvest) {
+            return res.status(404).json({ message: 'Harvest entry not found' });
+        }
+
+        res.json(harvest);
+    } catch (error) {
+        console.error('Error getting harvest entry:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+async function editHarvest(req, res) {
+    try {
+        const editedHarvestData = req.body;
+        const { _id } = editedHarvestData;
+
+        const harvest = await Harvest.findByIdAndUpdate(_id, editedHarvestData, { new: true });
+
+        if (!harvest) {
+            return res.status(404).json({ message: 'Harvest entry not found' });
+        }
+
+        res.send('Harvest entry updated successfully');
+    } catch (error) {
+        console.error('Error updating harvest entry:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+async function deleteHarvest(req, res) {
+    try {
+        const { id } = req.params;
+        const deletedHarvest = await Harvest.findByIdAndDelete(id);
+
+        if (!deletedHarvest) {
+            return res.status(404).json({ message: 'Harvest entry not found' });
+        }
+
+        res.send('Harvest entry deleted successfully');
+    } catch (error) {
+        console.error('Error deleting harvest entry:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
+
+module.exports = {
+    fetchHarvests: fetchHarvests,
+    createHarvest: createHarvest,
+    getHarvestById: getHarvestById,
+    editHarvest: editHarvest,
+    deleteHarvest: deleteHarvest
+
+};

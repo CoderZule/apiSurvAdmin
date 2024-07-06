@@ -13,6 +13,7 @@ const apiariesController = require('./controllers/apiariesController');
 const hivesController = require('./controllers/hivesController');
 const inspectionsController = require('./controllers/inspectionsController');
 const tasksController = require('./controllers/tasksController');
+const harvestsController = require('./controllers/harvestsController');
 
 // Create an express app
 const app = express();
@@ -140,6 +141,24 @@ app.post('/api/user/login', usersController.loginUser);
  // Route to delete task
    app.post('/api/task/deleteTask', tasksController.deleteTask);
 
+   
+   
+//********** Harvest routing **********
+
+ // Route to get all harvests
+ app.get('/api/harvest/getAllHarvests', harvestsController.fetchHarvests);
+
+ // Route to add a new harvest
+   app.post('/api/harvest/create', harvestsController.createHarvest);
+
+ // Route to get harvest by ID
+   app.get('/api/harvest/getHarvestById/:id', harvestsController.getHarvestById);
+
+ // Route to edit harvest
+   app.post('/api/harvest/editHarvest', harvestsController.editHarvest);
+   
+ // Route to delete harvest
+   app.post('/api/harvest/deleteHarvest', harvestsController.deleteHarvest);
 
 
 
