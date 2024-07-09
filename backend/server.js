@@ -158,7 +158,7 @@ app.post('/api/user/login', usersController.loginUser);
    app.post('/api/harvest/editHarvest', harvestsController.editHarvest);
    
  // Route to delete harvest
-   app.post('/api/harvest/deleteHarvest', harvestsController.deleteHarvest);
+ app.delete('/api/harvest/deleteHarvest/:harvestId', harvestsController.deleteHarvest);
 
 
 

@@ -64,7 +64,7 @@ export default function CreateHive() {
         "Agressive",
         "Nerveuse",
         "Calme",
- 
+
     ];
 
     //Queen Details
@@ -91,6 +91,7 @@ export default function CreateHive() {
         dispatch(getAllApiaries());
     }, []);
 
+    const [Name, setName] = useState('');
     const [Color, setColor] = useState('');
     const [Type, setType] = useState('');
     const [Source, setSource] = useState('');
@@ -133,6 +134,7 @@ export default function CreateHive() {
         e.preventDefault();
 
         let hive = {
+            Name,
             Color,
             Type,
             Source,
@@ -150,6 +152,7 @@ export default function CreateHive() {
         }
 
         dispatch(createHive(hive)).then(() => {
+            setName('');
             setColor('');
             setType('');
             setSource('');
@@ -198,6 +201,12 @@ export default function CreateHive() {
                             <fieldset>
                                 <legend className='text-center'>Générale</legend>
                                 <div className='row'>
+
+                                    <div className="col-md-6 mb-3">
+                                        <label className="form-label">Nom</label>
+                                        <input required type="text" placeholder="Nom" className="form-control" value={Name} onChange={(e) => setName(e.target.value)} />
+                                    </div>
+
                                     <div className="col-md-6 mb-3">
                                         <label className="form-label">Couleur</label>
                                         <select required className="form-select" value={Color} onChange={(e) => setColor(e.target.value)}>

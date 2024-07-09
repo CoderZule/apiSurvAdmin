@@ -64,7 +64,7 @@ export default function EditHive(props) {
     "Agressive",
     "Nerveuse",
     "Calme",
- 
+
   ];
   //Queen Details
   const status = ['Acceptée', 'Cellule royale', 'Vierge', 'Insérée'];
@@ -89,6 +89,7 @@ export default function EditHive(props) {
   }, []);
 
 
+  const [Name, setName] = useState('');
   const [Color, setColor] = useState('');
   const [Type, setType] = useState('');
   const [Source, setSource] = useState('');
@@ -141,6 +142,7 @@ export default function EditHive(props) {
 
   useEffect(() => {
     if (hive) {
+      setName(hive.Name);
       setColor(hive.Color);
       setType(hive.Type);
       setSource(hive.Source);
@@ -177,6 +179,7 @@ export default function EditHive(props) {
 
     const editedHive = {
       _id: hiveId,
+      Name,
       Color,
       Type,
       Source,
@@ -205,6 +208,12 @@ export default function EditHive(props) {
               <fieldset>
                 <legend className='text-center'>Générales</legend>
                 <div className='row'>
+                  <div className="col-md-6 mb-3">
+                    
+                    <label className="form-label">Nom</label>
+                    <input required type="text" placeholder="Nom" className="form-control" value={Name} onChange={(e) => setName(e.target.value)} />
+                  </div>
+
                   <div className="col-md-6 mb-3">
                     <label className="form-label">Couleur</label>
                     <select required className="form-select" value={Color} onChange={(e) => setColor(e.target.value)}>

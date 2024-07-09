@@ -21,7 +21,9 @@ async function createHarvest(req, res) {
             Season: harvestData.Season,
             HarvestMethods: harvestData.HarvestMethods,
             QualityTestResults: harvestData.QualityTestResults,
-            Date: harvestData.Date
+            Date: harvestData.Date,
+            Apiary: harvestData.Apiary,
+            Hive: harvestData.Hive
         });
 
         await newHarvest.save();
@@ -69,9 +71,9 @@ async function editHarvest(req, res) {
 
 async function deleteHarvest(req, res) {
     try {
-        const { id } = req.params;
-        const deletedHarvest = await Harvest.findByIdAndDelete(id);
-
+        const { harvestId } = req.params;
+        const deletedHarvest = await Harvest.findByIdAndDelete(harvestId);
+        
         if (!deletedHarvest) {
             return res.status(404).json({ message: 'Harvest entry not found' });
         }

@@ -42,7 +42,7 @@ export default function Apiaries() {
             <MaterialTable
                 columns={[
                     {
-                        title: 'Apiary',
+                        title: 'Rucher',
                         render: rowData => (
                             <div className="d-flex px-2 py-1">
                                 <div className="d-flex flex-column justify-content-center">

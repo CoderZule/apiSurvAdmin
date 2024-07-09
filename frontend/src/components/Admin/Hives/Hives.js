@@ -45,6 +45,19 @@ export default function Hives() {
         <div style={{ overflowX: 'auto', width: '100vw' }}>
             <MaterialTable
                 columns={[
+
+                    {
+                        title: 'Ruche',
+                        render: rowData => (
+                            <div className="d-flex px-2 py-1">
+                                <div className="d-flex flex-column justify-content-center">
+                                    <h6 className="mb-0 text-sm">{rowData.Name}</h6>
+                                </div>
+                            </div>
+                        ),
+                        customFilterAndSearch: (term, rowData) => ((rowData.Name).toLowerCase()).indexOf(term.toLowerCase()) !== -1
+                    },
+
                     {
                         title: 'Couleur',
                         render: rowData => (
