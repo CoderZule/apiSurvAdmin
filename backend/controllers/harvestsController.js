@@ -86,12 +86,51 @@ async function deleteHarvest(req, res) {
 }
 
 
+async function getTotals(req,res) {
+    try {
+      const totals = await Harvest.calculateTotalUnits();
+      res.json({ success: true, data: totals });
+ 
+    } catch (error) {
+        console.error('Error fetching harvest total:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+
+  async function updateQuantity(req, res) {
+    try {
+        const { product, unit, quantity } = req.body;
+
+        const harvest = await Harvest.findOne({ Product: product, Unit: unit });
+
+        if (!harvest) {
+            return res.status(404).json({ message: 'Harvest entry not found' });
+        }
+
+        const currentQuantity = harvest.Quantity;
+
+        if (parseFloat(quantity) > currentQuantity) {
+            return res.status(400).json({ message: 'La nouvelle quantité doit être inférieure à la quantité actuelle.' });
+        }
+
+        harvest.Quantity = parseFloat(quantity);
+        await harvest.save();
+
+        res.status(200).json({ message: 'Harvest quantity updated successfully', harvest });
+    } catch (error) {
+        console.error('Error updating harvest quantity:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
 
 module.exports = {
     fetchHarvests: fetchHarvests,
     createHarvest: createHarvest,
     getHarvestById: getHarvestById,
     editHarvest: editHarvest,
-    deleteHarvest: deleteHarvest
+    deleteHarvest: deleteHarvest,
+    getTotals: getTotals,
+    updateQuantity: updateQuantity
 
 };

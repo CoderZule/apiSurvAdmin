@@ -160,6 +160,13 @@ app.post('/api/user/login', usersController.loginUser);
  // Route to delete harvest
  app.delete('/api/harvest/deleteHarvest/:harvestId', harvestsController.deleteHarvest);
 
+// Get total quantity of product by unit
+ app.get('/api/harvest/getTotals', harvestsController.getTotals);
+
+ // reduce product quantity
+ app.post('/api/harvest/updateQuantity', harvestsController.updateQuantity);
+
+
 
 
 io.on('connection', (socket) => {

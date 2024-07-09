@@ -9,6 +9,7 @@ import io from 'socket.io-client';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import {colors, types, source, purpose, strength, temperament, status, queen_state, race, queenColors, queen_origin} from '../Data';
 
 
 export default function CreateHive() {
@@ -22,66 +23,13 @@ export default function CreateHive() {
         };
     }, []);
 
-    //Ruche infos
-    const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
-    const types = [
-        '12x10',
-        '14x12',
-        'AZ',
-        'BeeHaus',
-        'Bienenkiste',
-        'CDB',
-        'Commercial',
-        'Dadant',
-        'Dartington',
-        'Farrar',
-        'Flow',
-        'Italica-Carlini',
-        'Langstroth',
-        'Langstroth Poly',
-        'Layens',
-        'Local c',
-        'Local S',
-        'Ruche Long Box',
-        'National',
-        'Norsk Mal',
-        'Nucleus',
-        'Autre',
-        'Rose OSB',
-        'Segeberger',
-        'Simplex',
-        'Smith',
-        'Spaarkast',
-        'Ruche à barres supérieures',
-        'WBC',
-        'Warre',
-        'Zander'
-    ];
-    const source = ['Colonie Achetée', 'Noyau Acheté', 'Paquet Acheté', 'Noyau Capturé', 'Découpé', 'Piège Sorti', 'Divisé', 'Supplanté'];
-    const purpose = ['Production de Miel', 'Production d\'Abeilles', 'Élevage de Reines', 'R&D', 'Autre'];
-    const strength = ['Très Faible', 'Faible', 'Modérée', 'Forte', 'Très forte'];
-    const temperament = [
-        "Agressive",
-        "Nerveuse",
-        "Calme",
-
-    ];
+    
 
     //Queen Details
     const [hasQueen, setHasQueen] = useState(false);
     const [isMarked, setIsMarked] = useState(false);
-    const status = ['Acceptée', 'Cellule royale', 'Vierge', 'Insérée'];
-    const queen_state = ['Cellule découverte', 'Cellule operculée', 'Émergée', 'Accouplée', 'Mature', 'Vieille', 'Inconnue'];
-    const race = [
-        'Abeille intermissa d\'Afrique du Nord',
-        'Abeille saharienne',
-        'Abeille de l\'Atlas',
-        'Abeille carnica',
-        'Abeille italienne'
-    ];
-    const queenColors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Blanc'];
-    const queen_origin = ['Achetée', 'Fabriquée', 'Essaim capturé', 'Autre'];
-
+ 
+  
     const dispatch = useDispatch();
     const apiariesState = useSelector(state => state.getAllApiariesReducer);
     const { apiaries } = apiariesState;

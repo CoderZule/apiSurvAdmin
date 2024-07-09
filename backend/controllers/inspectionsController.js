@@ -116,7 +116,7 @@ async function getInspectionByHiveId(req, res) {
 async function editInspection(req, res) {
     try {
         const editedInspectionData = req.body;
-        const { _id } = editedInspectionData;
+        const { _id, Queen, Colony, Hive } = editedInspectionData;
 
         const inspection = await Inspection.findByIdAndUpdate(_id, editedInspectionData, { new: true });
 
@@ -124,12 +124,33 @@ async function editInspection(req, res) {
             return res.status(404).json({ message: 'Inspection not found' });
         }
 
-        res.send("Inspection updated successfully");
+        const updatedHiveData = {
+            'Queen.seen': Queen.seen,
+            'Queen.isMarked': Queen.isMarked,
+            'Queen.color': Queen.color,
+            'Queen.clipped': Queen.clipped,
+            'Queen.temperament': Queen.temperament,
+            'Queen.note': Queen.note,
+            'Queen.queenCells': Queen.queenCells,
+            'Queen.isSwarmed': Queen.isSwarmed,
+            'Colony.strength': Colony.strength,
+            'Colony.temperament': Colony.temperament,
+            'Colony.deadBees': Colony.deadBees,
+            'Colony.supers': Colony.supers,
+            'Colony.pollenFrames': Colony.pollenFrames,
+            'Colony.TotalFrames': Colony.TotalFrames,
+            'Colony.note': Colony.note
+        };
+
+        await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+
+        res.json({ success: true, message: 'Inspection mise à jour avec succès', data: inspection });
     } catch (error) {
-        console.error('Error updating inspection:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+        console.error('Erreur lors de la mise à jour de l\'inspection :', error);
+        return res.status(500).json({ message: 'Erreur interne du serveur' });
     }
 }
+
 
 async function deleteInspection(req, res) {
     try {

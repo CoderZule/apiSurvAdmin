@@ -10,6 +10,7 @@ import GoogleMap from './GoogleMap';
 import Modal from 'react-modal';
 import { GovDeleg } from './GovDeleg';
 
+import {forages, Apiarytypes, sunExposureOptions} from '../Data'
 
 export default function CreateApiary() {
 
@@ -24,11 +25,6 @@ export default function CreateApiary() {
 
 
 
-    const forages = ["Thym", "Lavande", "Romarin", "Eucalyptus", "Arbres d'agrumes", "Luzerne", "Trèfle", "Fleurs sauvages", "Caroubier", "Acacia"];
-
-    const types = ["Base", "Migratoire", "Fixe", "Autre"];
-
-    const sunExposureOptions = ["Ensoleillé", "Semi-ombragé", "Ombragé", "Autre"];
 
 
     const customStyles = {
@@ -201,7 +197,7 @@ export default function CreateApiary() {
                                 <label className="form-label">Type</label>
                                 <select name="Type" className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un type</option>
-                                    {types.map((type, index) => (
+                                    {Apiarytypes.map((type, index) => (
                                         <option key={index} value={type}>{type}</option>
                                     ))}
                                 </select>
