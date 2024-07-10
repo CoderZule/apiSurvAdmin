@@ -16,11 +16,11 @@ async function AdminUser() {
   try {
     const existingAdminUser = await User.findOne({ Email: adminEmail });
 
-    if (existingAdminUser) {
-      console.log('Admin user already exists.');
-    } else {
+    if (!existingAdminUser) {
+
       const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
 
+      
       const newAdminUser = new User({
         Firstname: 'Mariem',
         Lastname: 'Derbali',

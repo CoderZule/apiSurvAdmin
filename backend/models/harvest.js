@@ -18,34 +18,7 @@ const harvestSchema = new mongoose.Schema({
   timestamps: true,
 })
 
-harvestSchema.statics.calculateTotalUnits = async function() {
-  try {
-    const pipeline = [
-      {
-        $group: {
-          _id: { Product: '$Product', Unit: '$Unit' },
-          totalUnits: { $sum: '$Quantity' }
-        }
-      }
-    ];
-
-    const totals = await this.aggregate(pipeline);
-
-    // Restructure the totals into a more usable format
-    const formattedTotals = {};
-    totals.forEach(item => {
-      const { Product, Unit } = item._id;
-      if (!formattedTotals[Product]) {
-        formattedTotals[Product] = {};
-      }
-      formattedTotals[Product][Unit] = item.totalUnits;
-    });
-
-    return formattedTotals;
-  } catch (error) {
-    throw new Error(`Error calculating total units: ${error.message}`);
-  }
-};
+ 
 
 const Harvest = mongoose.model('Harvest', harvestSchema);
 
