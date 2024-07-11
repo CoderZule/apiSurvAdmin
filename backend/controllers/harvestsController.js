@@ -1,8 +1,7 @@
 const Harvest = require('../models/harvest');
 const Storage = require('../models/storage');
 
-const HarvestProducts = ["Miel", "Pollen", "Cire d'abeille", "Propolis", "Gelée royale", "Pain d'abeille", "Venin d'abeille"];
-
+ 
 
 async function createHarvest(req, res) {
     try {
@@ -17,15 +16,19 @@ async function createHarvest(req, res) {
             QualityTestResults: harvestData.QualityTestResults,
             Date: harvestData.Date,
             Apiary: harvestData.Apiary,
-            Hive: harvestData.Hive
+            Hive: harvestData.Hive,
+            User: harvestData.User
+
         });
 
         await newHarvest.save();
 
-        let storageEntry = await Storage.findOne({ Product: harvestData.Product });
+        // Find the storage entry by product and user ID
+        let storageEntry = await Storage.findOne({ Product: harvestData.Product, User: harvestData.User});
 
         if (!storageEntry) {
-            storageEntry = new Storage({
+             storageEntry = new Storage({
+                User: harvestData.User,
                 Product: harvestData.Product,
                 Quantities: [{
                     Total: Number(harvestData.Quantity), // Explicitly convert to number
@@ -33,6 +36,7 @@ async function createHarvest(req, res) {
                 }]
             });
         } else {
+            // Update the existing storage entry
             const quantityEntry = storageEntry.Quantities.find(q => q.Unit === harvestData.Unit);
             if (quantityEntry) {
                 quantityEntry.Total += Number(harvestData.Quantity); // Explicitly convert to number
@@ -44,6 +48,7 @@ async function createHarvest(req, res) {
             }
         }
 
+        // Save the storage entry
         await storageEntry.save();
 
         return res.status(201).json({ message: 'Harvest entry created successfully', harvest: newHarvest });
@@ -52,23 +57,12 @@ async function createHarvest(req, res) {
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
-
-async function seedStorage() {
-    for (const product of HarvestProducts) {
-        const existingProduct = await Storage.findOne({ Product: product });
-        if (!existingProduct) {
-            const newProduct = new Storage({
-                Product: product,
-                Quantities: []
-            });
-            await newProduct.save();
-        }
-    }
-}
-
+ 
 async function fetchHarvests(req, res) {
     try {
-        const harvests = await Harvest.find();
+        const userId = req.query.userId;  
+
+         const harvests = await Harvest.find({ User: userId });
         res.json({ success: true, data: harvests });
     } catch (error) {
         console.error('Error fetching harvests:', error);
@@ -178,6 +172,6 @@ module.exports = {
     createHarvest: createHarvest,
     getHarvestById: getHarvestById,
     editHarvest: editHarvest,
-    deleteHarvest: deleteHarvest,
-    seedStorage: seedStorage
+    deleteHarvest: deleteHarvest
+
 };

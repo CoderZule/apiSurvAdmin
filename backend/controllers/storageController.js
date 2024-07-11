@@ -2,7 +2,9 @@ const Storage = require('../models/storage');
 
 const fetchStorage = async (req, res) => {
     try {
-        const storageEntries = await Storage.find();
+      const userId = req.query.userId;  
+      const storageEntries = await Storage.find({ User: userId });
+
         return res.json({ success: true, data: storageEntries });
     } catch (error) {
         console.error('Error fetching storage entries:', error);

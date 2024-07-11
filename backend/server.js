@@ -164,8 +164,7 @@ app.delete('/api/harvest/deleteHarvest/:harvestId', harvestsController.deleteHar
 
 //********** Storage routing **********
 
-// Products Seeder
-harvestsController.seedStorage();
+ 
 
 // Route to get all storages
 app.get('/api/storage/getAllStorages', storageController.fetchStorage);

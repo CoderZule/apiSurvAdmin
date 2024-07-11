@@ -2,22 +2,26 @@ const Task = require('../models/task');
 
 
 const fetchTasks = async (req, res) => {
-    try {
-      const tasks = await Task.find();
-      res.json({ success: true, data: tasks });
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  };
+  try {
+    const userId = req.query.userId;  
+
+     const tasks = await Task.find({ user: userId });
+
+    res.json({ success: true, data: tasks });
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
   
   const createTask = async (req, res) => {
     try {
-      const { title,priority, description, start, end } = req.body;
+      const { title,priority, description, start, end , user} = req.body;
   
-      console.log('Received data:', { title, priority, description, start, end });
+      console.log('Received data:', { title, priority, description, start, end , user});
   
-      if (!title || !priority || !description || !start || !end) {
+      if (!title || !priority || !description || !start || !end || !user) {
         return res.status(400).json({ error: 'Please provide all required fields' });
       }
   
@@ -27,6 +31,7 @@ const fetchTasks = async (req, res) => {
         description,
         start: new Date(start), // Ensure these are parsed as dates
         end: new Date(end), // Ensure these are parsed as dates
+        user
       });
   
       await newTask.save();

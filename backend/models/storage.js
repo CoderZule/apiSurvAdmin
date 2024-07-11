@@ -7,7 +7,9 @@ const quantitySchema = new mongoose.Schema({
 
 const storageSchema = new mongoose.Schema({
     Product: { type: String, required: true },
-    Quantities: [quantitySchema]  
+    Quantities: [quantitySchema] ,
+    User: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+
 }, {
     timestamps: true,
 });
