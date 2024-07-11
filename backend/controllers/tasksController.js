@@ -13,16 +13,17 @@ const fetchTasks = async (req, res) => {
   
   const createTask = async (req, res) => {
     try {
-      const { title, description, start, end } = req.body;
+      const { title,priority, description, start, end } = req.body;
   
-      console.log('Received data:', { title, description, start, end });
+      console.log('Received data:', { title, priority, description, start, end });
   
-      if (!title || !description || !start || !end) {
+      if (!title || !priority || !description || !start || !end) {
         return res.status(400).json({ error: 'Please provide all required fields' });
       }
   
       const newTask = new Task({
         title,
+        priority,
         description,
         start: new Date(start), // Ensure these are parsed as dates
         end: new Date(end), // Ensure these are parsed as dates
