@@ -5,30 +5,25 @@ import MaterialTable from 'material-table';
 import tableIcons from '../../MaterialTableIcons';
 import DeleteConfirmationDialogUser from './DeleteConfirmationDialogUser';
 import { getAllUsers, deleteUser } from '../../../actions/userActions';
-import io from 'socket.io-client'; // Import socket.io-client
+import io from 'socket.io-client';
+import zIndex from '@material-ui/core/styles/zIndex';
 
 export default function Users() {
     const dispatch = useDispatch();
     const usersState = useSelector(state => state.getAllUsersReducer);
     const { error, loading, users } = usersState;
     const [deleteUserId, setDeleteUserId] = useState(null);
-    const currentUser = useSelector(state => state.loginUserReducer.currentUser); // Get current user from Redux state
+    const currentUser = useSelector(state => state.loginUserReducer.currentUser);
 
     useEffect(() => {
         dispatch(getAllUsers());
 
-        // Initialize socket connection
-        const socket = io('http://localhost:3001'); 
-
-        // Listen for 'usersChange' event from the server
+        const socket = io('http://localhost:3001');
         socket.on('usersChange', (change) => {
             console.log('Real-time update received:', change);
-
-            // Trigger fetchUsers to update the user list
             dispatch(getAllUsers());
         });
 
-        // Clean up socket connection when component unmounts
         return () => {
             socket.disconnect();
         };
@@ -36,8 +31,9 @@ export default function Users() {
 
     const handleDeleteUser = () => {
         dispatch(deleteUser(deleteUserId));
-        setDeleteUserId(null); // Reset deleteUserId after delete action
+        setDeleteUserId(null);
     };
+
     const filteredUsers = users.data ? users.data.filter(user => user._id !== currentUser._id) : [];
 
     return (
@@ -63,7 +59,6 @@ export default function Users() {
                             </p>
                         )
                     },
-                    
                     {
                         title: 'Tel',
                         render: rowData => <p className="text-xs font-weight-bold mb-0">{rowData.Phone}</p>
@@ -84,7 +79,14 @@ export default function Users() {
                                 <Link to={`/admin/user/edit/${rowData._id}`}>
                                     <i className="fas fa-edit" style={{ color: '#FEE502', marginRight: '8px' }}></i>
                                 </Link>
-                                <i className="fas fa-trash" style={{ color: 'red', cursor: 'pointer' }} onClick={() => setDeleteUserId(rowData._id)}></i>
+                                <i
+                                    className="fas fa-trash"
+                                    style={{ color: 'red', cursor: 'pointer' }}
+                                    onClick={() => {
+                                        console.log('Delete User ID:', rowData._id);
+                                        setDeleteUserId(rowData._id);
+                                    }}
+                                ></i>
                             </div>
                         )
                     }
@@ -96,12 +98,17 @@ export default function Users() {
                     padding: 'dense',
                     pageSize: 4,
                     pageSizeOptions: [2, 3, 4],
+                    headerStyle: {
+                        zIndex: 0, // Adjust the zIndex as needed
+                    }
                 }}
             />
 
             <DeleteConfirmationDialogUser
                 open={deleteUserId !== null}
-                onClose={() => setDeleteUserId(null)}
+                onClose={() => {
+                     setDeleteUserId(null);
+                }}
                 onConfirm={handleDeleteUser}
             />
         </div>

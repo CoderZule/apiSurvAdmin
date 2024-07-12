@@ -134,6 +134,9 @@ export default function Hives() {
                     padding: 'dense',
                     pageSize: 4,
                     pageSizeOptions: [2, 3, 4],
+                    headerStyle: {
+                        zIndex: 0, // Adjust the zIndex as needed
+                    }
                 }}
             />
 
