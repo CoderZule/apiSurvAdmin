@@ -2,10 +2,11 @@ body {
     margin: 0;
     padding: 0;
     background: url(https://cdn.hswstatic.com/gif/beekeep-1.jpg);
-     background-size: cover; /* Ensure the background image covers the entire viewport */
-     background-repeat: no-repeat;
+    background-size: cover;
+    /* Ensure the background image covers the entire viewport */
+    background-repeat: no-repeat;
     font-family: sans-serif;
-    
+
 }
 
 
@@ -13,7 +14,7 @@ body {
 .login-screen-box {
     border-radius: 10px;
     width: 370px;
-    height: 400px;
+    height: 480px;
     background: #fff;
     color: #000;
     position: absolute;
@@ -22,8 +23,9 @@ body {
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     padding: 70px 30px;
+
 }
- 
+
 
 .avatar {
     width: 100px;
@@ -41,22 +43,27 @@ h1 {
     font-size: 22px
 }
 
- 
+.label{
+    font-size: 15px;
+     color: #373737;
+ }
 
 .login-screen-box input {
     width: 100%;
     margin-bottom: 20px
 }
 
-.login-screen-box  input[type="email"],
-input[type="password"] {
+.login-screen-box input[type="email"],
+input[type="password"],input[type="text"] {
  
-    background: transparent;
     outline: none;
     height: 40px;
-    color: #000;
-    font-size: 16px
+    color: #373737;
+    font-size: 15px;
+ 
+    border-radius: 30px;
 }
+
 
 button[type="submit"] {
     border: none;
@@ -76,5 +83,62 @@ button[type="submit"]:hover {
 }
 
 
- 
- 
+.forgetPass {
+    font-size: 14px;
+    font-weight: 500;
+    color: #977700;
+    margin-top: 12px;
+    text-align: center;
+
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #342D21;
+    margin-top: 10px;
+     text-align: center;
+
+}
+
+.loginlogo {
+    width: 160px; 
+    height: 160px; 
+    position: absolute;
+    top: -60px; 
+    left: calc(50% - 75px); 
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 12px 40px 12px 40px; /* Adjusted padding to create space between icon and text */
+    background: #f9f9f9;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 15px;
+    color: #373737;
+    box-sizing: border-box;
+}
+
+.input-container i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    cursor: pointer; /* Ensure cursor pointer for clickable icons */
+}
+
+.input-container i.left-icon {
+    left: 15px; /* Adjusted left position for left icons */
+ }
+
+.input-container i.right-icon {
+    right: 15px; /* Adjusted right position for right icons */
+}
+
