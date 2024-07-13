@@ -29,6 +29,15 @@ const LoginScreen = () => {
         return <Redirect to="/admin/dashboard" />;
     }
 
+    const handleForgotPassword = () => {
+        const confirmed = window.confirm("Voulez-vous vraiment envoyer un email pour réinitialiser votre mot de passe?");
+        if (confirmed) {
+            const subject = encodeURIComponent('Mot de passe oublié'); // Encode subject text
+            const body = encodeURIComponent('Bonjour,\n\nJe vous prie de réinitialiser mon mot de passe.\n\nCordialement,'); // Encode message body
+            window.location.href = `mailto:adminapisurv@gmail.com?subject=${subject}&body=${body}`;
+        }
+    };
+
     return (
         <div className='login-screen-box'>
             <img src="/img/logo.png" className="loginlogo" alt="logo" />
@@ -36,10 +45,10 @@ const LoginScreen = () => {
             {loading && <Loading />}
             {error && <Error error="Informations invalides" />}
             <div>
-            <p className="label">E-mail</p>
+                <p className="label">E-mail</p>
 
                 <div className="input-container">
-                    <i style={{ color: '#977700' }}className="fas fa-envelope left-icon"></i>
+                    <i style={{ color: '#977700' }} className="fas fa-envelope left-icon"></i>
 
                     <input
                         required
@@ -68,7 +77,13 @@ const LoginScreen = () => {
                     ></i>
                 </div>
                 <button onClick={login} type="submit">Se connecter</button>
-                <p className='forgetPass'>Mot de passe oublié?</p>
+                <div className='cont'>
+                    <button className='forgetPass' onClick={handleForgotPassword}>
+                        Mot de passe oublié?
+                    </button>
+                </div>
+
+
             </div>
         </div>
     );
