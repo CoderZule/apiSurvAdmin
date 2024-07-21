@@ -32,7 +32,7 @@ const LoginScreen = () => {
     const handleForgotPassword = () => {
         const confirmed = window.confirm("Voulez-vous vraiment envoyer un email pour réinitialiser votre mot de passe?");
         if (confirmed) {
-            const subject = encodeURIComponent('Mot de passe oublié'); // Encode subject text
+            const subject = encodeURIComponent('Réinitialisation du mot de passe'); // Encode subject text
             const body = encodeURIComponent('Bonjour,\n\nJe vous prie de réinitialiser mon mot de passe.\n\nCordialement,'); // Encode message body
             window.location.href = `mailto:adminapisurv@gmail.com?subject=${subject}&body=${body}`;
         }

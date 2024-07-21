@@ -16,23 +16,14 @@ const createInspection = async (req, res) => {
     try {
         const {
             Inspector, InspectionDateTime, Queen, Colony, Brood,
-            DronesSeen,
-            Supplies,
-            BeeHealth,
-            HoneyStores,
-            PollenStores,
-            Adding,
-            Removing,
-            Weather,
-            Note,
-            Hive
+            DronesSeen, Supplies, BeeHealth, HoneyStores,
+            PollenStores, Adding, Removing, Weather, Note, Hive
         } = req.body;
 
         // Construct the initial data object
         const data = {
             Inspector,
             InspectionDateTime,
-            Queen,
             Colony,
             Brood,
             DronesSeen,
@@ -47,6 +38,11 @@ const createInspection = async (req, res) => {
             Hive
         };
 
+        // Include Queen data only if it is present in the request
+        if (Queen) {
+            data.Queen = Queen;
+        }
+
         // Remove empty fields from the main object and its nested objects
         const filteredData = removeEmptyFields(data);
 
@@ -54,26 +50,44 @@ const createInspection = async (req, res) => {
 
         await newInspection.save();
 
-         const updatedHiveData = {
-            'Queen.seen': Queen.seen,
-            'Queen.isMarked': Queen.isMarked,
-            'Queen.color': Queen.color,
-            'Queen.clipped': Queen.clipped,
-            'Queen.temperament': Queen.temperament,
-            'Queen.note': Queen.note,
-            'Queen.queenCells': Queen.queenCells,
-            'Queen.isSwarmed': Queen.isSwarmed,
-            'Colony.strength': Colony.strength,
-            'Colony.temperament': Colony.temperament,
-            'Colony.deadBees': Colony.deadBees,
-            'Colony.supers': Colony.supers,
-            'Colony.pollenFrames': Colony.pollenFrames,
-            'Colony.TotalFrames': Colony.TotalFrames,
-            'Colony.note': Colony.note
-        };
+        // Update hive data if Queen data is present
+        if (Queen) {
+            const updatedHiveData = {
+                'Queen.seen': Queen.seen,
+                'Queen.isMarked': Queen.isMarked,
+                'Queen.color': Queen.color,
+                'Queen.clipped': Queen.clipped,
+                'Queen.temperament': Queen.temperament,
+                'Queen.note': Queen.note,
+                'Queen.queenCells': Queen.queenCells,
+                'Queen.isSwarmed': Queen.isSwarmed,
+                'Colony.strength': Colony.strength,
+                'Colony.temperament': Colony.temperament,
+                'Colony.deadBees': Colony.deadBees,
+                'Colony.supers': Colony.supers,
+                'Colony.pollenFrames': Colony.pollenFrames,
+                'Colony.TotalFrames': Colony.TotalFrames,
+                'Colony.note': Colony.note
+            };
 
-        await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
 
+
+            await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+        } else {
+            const updatedHiveData = {
+
+                'Colony.strength': Colony.strength,
+                'Colony.temperament': Colony.temperament,
+                'Colony.deadBees': Colony.deadBees,
+                'Colony.supers': Colony.supers,
+                'Colony.pollenFrames': Colony.pollenFrames,
+                'Colony.TotalFrames': Colony.TotalFrames,
+                'Colony.note': Colony.note
+            };
+
+            await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+
+        }
 
         res.status(201).json({ success: true, message: 'Inspection ajoutée avec succès', data: newInspection });
     } catch (error) {
@@ -81,6 +95,7 @@ const createInspection = async (req, res) => {
         res.status(500).json({ error: 'Erreur interne du serveur' });
     }
 };
+
 
 const removeEmptyFields = (obj) => {
     const newObj = {};
@@ -124,25 +139,40 @@ async function editInspection(req, res) {
             return res.status(404).json({ message: 'Inspection not found' });
         }
 
-        const updatedHiveData = {
-            'Queen.seen': Queen.seen,
-            'Queen.isMarked': Queen.isMarked,
-            'Queen.color': Queen.color,
-            'Queen.clipped': Queen.clipped,
-            'Queen.temperament': Queen.temperament,
-            'Queen.note': Queen.note,
-            'Queen.queenCells': Queen.queenCells,
-            'Queen.isSwarmed': Queen.isSwarmed,
-            'Colony.strength': Colony.strength,
-            'Colony.temperament': Colony.temperament,
-            'Colony.deadBees': Colony.deadBees,
-            'Colony.supers': Colony.supers,
-            'Colony.pollenFrames': Colony.pollenFrames,
-            'Colony.TotalFrames': Colony.TotalFrames,
-            'Colony.note': Colony.note
-        };
+        // Update hive data if Queen data is present
+        if (Queen) {
+            const updatedHiveData = {
+                'Queen.seen': Queen.seen,
+                'Queen.isMarked': Queen.isMarked,
+                'Queen.color': Queen.color,
+                'Queen.clipped': Queen.clipped,
+                'Queen.temperament': Queen.temperament,
+                'Queen.note': Queen.note,
+                'Queen.queenCells': Queen.queenCells,
+                'Queen.isSwarmed': Queen.isSwarmed,
+                'Colony.strength': Colony.strength,
+                'Colony.temperament': Colony.temperament,
+                'Colony.deadBees': Colony.deadBees,
+                'Colony.supers': Colony.supers,
+                'Colony.pollenFrames': Colony.pollenFrames,
+                'Colony.TotalFrames': Colony.TotalFrames,
+                'Colony.note': Colony.note
+            };
 
-        await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+            await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+        } else {
+            const updatedHiveData = {
+                'Colony.strength': Colony.strength,
+                'Colony.temperament': Colony.temperament,
+                'Colony.deadBees': Colony.deadBees,
+                'Colony.supers': Colony.supers,
+                'Colony.pollenFrames': Colony.pollenFrames,
+                'Colony.TotalFrames': Colony.TotalFrames,
+                'Colony.note': Colony.note
+            };
+
+            await HiveModel.findByIdAndUpdate(Hive, { $set: updatedHiveData }, { new: true });
+        }
 
         res.json({ success: true, message: 'Inspection mise à jour avec succès', data: inspection });
     } catch (error) {
@@ -150,6 +180,7 @@ async function editInspection(req, res) {
         return res.status(500).json({ message: 'Erreur interne du serveur' });
     }
 }
+
 
 
 async function deleteInspection(req, res) {

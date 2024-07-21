@@ -13,7 +13,7 @@ const inspectionSchema = new mongoose.Schema({
   //التاريخ		
  
   Queen: {
-    seen: { type: Boolean, required: true },
+    seen: { type: Boolean},
     isMarked: { type: Boolean },
     color: { type: String },
     clipped: { type: Boolean },
@@ -22,6 +22,7 @@ const inspectionSchema = new mongoose.Schema({
     queenCells: { type: String },
     isSwarmed: { type: Boolean }
   },
+  
   Colony: {
     strength: { type: String , required: true },
     temperament: { type: String, required: true  },
