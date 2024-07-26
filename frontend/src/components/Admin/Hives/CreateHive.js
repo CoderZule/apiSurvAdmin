@@ -203,6 +203,7 @@ export default function CreateHive() {
                                                 onChange={handleDateChange}
                                                 dateFormat="dd/MM/yyyy"
                                                 className="form-control"
+                                                maxDate={new Date()}
                                             />
                                         </div>
                                     </div>
@@ -314,6 +315,7 @@ export default function CreateHive() {
                                                     onChange={handleQueenInstalledDateChange}
                                                     dateFormat="dd/MM/yyyy"
                                                     className="form-control"
+                                                    maxDate={new Date()}
                                                 />
                                             </div>
                                         </div>

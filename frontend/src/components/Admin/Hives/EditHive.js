@@ -208,6 +208,7 @@ export default function EditHive(props) {
                         onChange={handleDateChange}
                         dateFormat="dd/MM/yyyy"
                         className="form-control"
+                        maxDate={new Date()}
                       />
                     </div>
                   </div>
@@ -321,6 +322,7 @@ export default function EditHive(props) {
                           onChange={handleQueenInstalledDateChange}
                           dateFormat="dd/MM/yyyy"
                           className="form-control"
+                          maxDate={new Date()}
                         />
                       </div>
                     </div>
