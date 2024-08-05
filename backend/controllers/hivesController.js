@@ -1,7 +1,5 @@
 const Hive = require('../models/hive');
-const Apiary = require('../models/apiary');
-const User = require('../models/user');
-
+ 
 const fetchHives = async (req, res) => {
     try {
          const Hives = await Hive.find().populate('Apiary');  
@@ -87,8 +85,27 @@ async function getHiveById(req, res) {
     }
   }
 
+  async function fetchHivesByApiary(req, res) {
+    try {
+        const { apiaryId } = req.query; // Get apiaryId from query parameters
+        const hives = await Hive.find({ Apiary: apiaryId }).populate('Apiary'); // Fetch hives by apiary ID
+
+        if (!hives.length) {
+          return res.json({ success: true, data: [] }); // Ensure an empty array is returned
+      }
+      
+        // Return success response even if there are no hives
+        res.json({ success: true, data: hives });
+    } catch (error) {
+        console.error('Error fetching hives by apiary:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
 module.exports = {
     fetchHives: fetchHives,
+    fetchHivesByApiary: fetchHivesByApiary,
     createHive: createHive,
     getHiveById: getHiveById,
     editHive: editHive,

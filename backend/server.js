@@ -81,6 +81,8 @@ usersController.AdminUser();
   //********** Hive routing **********
     // Route to get all hives
       app.get('/api/hive/getAllHives', hivesController.fetchHives);
+    // Route to get Hives by Apiary Id
+      app.get('/api/hive/getHivesByApiary', hivesController.fetchHivesByApiary);
     // Route to add a new hive
       app.post('/api/hive/create', hivesController.createHive);
     // Route to get hive by ID
