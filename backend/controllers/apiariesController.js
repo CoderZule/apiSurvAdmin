@@ -18,7 +18,6 @@ const createApiary = async (req, res) => {
          if (!Name || !Forages || !Type || !Location || !SunExposure || !Owner) {
             return res.status(400).json({ error: 'Please provide all required fields' });
         }
-
          const newApiary = new Apiary({
             Name,
             Forages,
