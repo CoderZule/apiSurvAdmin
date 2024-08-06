@@ -1,11 +1,20 @@
 import React from "react";
+import Lottie from "react-lottie";
+import loadingAnimation from "../assets/lottie/loading.json";
 
 export default function Loading() {
+    const defaultOptions = {
+        loop: true,  
+        autoplay: true,
+        animationData: loadingAnimation,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice"
+        }
+    };
 
     return (
         <div>
-            <div className="spinner-border" role="status" style={{ height: '30px', width: '30px', marginTop: '10px' }}>
-            </div>
+            <Lottie options={defaultOptions} height={100} width={100} />
         </div>
     );
 }
