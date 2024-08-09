@@ -199,10 +199,35 @@ async function deleteInspection(req, res) {
     }
 }
 
+const fetchInspectionsWithDiseases = async (req, res) => {
+    try {
+        const inspections = await Inspection.find({ 'BeeHealth.disease': { $exists: true, $ne: '' } })
+            .populate({
+                path: 'Hive',
+                populate: {
+                    path: 'Apiary', // This ensures Apiary information is included
+                }
+            });
+
+        if (!inspections || inspections.length === 0) {
+            return res.status(404).json({ success: false, message: 'No inspections with diseases found' });
+        }
+
+        res.json({ success: true, data: inspections });
+    } catch (error) {
+        console.error('Error fetching inspections with diseases:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
+
+
+
 module.exports = {
     fetchInspections: fetchInspections,
     createInspection: createInspection,
     getInspectionByHiveId: getInspectionByHiveId,
     editInspection: editInspection,
-    deleteInspection: deleteInspection
+    deleteInspection: deleteInspection,
+    fetchInspectionsWithDiseases: fetchInspectionsWithDiseases
 }

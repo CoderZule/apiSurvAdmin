@@ -112,6 +112,8 @@ usersController.AdminUser();
       app.post('/api/inspection/editInspection', inspectionsController.editInspection);
    // Route to delete inspection
       app.post('/api/inspection/deleteInspection', inspectionsController.deleteInspection);
+   // Route to get inspections with diseases
+      app.get('/api/inspection/getInspectionsWithDiseases', inspectionsController.fetchInspectionsWithDiseases);
 
 
  //********** Task routing **********

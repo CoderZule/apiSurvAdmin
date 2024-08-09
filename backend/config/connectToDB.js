@@ -8,7 +8,11 @@ let io;
 
 async function connectToDB(server) {
     try {
-        await mongoose.connect(process.env.DB_URL);
+        await mongoose.connect(process.env.DB_URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            serverSelectionTimeoutMS: 5000, // Set timeout for server selection
+        });
         console.log("Connected to DB");
 
         const db = mongoose.connection;
