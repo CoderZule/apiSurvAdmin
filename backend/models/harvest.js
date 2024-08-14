@@ -15,6 +15,7 @@ const harvestSchema = new mongoose.Schema({
   Hive: { type: String, required: true },
 
   User: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  ApiaryRef: { type: mongoose.Schema.Types.ObjectId, ref: 'Apiary', required: true },
 
 
 }, {

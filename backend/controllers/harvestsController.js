@@ -1,7 +1,7 @@
 const Harvest = require('../models/harvest');
 const Storage = require('../models/storage');
 
- 
+
 
 async function createHarvest(req, res) {
     try {
@@ -17,17 +17,18 @@ async function createHarvest(req, res) {
             Date: harvestData.Date,
             Apiary: harvestData.Apiary,
             Hive: harvestData.Hive,
-            User: harvestData.User
+            User: harvestData.User,
+            ApiaryRef: harvestData.ApiaryRef
 
         });
 
         await newHarvest.save();
 
         // Find the storage entry by product and user ID
-        let storageEntry = await Storage.findOne({ Product: harvestData.Product, User: harvestData.User});
+        let storageEntry = await Storage.findOne({ Product: harvestData.Product, User: harvestData.User });
 
         if (!storageEntry) {
-             storageEntry = new Storage({
+            storageEntry = new Storage({
                 User: harvestData.User,
                 Product: harvestData.Product,
                 Quantities: [{
@@ -57,12 +58,12 @@ async function createHarvest(req, res) {
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
- 
+
 async function fetchHarvests(req, res) {
     try {
-        const userId = req.query.userId;  
+        const userId = req.query.userId;
 
-         const harvests = await Harvest.find({ User: userId });
+        const harvests = await Harvest.find({ User: userId });
         res.json({ success: true, data: harvests });
     } catch (error) {
         console.error('Error fetching harvests:', error);
@@ -148,16 +149,25 @@ async function deleteHarvest(req, res) {
         let storageEntry = await Storage.findOne({ Product: deletedHarvest.Product });
         if (storageEntry) {
             const deletedQuantity = Number(deletedHarvest.Quantity); // Explicitly convert to number
+            console.log('Deleted Quantity:', deletedQuantity); // Log the quantity being deleted
 
             const unitIndex = storageEntry.Quantities.findIndex(q => q.Unit === deletedHarvest.Unit);
             if (unitIndex !== -1) {
+                console.log('Before Update:', storageEntry.Quantities[unitIndex]); // Log before updating
                 storageEntry.Quantities[unitIndex].Total -= deletedQuantity;
+
                 if (storageEntry.Quantities[unitIndex].Total <= 0) {
                     storageEntry.Quantities.splice(unitIndex, 1);
                 }
+                console.log('After Update:', storageEntry.Quantities[unitIndex]); // Log after updating
+            } else {
+                console.log('Unit not found in storage:', deletedHarvest.Unit);
             }
 
-            await storageEntry.save();
+            const savedStorageEntry = await storageEntry.save();
+            console.log('Storage Entry Saved:', savedStorageEntry); // Log saved entry
+        } else {
+            console.log('No storage entry found for product:', deletedHarvest.Product);
         }
 
         return res.json({ message: 'Harvest entry deleted successfully' });
@@ -167,11 +177,100 @@ async function deleteHarvest(req, res) {
     }
 }
 
+
+
+async function getTopRegions(req, res) {
+    try {
+        const { product } = req.query;
+
+        if (!product) {
+            return res.status(400).json({ message: 'Product is required' });
+        }
+
+        // Aggregate harvest data by governorate and unit
+        const topRegions = await Harvest.aggregate([
+            {
+                $match: { Product: product }
+            },
+            {
+                $lookup: {
+                    from: 'apiaries',
+                    localField: 'ApiaryRef',
+                    foreignField: '_id',
+                    as: 'apiaryDetails'
+                }
+            },
+            { $unwind: '$apiaryDetails' },
+            {
+                $group: {
+                    _id: {
+                        governorate: '$apiaryDetails.Location.governorate',
+                        unit: '$Unit'
+                    },
+                    totalQuantity: { $sum: '$Quantity' }
+                }
+            },
+            {
+                $group: {
+                    _id: '$_id.governorate',
+                    quantitiesByUnit: {
+                        $push: {
+                            unit: '$_id.unit',
+                            totalQuantity: '$totalQuantity'
+                        }
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    quantitiesByUnit: {
+                        $arrayToObject: {
+                            $map: {
+                                input: '$quantitiesByUnit',
+                                as: 'item',
+                                in: {
+                                    k: '$$item.unit',
+                                    v: '$$item.totalQuantity'
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            { $sort: { '_id': 1 } }, // Sort by governorate name
+            { $limit: 5 } // Limit to top 5 regions
+        ]);
+
+        console.log('Top regions data:', topRegions); // Log the top regions data
+
+        // Check if topRegions is empty
+        if (topRegions.length === 0) {
+            return res.status(404).json({ success: false, message: 'No regions found for the specified product.' });
+        }
+
+        // Create the final comparison object
+        const comparison = topRegions.map(region => ({
+            governorate: region._id,
+            quantitiesByUnit: region.quantitiesByUnit
+        }));
+
+        return res.status(200).json({ success: true, data: comparison });
+    } catch (error) {
+        console.error('Error fetching top regions:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+
+
+
 module.exports = {
     fetchHarvests: fetchHarvests,
     createHarvest: createHarvest,
     getHarvestById: getHarvestById,
     editHarvest: editHarvest,
-    deleteHarvest: deleteHarvest
+    deleteHarvest: deleteHarvest,
+    getTopRegions: getTopRegions
 
 };

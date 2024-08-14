@@ -9,9 +9,8 @@ let io;
 async function connectToDB(server) {
     try {
         await mongoose.connect(process.env.DB_URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
             serverSelectionTimeoutMS: 5000, // Set timeout for server selection
+             
         });
         console.log("Connected to DB");
 
@@ -24,8 +23,6 @@ async function connectToDB(server) {
         const usersChangeStream = db.collection('users').watch();
         usersChangeStream.on('change', (change) => {
             console.log('User collection change:', change);
-
-            // Emit event to clients specific to 'users' collection change
             io.emit('usersChange', change);
         });
 
@@ -33,8 +30,6 @@ async function connectToDB(server) {
         const apiariesChangeStream = db.collection('apiaries').watch();
         apiariesChangeStream.on('change', (change) => {
             console.log('Apiaries collection change:', change);
-
-            // Emit event to clients specific to 'apiaries' collection change
             io.emit('apiariesChange', change);
         });
 
@@ -42,8 +37,6 @@ async function connectToDB(server) {
         const hivesChangeStream = db.collection('hives').watch();
         hivesChangeStream.on('change', (change) => {
             console.log('Hives collection change:', change);
-
-            // Emit event to clients specific to 'hives' collection change
             io.emit('hivesChange', change);
         });
 
@@ -51,6 +44,7 @@ async function connectToDB(server) {
         console.log(err);
     }
 }
+
 
 function getIO() {
     return io;

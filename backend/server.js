@@ -140,6 +140,8 @@ usersController.AdminUser();
      app.post('/api/harvest/editHarvest', harvestsController.editHarvest);
    // Route to delete harvest
      app.delete('/api/harvest/deleteHarvest/:harvestId', harvestsController.deleteHarvest);
+  // ROute to get top regions with best harvests
+     app.get('/api/harvest/TopRegionsHarvests', harvestsController.getTopRegions);
 
 
  //********** Storage routing **********

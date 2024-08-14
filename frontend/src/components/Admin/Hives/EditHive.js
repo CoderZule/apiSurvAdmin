@@ -97,6 +97,7 @@ export default function EditHive(props) {
       setColony(hive.Colony);
       setApiary(hive.Apiary);
 
+      console.log("Apiary: ",hive.Apiary.Name);
 
       if (hive.Queen && hive.Queen.status !== '') {
         setHasQueen(true);
@@ -218,7 +219,7 @@ export default function EditHive(props) {
                     <select
                       name="apiary"
                       className="form-select"
-                      value={Apiary}
+                      value={Apiary._id}
                       onChange={(e) => setApiary(e.target.value)}
                     >
                       <option value="" disabled>Sélectionnez rucher</option>
