@@ -15,7 +15,7 @@ const LoginScreen = () => {
     const dispatch = useDispatch();
 
     const login = () => {
-        const user = { Email, Password };
+        const user = { Email, Password, platform: 'web', };
         dispatch(loginUser(user));
     };
 

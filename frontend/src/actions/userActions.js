@@ -14,8 +14,7 @@ export const loginUser = (user) => async (dispatch) => {
         });
 
         localStorage.setItem('currentUser', JSON.stringify({ currentUser, token }));
-      //  window.location.href = '/admin/dashboard';
-    } catch (error) {
+     } catch (error) {
         dispatch({ type: 'USER_LOGIN_FAILED', payload: error });
     }
 };

@@ -40,7 +40,7 @@ async function AdminUser() {
 }
 
 async function loginUser(req, res) {
-  const { Email, Password } = req.body;
+  const { Email, Password, platform } = req.body; // Assuming 'platform' is passed in the request body
   const jwtSecret = generateRandomString(32);
 
   if (!jwtSecret) {
@@ -61,29 +61,34 @@ async function loginUser(req, res) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
+    // Add role-based access control based on the platform
+    if (platform === 'mobile' && user.Role === 'Admin') {
+      return res.status(403).json({ message: 'Admins cannot log in via the mobile app' });
+    } else if (platform === 'web' && user.Role !== 'Admin') {
+      return res.status(403).json({ message: 'Non-admins cannot log in via the web' });
+    }
+
     const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
 
     const currentUser = {
       Firstname: user.Firstname,
       Lastname: user.Lastname,
       Cin: user.Cin,
-      Phone:user.Phone,
+      Phone: user.Phone,
       Email: user.Email,
-       Role: user.Role,
+      Role: user.Role,
       FirstTimeLogin: user.FirstTimeLogin,
       _id: user._id
-
     };
 
-
     res.json({ token, currentUser });
-
 
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Server error' });
   }
 }
+
 
 const fetchUsers = async (req, res) => {
   try {

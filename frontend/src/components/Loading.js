@@ -14,7 +14,7 @@ export default function Loading() {
 
     return (
         <div>
-            <Lottie options={defaultOptions} height={100} width={100} />
+            <Lottie options={defaultOptions} height={50} width={50} />
         </div>
     );
 }

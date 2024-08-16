@@ -220,7 +220,7 @@ export default function CreateHive() {
                                             {Array.isArray(apiaries.data) && apiaries.data.map((apiary) => (
 
                                                 <option key={apiary._id} value={apiary._id}>
-                                                    {apiary.Name}
+                                                    {apiary.Name} (CIN: {apiary.Owner.Cin})
                                                 </option>
 
                                             ))}

@@ -10,7 +10,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import io from 'socket.io-client';
 import QRCode from 'react-qr-code';
-import {colors, types, source, purpose, strength, temperament, status, queen_state, race, queenColors, queen_origin} from '../Data';
+import { colors, types, source, purpose, strength, temperament, status, queen_state, race, queenColors, queen_origin } from '../Data';
 
 
 export default function EditHive(props) {
@@ -24,7 +24,7 @@ export default function EditHive(props) {
   }, []);
   const dispatch = useDispatch();
 
- 
+
 
   const apiariesState = useSelector(state => state.getAllApiariesReducer);
   const { apiaries } = apiariesState;
@@ -97,7 +97,7 @@ export default function EditHive(props) {
       setColony(hive.Colony);
       setApiary(hive.Apiary);
 
-      console.log("Apiary: ",hive.Apiary.Name);
+      console.log("Apiary: ", hive.Apiary.Name);
 
       if (hive.Queen && hive.Queen.status !== '') {
         setHasQueen(true);
@@ -156,7 +156,7 @@ export default function EditHive(props) {
                 <legend className='text-center'>Générales</legend>
                 <div className='row'>
                   <div className="col-md-6 mb-3">
-                    
+
                     <label className="form-label">Nom</label>
                     <input required type="text" placeholder="Nom" className="form-control" value={Name} onChange={(e) => setName(e.target.value)} />
                   </div>
@@ -226,7 +226,8 @@ export default function EditHive(props) {
                       {Array.isArray(apiaries.data) && apiaries.data.map((apiary) => (
 
                         <option key={apiary._id} value={apiary._id}>
-                          {apiary.Name}
+                          {apiary.Name} (CIN: {apiary.Owner.Cin})
+
                         </option>
 
                       ))}
