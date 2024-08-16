@@ -305,7 +305,7 @@ export default function EditHive(props) {
 
                     <div className="col-md-6 mb-3">
                       <label className="form-label">Éclos</label>
-                      <select required className="form-select" value={Queen.hatched} onChange={(e) => setQueen({ ...Queen, hatched: e.target.value })}>
+                      <select required className="form-select" value={Queen.hatched} onChange={(e) => setQueen({ ...Queen,  hatched: parseInt(e.target.value) })}>
                         <option value="" disabled>Sélectionnez l'année d'éclosion</option>
                         {Array.from({ length: 10 }).map((_, index) => {
                           const year = new Date().getFullYear() - index;
