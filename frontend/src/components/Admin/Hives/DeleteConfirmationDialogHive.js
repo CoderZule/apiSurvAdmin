@@ -12,9 +12,9 @@ const customStyles = {
         padding: '20px',
         borderRadius: '10px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-        maxWidth: '80%', // Adjust the width as needed
-        maxHeight: '80%', // Adjust the height as needed
-        overflow: 'auto', // Allow modal content to scroll if needed
+        maxWidth: '80%',  
+        maxHeight: '80%',  
+        overflow: 'auto',  
     },
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)',

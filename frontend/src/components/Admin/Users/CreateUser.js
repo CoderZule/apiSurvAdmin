@@ -5,7 +5,6 @@ import Error from '../../Error';
 import Loading from '../../Loading';
 import Success from '../../Success';
 import io from 'socket.io-client';
-
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 
@@ -46,7 +45,7 @@ export default function CreateUser() {
         };
 
         dispatch(createUser(user)).then(() => {
-            // Reset input fields to empty values after successful user creation
+          
             setFirstname('');
             setLastname('');
             setPhone('');
@@ -54,14 +53,14 @@ export default function CreateUser() {
             setEmail('');
             setPassword('');
             setRole('');
-            // Show success message
+          
             setShowSuccess(true);
-            // Hide success message after 3 seconds
+           
             setTimeout(() => {
                 setShowSuccess(false);
             }, 3000);
         }).catch((error) => {
-            // Handle error if dispatch fails
+            
             console.error('Error creating user:', error);
         });
     }

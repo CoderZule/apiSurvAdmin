@@ -9,16 +9,16 @@ const GoogleMap = ({ google, onLocationSelect }) => {
         const longitude = clickEvent.latLng.lng();
         const clickedLocation = { latitude, longitude };
 
-        // Update the selectedLocation state
+ 
         setSelectedLocation(clickedLocation);
 
-        // Pass the selected coordinates to the parent component
+       
         onLocationSelect(clickedLocation);
     };
 
     const mapStyles = {
         width: '100%',
-        height: '300px', // Adjust height based on your needs
+        height: '300px',  
         position: 'relative',
         maxWidth: '100%'
     };

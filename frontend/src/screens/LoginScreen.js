@@ -9,22 +9,21 @@ import './Login.css';
 const LoginScreen = () => {
     const [Email, setEmail] = useState('');
     const [Password, setPassword] = useState('');
-    const [ShowPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [ShowPassword, setShowPassword] = useState(false);  
     const loginState = useSelector((state) => state.loginUserReducer);
-    const { loading, error, currentUser } = loginState; // Get currentUser from state
+    const { loading, error, currentUser } = loginState;  
     const dispatch = useDispatch();
 
     const login = () => {
         const user = { Email, Password, platform: 'web', };
         dispatch(loginUser(user));
     };
-
-    // Toggle password visibility
+ 
     const togglePasswordVisibility = () => {
         setShowPassword(!ShowPassword);
     };
 
-    // Redirect to dashboard if currentUser exists (user is authenticated)
+    
     if (currentUser) {
         return <Redirect to="/admin/dashboard" />;
     }
@@ -65,7 +64,7 @@ const LoginScreen = () => {
                     <i style={{ color: '#977700' }} className="fas fa-lock left-icon"></i>
                     <input
                         required
-                        type={ShowPassword ? "text" : "password"} // Ensure password starts as hidden
+                        type={ShowPassword ? "text" : "password"}  
                         placeholder="********"
                         className="form-control"
                         value={Password}

@@ -11,7 +11,7 @@ export default function Navbar() {
         dispatch(logoutUser());
     };
 
-    // Check if currentUser exists before accessing its properties
+   
     if (!currentUser) {
         // Redirect to login page if user is not authenticated
         return <Redirect to="/" />;

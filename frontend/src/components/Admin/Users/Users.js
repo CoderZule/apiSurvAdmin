@@ -6,7 +6,7 @@ import tableIcons from '../../MaterialTableIcons';
 import DeleteConfirmationDialogUser from './DeleteConfirmationDialogUser';
 import { getAllUsers, deleteUser } from '../../../actions/userActions';
 import io from 'socket.io-client';
-import zIndex from '@material-ui/core/styles/zIndex';
+ 
 
 export default function Users() {
     const dispatch = useDispatch();
@@ -99,7 +99,7 @@ export default function Users() {
                     pageSize: 4,
                     pageSizeOptions: [2, 3, 4],
                     headerStyle: {
-                        zIndex: 0, // Adjust the zIndex as needed
+                        zIndex: 0,  
                     }
                 }}
             />

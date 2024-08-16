@@ -17,14 +17,14 @@ const harvestsController = require('./controllers/harvestsController');
 const storageController = require('./controllers/storageController');
 const transactionsController = require('./controllers/transactionsController');
 
-// Create an express app
+ 
 const app = express();
 
-// Configure express app
+ 
 app.use(express.json());
 app.use(cors());
 
-// Create HTTP server
+ 
 const server = http.createServer(app);
 
 
@@ -32,12 +32,12 @@ const io = require('socket.io')(server, {
   cors: {
     origin: 'http://localhost:3001',
     methods: ['GET', 'POST'],
-    credentials: true  // If you need to pass cookies or headers
+    credentials: true  // to pass cookies or headers
   }
 });
 
-// Connect to database and set up change streams with socket.io
-connectToDB(server); // Pass the server instance to connectToDB
+ 
+connectToDB(server);  
 
 
 // Add admin if not exists (seeder)
@@ -187,7 +187,7 @@ usersController.AdminUser();
 });
 
 
-// Start the server listening on port 3000
+ 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

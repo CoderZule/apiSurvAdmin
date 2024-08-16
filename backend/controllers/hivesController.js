@@ -87,14 +87,14 @@ async function getHiveById(req, res) {
 
   async function fetchHivesByApiary(req, res) {
     try {
-        const { apiaryId } = req.query; // Get apiaryId from query parameters
-        const hives = await Hive.find({ Apiary: apiaryId }).populate('Apiary'); // Fetch hives by apiary ID
+        const { apiaryId } = req.query;  
+        const hives = await Hive.find({ Apiary: apiaryId }).populate('Apiary');  
 
         if (!hives.length) {
-          return res.json({ success: true, data: [] }); // Ensure an empty array is returned
+          return res.json({ success: true, data: [] });  
       }
       
-        // Return success response even if there are no hives
+        
         res.json({ success: true, data: hives });
     } catch (error) {
         console.error('Error fetching hives by apiary:', error);

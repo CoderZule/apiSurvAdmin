@@ -9,7 +9,7 @@ async function createHarvest(req, res) {
 
         const newHarvest = new Harvest({
             Product: harvestData.Product,
-            Quantity: Number(harvestData.Quantity), // Explicitly convert to number
+            Quantity: Number(harvestData.Quantity),  
             Unit: harvestData.Unit,
             Season: harvestData.Season,
             HarvestMethods: harvestData.HarvestMethods,
@@ -24,7 +24,7 @@ async function createHarvest(req, res) {
 
         await newHarvest.save();
 
-        // Find the storage entry by product and user ID
+        
         let storageEntry = await Storage.findOne({ Product: harvestData.Product, User: harvestData.User });
 
         if (!storageEntry) {
@@ -32,24 +32,24 @@ async function createHarvest(req, res) {
                 User: harvestData.User,
                 Product: harvestData.Product,
                 Quantities: [{
-                    Total: Number(harvestData.Quantity), // Explicitly convert to number
+                    Total: Number(harvestData.Quantity),  
                     Unit: harvestData.Unit
                 }]
             });
         } else {
-            // Update the existing storage entry
+            
             const quantityEntry = storageEntry.Quantities.find(q => q.Unit === harvestData.Unit);
             if (quantityEntry) {
-                quantityEntry.Total += Number(harvestData.Quantity); // Explicitly convert to number
+                quantityEntry.Total += Number(harvestData.Quantity);  
             } else {
                 storageEntry.Quantities.push({
-                    Total: Number(harvestData.Quantity), // Explicitly convert to number
+                    Total: Number(harvestData.Quantity),  
                     Unit: harvestData.Unit
                 });
             }
         }
 
-        // Save the storage entry
+       
         await storageEntry.save();
 
         return res.status(201).json({ message: 'Harvest entry created successfully', harvest: newHarvest });
@@ -105,8 +105,8 @@ async function editHarvest(req, res) {
         let storageEntry = await Storage.findOne({ Product: oldHarvest.Product });
 
         if (storageEntry) {
-            const oldQuantity = Number(oldHarvest.Quantity); // Explicitly convert to number
-            const newQuantity = Number(editedHarvestData.Quantity); // Explicitly convert to number
+            const oldQuantity = Number(oldHarvest.Quantity); 
+            const newQuantity = Number(editedHarvestData.Quantity);  
 
             const oldQuantityEntryIndex = storageEntry.Quantities.findIndex(q => q.Unit === oldHarvest.Unit);
             const newQuantityEntryIndex = storageEntry.Quantities.findIndex(q => q.Unit === editedHarvestData.Unit);
@@ -148,24 +148,24 @@ async function deleteHarvest(req, res) {
 
         let storageEntry = await Storage.findOne({ Product: deletedHarvest.Product });
         if (storageEntry) {
-            const deletedQuantity = Number(deletedHarvest.Quantity); // Explicitly convert to number
-            console.log('Deleted Quantity:', deletedQuantity); // Log the quantity being deleted
+            const deletedQuantity = Number(deletedHarvest.Quantity);  
+            console.log('Deleted Quantity:', deletedQuantity);  
 
             const unitIndex = storageEntry.Quantities.findIndex(q => q.Unit === deletedHarvest.Unit);
             if (unitIndex !== -1) {
-                console.log('Before Update:', storageEntry.Quantities[unitIndex]); // Log before updating
+                console.log('Before Update:', storageEntry.Quantities[unitIndex]);  
                 storageEntry.Quantities[unitIndex].Total -= deletedQuantity;
 
                 if (storageEntry.Quantities[unitIndex].Total <= 0) {
                     storageEntry.Quantities.splice(unitIndex, 1);
                 }
-                console.log('After Update:', storageEntry.Quantities[unitIndex]); // Log after updating
+                console.log('After Update:', storageEntry.Quantities[unitIndex]);  
             } else {
                 console.log('Unit not found in storage:', deletedHarvest.Unit);
             }
 
             const savedStorageEntry = await storageEntry.save();
-            console.log('Storage Entry Saved:', savedStorageEntry); // Log saved entry
+            console.log('Storage Entry Saved:', savedStorageEntry); 
         } else {
             console.log('No storage entry found for product:', deletedHarvest.Product);
         }
@@ -187,7 +187,7 @@ async function getTopRegions(req, res) {
             return res.status(400).json({ message: 'Product is required' });
         }
 
-        // Aggregate harvest data by governorate and unit
+         
         const topRegions = await Harvest.aggregate([
             {
                 $match: { Product: product }
@@ -242,14 +242,14 @@ async function getTopRegions(req, res) {
             { $limit: 5 } // Limit to top 5 regions
         ]);
 
-        console.log('Top regions data:', topRegions); // Log the top regions data
+        console.log('Top regions data:', topRegions);  
 
-        // Check if topRegions is empty
+        
         if (topRegions.length === 0) {
             return res.status(404).json({ success: false, message: 'No regions found for the specified product.' });
         }
 
-        // Create the final comparison object
+        
         const comparison = topRegions.map(region => ({
             governorate: region._id,
             quantitiesByUnit: region.quantitiesByUnit

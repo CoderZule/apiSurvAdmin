@@ -9,31 +9,32 @@ let io;
 async function connectToDB(server) {
     try {
         await mongoose.connect(process.env.DB_URL, {
-            serverSelectionTimeoutMS: 5000, // Set timeout for server selection
+            serverSelectionTimeoutMS: 5000,  
              
         });
         console.log("Connected to DB");
 
         const db = mongoose.connection;
 
-        // Initialize socket.io
+       
         io = socketIO(server);
 
-        // Set up change stream for 'users' collection
+        // Set up change stream for collections
+        
         const usersChangeStream = db.collection('users').watch();
         usersChangeStream.on('change', (change) => {
             console.log('User collection change:', change);
             io.emit('usersChange', change);
         });
 
-        // Set up change stream for 'apiaries' collection
+        
         const apiariesChangeStream = db.collection('apiaries').watch();
         apiariesChangeStream.on('change', (change) => {
             console.log('Apiaries collection change:', change);
             io.emit('apiariesChange', change);
         });
 
-        // Set up change stream for 'hives' collection
+        
         const hivesChangeStream = db.collection('hives').watch();
         hivesChangeStream.on('change', (change) => {
             console.log('Hives collection change:', change);

@@ -61,6 +61,7 @@
  export const queen_origin = ['Achetée', 'Fabriquée', 'Essaim capturé', 'Autre'];
 
 
+//Rucher Details
  export const forages = ["Thym", "Lavande", "Romarin", "Eucalyptus", "Arbres d'agrumes", "Luzerne", "Trèfle", "Fleurs sauvages", "Caroubier", "Acacia"];
 
  export const Apiarytypes = ["Base", "Migratoire", "Fixe", "Autre"];

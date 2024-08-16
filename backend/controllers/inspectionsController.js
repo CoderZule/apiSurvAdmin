@@ -20,7 +20,7 @@ const createInspection = async (req, res) => {
             PollenStores, Adding, Removing, Weather, Note, Hive
         } = req.body;
 
-        // Construct the initial data object
+         
         const data = {
             Inspector,
             InspectionDateTime,
@@ -38,19 +38,19 @@ const createInspection = async (req, res) => {
             Hive
         };
 
-        // Include Queen data only if it is present in the request
+        
         if (Queen) {
             data.Queen = Queen;
         }
 
-        // Remove empty fields from the main object and its nested objects
+        
         const filteredData = removeEmptyFields(data);
 
         const newInspection = new Inspection(filteredData);
 
         await newInspection.save();
 
-        // Update hive data if Queen data is present
+         
         if (Queen) {
             const updatedHiveData = {
                 'Queen.seen': Queen.seen,
@@ -139,7 +139,7 @@ async function editInspection(req, res) {
             return res.status(404).json({ message: 'Inspection not found' });
         }
 
-        // Update hive data if Queen data is present
+         
         if (Queen) {
             const updatedHiveData = {
                 'Queen.seen': Queen.seen,
@@ -205,7 +205,7 @@ const fetchInspectionsWithDiseases = async (req, res) => {
             .populate({
                 path: 'Hive',
                 populate: {
-                    path: 'Apiary', // This ensures Apiary information is included
+                    path: 'Apiary',  
                 }
             });
 

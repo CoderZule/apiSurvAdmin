@@ -187,7 +187,7 @@ export default function Profile() {
                             <div className="row gutters">
                                 {editsuccess && <Success success="Mise à jour du profil réussie" />}
                                 {editerror && <Error error="Une erreur s'est produite lors de la mise à jour du profil" />}
-                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"></div> {/* Empty column to offset the button */}
+                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6"></div> 
                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                     <div className="text-right">
                                         <button type="submit" onClick={handleEditUser} className="btn btn-primary">Modifier</button>

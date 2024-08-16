@@ -40,7 +40,7 @@ async function AdminUser() {
 }
 
 async function loginUser(req, res) {
-  const { Email, Password, platform } = req.body; // Assuming 'platform' is passed in the request body
+  const { Email, Password, platform } = req.body;  
   const jwtSecret = generateRandomString(32);
 
   if (!jwtSecret) {
@@ -61,7 +61,7 @@ async function loginUser(req, res) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Add role-based access control based on the platform
+    
     if (platform === 'mobile' && user.Role === 'Admin') {
       return res.status(403).json({ message: 'Admins cannot log in via the mobile app' });
     } else if (platform === 'web' && user.Role !== 'Admin') {
@@ -156,7 +156,7 @@ async function editUser(req, res) {
     const { _id, Password } = editedUserData;
 
     if (Password) {
-      // Hash the new password if provided in the update
+    
       const hashedPassword = await bcrypt.hash(Password, 10);
       editedUserData.Password = hashedPassword;
     }
@@ -197,10 +197,10 @@ async function changePasswordFirstLogin(req, res) {
   const { userId, newPassword } = req.body;
 
   try {
-    // Fetch the current user from the database
+   
     const user = await User.findById(userId);
 
-    // Check if the new password is the same as the current password
+     
     if (user) {
       const isCurrentPassword = await bcrypt.compare(newPassword, user.Password);
       if (isCurrentPassword) {
@@ -209,10 +209,10 @@ async function changePasswordFirstLogin(req, res) {
 
      }
 
-    // Hash the new password
+    
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    // Update user's password and set FirstTimeLogin to false
+     
     await User.findByIdAndUpdate(userId, { Password: hashedPassword, FirstTimeLogin: false });
 
     res.json({ success: true, message: 'Password changed successfully' });
@@ -226,20 +226,20 @@ async function changeProfilPassword(req, res) {
   const { userId, newPassword, currentPassword } = req.body;
 
   try {
-    // Fetch the current user from the database
+    
     const user = await User.findById(userId);
 
     if (user) {
-      // Check if the current password is correct
+       
       const isPasswordCorrect = await bcrypt.compare(currentPassword, user.Password);
       if (!isPasswordCorrect) {
         return res.status(400).json({ success: false, message: "Le mot de passe actuel est incorrect." });
       }
 
-      // Hash the new password
+      
       const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-      // Update user's password and set FirstTimeLogin to false
+       
       await User.findByIdAndUpdate(userId, { Password: hashedPassword });
 
       res.json({ success: true, message: 'Password changed successfully' });

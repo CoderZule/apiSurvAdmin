@@ -249,7 +249,7 @@ export default function EditApiary(props) {
                                 <input required type="number" placeholder="Longitude" className="form-control" value={selectedLocation.longitude} onChange={handleLongitudeChange}
                                 />
                             </div>
-                            {/* Button to open the modal */}
+                      
                             <button type="button" className="btn mb-3" style={{ backgroundColor: "#e3e6f0", color: "#373737" }} onClick={openModal}>
                                 Sélectionner les coordonnées
                             </button>

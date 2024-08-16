@@ -32,12 +32,12 @@ async function updateStorageQuantity(req, res) {
       return res.status(404).json({ success: false, message: `Unité ${unit} non trouvée pour le produit ${product}` });
     }
 
-    // Ensure the newQuantity does not exceed the current quantityEntry.Total
+    
     if (newQuantity > quantityEntry.Total) {
       return res.status(400).json({ success: false, message: 'La quantité réduite ne peut pas être supérieure à la quantité actuelle' });
     }
 
-    // Subtract newQuantity from quantityEntry.Total
+   
     quantityEntry.Total -= newQuantity;
     storageEntry.updatedAt = Date.now();
 

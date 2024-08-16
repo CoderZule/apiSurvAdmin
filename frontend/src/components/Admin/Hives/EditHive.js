@@ -81,7 +81,7 @@ export default function EditHive(props) {
 
   useEffect(() => {
     if (!Queen.isMarked) {
-      setQueen({ ...Queen, color: '' }); // Reset color if isMarked is false
+      setQueen({ ...Queen, color: '' });  
     }
   }, [Queen.isMarked]);
 

@@ -29,8 +29,8 @@ const fetchTasks = async (req, res) => {
         title,
         priority,
         description,
-        start: new Date(start), // Ensure these are parsed as dates
-        end: new Date(end), // Ensure these are parsed as dates
+        start: new Date(start),  
+        end: new Date(end),  
         user
       });
   

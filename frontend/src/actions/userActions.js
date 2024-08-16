@@ -22,16 +22,16 @@ export const loginUser = (user) => async (dispatch) => {
  
 
 export const logoutUser = () => (dispatch) => {
-    // Remove currentUser and token from localStorage
+    
     localStorage.removeItem('currentUser');
 
-    // Dispatch USER_LOGOUT action to reset Redux state
+    
     dispatch({ type: 'USER_LOGOUT' });
 
-    // Redirect user to home page after a short delay
+    
     setTimeout(() => {
         window.location.href = '/';
-    }, 100); // Adjust delay as needed
+    }, 100);  
 };
 
 
