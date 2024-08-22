@@ -75,15 +75,15 @@ export default function EditUser(props) {
     const namePattern = /^[a-zA-Z' -]+$/;
 
     function handleFirstnameChange(value) {
-       if (namePattern.test(value) || value === '' ) {
-        setFirstname(value);
-      }
+        if (namePattern.test(value) || value === '') {
+            setFirstname(value);
+        }
     }
-  
+
     function handleLastnameChange(value) {
-       if (namePattern.test(value) || value === '' ) {
-        setLastname(value);
-      }
+        if (namePattern.test(value) || value === '') {
+            setLastname(value);
+        }
     }
 
     return (
@@ -104,7 +104,7 @@ export default function EditUser(props) {
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Prénom</label>
-                                <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={e => handleFirstnameChange(e.target.value)}  />
+                                <input required type="text" placeholder="Prénom" className="form-control" value={Firstname} onChange={e => handleFirstnameChange(e.target.value)} />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Tel</label>
@@ -117,7 +117,17 @@ export default function EditUser(props) {
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Cin</label>
-                                <input required type="text" placeholder="Cin" className="form-control" value={Cin} onChange={(e) => setCin(e.target.value)} />
+                                <input
+                                    required
+                                    type="text"
+                                    placeholder="Cin"
+                                    className="form-control"
+                                    value={Cin}
+                                    onChange={(e) => {
+                                        const newValue = e.target.value.replace(/[^0-9]/g, '');
+                                        setCin(newValue);
+                                    }}
+                                />
                             </div>
 
                             <div className="col-md-6 mb-3">

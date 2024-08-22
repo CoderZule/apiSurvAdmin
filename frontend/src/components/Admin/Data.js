@@ -1,71 +1,98 @@
- //Ruche infos
- export const colors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Orange', 'Violet', 'Rose', 'Marron', 'Blanc', 'Noir'];
- export const types = [
-   '12x10',
-   '14x12',
-   'AZ',
-   'BeeHaus',
-   'Bienenkiste',
-   'CDB',
-   'Commercial',
-   'Dadant',
-   'Dartington',
-   'Farrar',
-   'Flow',
-   'Italica-Carlini',
-   'Langstroth',
-   'Langstroth Poly',
-   'Layens',
-   'Local c',
-   'Local S',
-   'Ruche Long Box',
-   'National',
-   'Norsk Mal',
-   'Nucleus',
-   'Autre',
-   'Rose OSB',
-   'Segeberger',
-   'Simplex',
-   'Smith',
-   'Spaarkast',
-   'Ruche à barres supérieures',
-   'WBC',
-   'Warre',
-   'Zander'
- ];
- export const source = ['Colonie Achetée', 'Noyau Acheté', 'Paquet Acheté', 'Noyau Capturé', 'Découpé', 'Piège Sorti', 'Divisé', 'Supplanté'];
- export const purpose = ['Production de Miel', 'Production d\'Abeilles', 'Élevage de Reines', 'R&D', 'Autre'];
- export const strength = [ "Très Faible",
- "Faible",
- "Modérée",
- "Forte",
- "Très Forte"];
+// معلومات الخلية
+export const colors = ['أحمر', 'أزرق', 'أخضر', 'أصفر', 'برتقالي', 'بنفسجي', 'وردي', 'بني', 'أبيض', 'أسود'];
 
- export const temperament = [
-   "Agressive",
-   "Nerveuse",
-   "Calme",
+export const types = [
+  'دادانت',
+  'لانغستروث',
+  'محلي c',
+  'محلي S',
+  'وطني',
+  'صندوق طويل'
+];
 
- ];
- //Queen Details
- export const status = ['Acceptée', 'Cellule royale', 'Vierge', 'Insérée'];
- export const queen_state = ['Cellule découverte', 'Cellule operculée', 'Émergée', 'Accouplée', 'Mature', 'Vieille', 'Inconnue'];
- export const race = [
-   'Abeille intermissa d\'Afrique du Nord',
-   'Abeille saharienne',
-   'Abeille de l\'Atlas',
-   'Abeille carnica',
-   'Abeille italienne'
- ];
- export const queenColors = ['Rouge', 'Bleu', 'Vert', 'Jaune', 'Blanc'];
- export const queen_origin = ['Achetée', 'Fabriquée', 'Essaim capturé', 'Autre'];
+export const source = [
+  'مستعمرة مشتراة',
+  'نواة مشتراة',
+  'حزمة مشتراة',
+  'نواة ملتقطة',
+  'مقطع',
+  'فخ مخرج',
+  'منقسم',
+  'مستبدل'
+];
+export const purpose = [
+  'إنتاج العسل',
+  'إنتاج النحل',
+  'تربية الملكات',
+  'بحث وتطوير',
+  'أخرى'
+];
+
+export const strength = [
+  'ضعيف جداً',
+  'ضعيف',
+  'معتدل',
+  'قوي',
+  'قوي جداً'
+];
+
+export const temperament = [
+  'عدواني',
+  'عصبي',
+  'هادئ'
+];
+// تفاصيل الملكة
+export const status = ['مقبولة', 'خلايا ملكية', 'عذراء', 'مخصبة']; //describes the current condition or role of the queen within the hive
+
+export const queen_state = [
+  'خلايا مكشوفة',
+  'خلايا مغطاة',
+  'ناشئة',
+  'مزوجة',
+  'ناضجة',
+  'قديمة',
+  'غير معروفة'
+]; //describes the developmental stage or physical state of the queen or the conditions in which she is found
+
+export const race = [
+  'نحلة شمال أفريقيا الوسطى',
+  'نحلة الصحراء',
+  'نحلة الأطلس',
+  'نحلة كارنيكا',
+  'نحلة إيطالية'
+];
+
+export const queenColors = ['أحمر', 'أزرق', 'أخضر', 'أصفر', 'أبيض'];
+
+export const queen_origin = ['مشتراة', 'مصنعة', 'طائفة ملتقطة', 'أخرى'];
 
 
-//Rucher Details
- export const forages = ["Thym", "Lavande", "Romarin", "Eucalyptus", "Arbres d'agrumes", "Luzerne", "Trèfle", "Fleurs sauvages", "Caroubier", "Acacia"];
 
- export const Apiarytypes = ["Base", "Migratoire", "Fixe", "Autre"];
+// تفاصيل الخلايا
+export const forages = [
+  'زعتر',
+  'لافندر',
+  'إكليل الجبل',
+  'أشجار الحمضيات',
+  'برسيم',
+  'برسيم ثلاثي الأوراق',
+  'زهور برية',
+  'خرنوب',
+  'أكاسيا'
+];
 
- export const sunExposureOptions = ["Ensoleillé", "Semi-ombragé", "Ombragé", "Autre"];
 
+export const Apiarytypes = [
+  'أساسي',
+  'مهاجر',
+  'ثابت',
+  'أخرى'
+];
+
+export const sunExposureOptions = [
+  'مشمس',
+  'ظليل جزئياً',
+  'ظل',
+  'أخرى'
+];
 

@@ -45,7 +45,7 @@ export default function CreateUser() {
         };
 
         dispatch(createUser(user)).then(() => {
-          
+
             setFirstname('');
             setLastname('');
             setPhone('');
@@ -53,31 +53,31 @@ export default function CreateUser() {
             setEmail('');
             setPassword('');
             setRole('');
-          
+
             setShowSuccess(true);
-           
+
             setTimeout(() => {
                 setShowSuccess(false);
             }, 3000);
         }).catch((error) => {
-            
+
             console.error('Error creating user:', error);
         });
     }
 
     const namePattern = /^[a-zA-Z' -]+$/;
 
-  function handleFirstnameChange(value) {
-     if (namePattern.test(value) || value === '' ) {
-      setFirstname(value);
+    function handleFirstnameChange(value) {
+        if (namePattern.test(value) || value === '') {
+            setFirstname(value);
+        }
     }
-  }
 
-  function handleLastnameChange(value) {
-     if (namePattern.test(value) || value === '' ) {
-      setLastname(value);
+    function handleLastnameChange(value) {
+        if (namePattern.test(value) || value === '') {
+            setLastname(value);
+        }
     }
-  }
     return (
         <div className="row justify-content-center">
             <div className="col-12">
@@ -112,8 +112,19 @@ export default function CreateUser() {
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Cin</label>
-                                <input required type="text" placeholder="Cin" className="form-control" value={Cin} onChange={(e) => setCin(e.target.value)} />
+                                <input
+                                    required
+                                    type="text"
+                                    placeholder="Cin"
+                                    className="form-control"
+                                    value={Cin}
+                                    onChange={(e) => {
+                                         const newValue = e.target.value.replace(/[^0-9]/g, '');
+                                        setCin(newValue);
+                                    }}
+                                />
                             </div>
+
 
                             <div className="col-md-6 mb-3">
                                 <label className="form-label">Rôle</label>

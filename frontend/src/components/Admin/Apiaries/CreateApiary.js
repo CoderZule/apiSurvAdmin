@@ -183,7 +183,7 @@ export default function CreateApiary() {
 
 
                             <div className="col-md-6 mb-3">
-                                <label className="form-label">Fourrage</label>
+                                <label className="form-label">Fourrage (نباتات الرعي)</label>
                                 <select name="Forages" className="form-select" value={Forages} onChange={(e) => setForages(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un fourrage</option>
                                     {forages.map((forage, index) => (
@@ -194,7 +194,7 @@ export default function CreateApiary() {
 
 
                             <div className="col-md-6 mb-3">
-                                <label className="form-label">Type</label>
+                                <label className="form-label">Type (النوع)</label>
                                 <select name="Type" className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un type</option>
                                     {Apiarytypes.map((type, index) => (
@@ -206,7 +206,7 @@ export default function CreateApiary() {
                             </div>
 
                             <div className="col-md-6 mb-3">
-                                <label className="form-label">Exposition au soleil</label>
+                                <label className="form-label">Exposition au soleil (التعرض للشمس)</label>
                                 <select name="SunExposure" className="form-select" value={SunExposure} onChange={(e) => setSunExposure(e.target.value)}>
                                     <option value="" disabled>Sélectionnez une exposition au soleil</option>
                                     {sunExposureOptions.map((option, index) => (

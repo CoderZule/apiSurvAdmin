@@ -162,7 +162,7 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Couleur</label>
+                    <label className="form-label">Couleur (اللون)</label>
                     <select required className="form-select" value={Color} onChange={(e) => setColor(e.target.value)}>
                       <option value="" disabled>Choisissez une couleur</option>
                       {colors.map((color, index) => (
@@ -171,7 +171,7 @@ export default function EditHive(props) {
                     </select>
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Type</label>
+                  <label className="form-label">Type (نوع الخلية)</label>
                     <select required className="form-select" value={Type} onChange={(e) => setType(e.target.value)}>
                       <option value="" disabled>Sélectionnez un type</option>
                       {types.map((type, index) => (
@@ -181,7 +181,7 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Source</label>
+                  <label className="form-label">Source (مصدر الخلية)</label>
                     <select required className="form-select" value={Source} onChange={(e) => setSource(e.target.value)}>
                       <option value="" disabled>Sélectionnez la source</option>
                       {source.map((source, index) => (
@@ -191,7 +191,7 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">But</label>
+                  <label className="form-label">But (هدف الخلية)</label>
                     <select required className="form-select" value={Purpose} onChange={(e) => setPurpose(e.target.value)}>
                       <option value="" disabled>Sélectionnez le but</option>
                       {purpose.map((purpose, index) => (
@@ -241,7 +241,7 @@ export default function EditHive(props) {
                 <legend className='text-center'>Colonie</legend>
                 <div className="row">
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Force</label>
+                  <label className="form-label">Force (قوة المستعمرة)</label>
                     <select required className="form-select" value={Colony.strength} onChange={(e) => setColony({ ...Colony, strength: e.target.value })}>
                       <option value="" disabled>Sélectionnez la force</option>
                       {strength.map((strength, index) => (
@@ -251,7 +251,7 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Tempérament</label>
+                  <label className="form-label">Tempérament (سلوك المستعمرة)</label>
                     <select required className="form-select" value={Colony.temperament} onChange={(e) => setColony({ ...Colony, temperament: e.target.value })}>
                       <option value="" disabled>Sélectionnez le tempérament</option>
                       {temperament.map((temperament, index) => (
@@ -261,12 +261,12 @@ export default function EditHive(props) {
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Hausses</label>
+                  <label className="form-label">Hausses (العسالات)</label>
                     <input required type="number" placeholder="Supers" className="form-control" value={Colony.supers} onChange={(e) => setColony({ ...Colony, supers: e.target.value })} />
                   </div>
 
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Cadres totaux</label>
+                  <label className="form-label">Cadres totaux (إجمالي الإطارات)</label>
                     <input required type="number" placeholder="Cadres" className="form-control" value={Colony.TotalFrames} onChange={(e) => setColony({ ...Colony, TotalFrames: e.target.value })} />
                   </div>
                 </div>
@@ -294,7 +294,7 @@ export default function EditHive(props) {
                 {hasQueen && (
                   <div className='row'>
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">Statut</label>
+                    <label className="form-label">Statut (الوضع)</label>
                       <select required className="form-select" value={Queen.status} onChange={(e) => setQueen({ ...Queen, status: e.target.value })}>
                         <option value="" disabled>Sélectionner le statut de reine</option>
                         {status.map((status, index) => (
@@ -304,7 +304,7 @@ export default function EditHive(props) {
                     </div>
 
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">Éclos</label>
+                    <label className="form-label">Éclos (سنة الفقس)</label>
                       <select required className="form-select" value={Queen.hatched} onChange={(e) => setQueen({ ...Queen,  hatched: parseInt(e.target.value) })}>
                         <option value="" disabled>Sélectionnez l'année d'éclosion</option>
                         {Array.from({ length: 10 }).map((_, index) => {
@@ -316,7 +316,7 @@ export default function EditHive(props) {
 
                     <div className="col-md-6 mb-3">
                       <div>
-                        <label className="form-label">Date d'installation</label>
+                      <label className="form-label">Date d'installation (تاريخ التثبيت)</label>
                       </div>
                       <div>
                         <DatePicker
@@ -330,7 +330,7 @@ export default function EditHive(props) {
                     </div>
 
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">État de reine</label>
+                    <label className="form-label">État de reine (الحالة)</label>
                       <select required className="form-select" value={Queen.queen_state} onChange={(e) => setQueen({ ...Queen, queen_state: e.target.value })}>
                         <option value="" disabled>Sélectionnez l'état de la Reine</option>
                         {queen_state.map((queen_state, index) => (
@@ -350,7 +350,7 @@ export default function EditHive(props) {
                             checked={Queen.clipped}
                             onChange={(e) => setQueen({ ...Queen, clipped: e.target.checked })}
                           />
-                          <label className="form-check-label" htmlFor='clipped'>Clippée</label>
+                          <label className="form-check-label" htmlFor='clipped'>Clippée (مقيدة)</label>
                         </div>
                       </div>
 
@@ -364,7 +364,7 @@ export default function EditHive(props) {
                             checked={Queen.isMarked}
                             onChange={(e) => setQueen({ ...Queen, isMarked: e.target.checked })}
                           />
-                          <label className="form-check-label" htmlFor='marked'>Marquée</label>
+                          <label className="form-check-label" htmlFor='marked'>Marquée (معلمة)</label>
                         </div>
                       </div>
 
@@ -388,7 +388,7 @@ export default function EditHive(props) {
                       </div>
                     )}
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">Race</label>
+                      <label className="form-label">Race (السلالة)</label>
                       <select required className="form-select" value={Queen.race} onChange={(e) => setQueen({ ...Queen, race: e.target.value })}>
                         <option value="" disabled>Sélectionnez la race reine</option>
                         {race.map((race, index) => (
@@ -398,7 +398,7 @@ export default function EditHive(props) {
                     </div>
 
                     <div className="col-md-6 mb-3">
-                      <label className="form-label">Origine</label>
+                      <label className="form-label">Origine (الأصل)</label>
                       <select required className="form-select" value={Queen.origin} onChange={(e) => setQueen({ ...Queen, origin: e.target.value })}>
                         <option value="" disabled>Sélectionnez l'origine de la reine</option>
                         {queen_origin.map((queen_origin, index) => (
