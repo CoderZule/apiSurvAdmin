@@ -5,5 +5,5 @@
 
 ## Features
 
-- ** Manage user accounts, apiaries and hives efficiently
+- **Manage user accounts, apiaries and hives efficiently
 Administrators can create, edit, delete, and view user accounts, apiaries, and hives, ensuring that all information remains current and accurate.
