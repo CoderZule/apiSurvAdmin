@@ -264,7 +264,6 @@ async function getTopRegions(req, res) {
 
 
 
-
 module.exports = {
     fetchHarvests: fetchHarvests,
     createHarvest: createHarvest,

@@ -24,13 +24,14 @@ async function AdminUser() {
       const newAdminUser = new User({
         Firstname: 'Mariem',
         Lastname: 'Derbali',
-        Phone: '4433233',
-        Cin: '09999999',
+        Phone: '+21620444444',
+        Cin: '09654433',
         Email: adminEmail,
         Password: hashedPassword,
         Role: 'Admin'
       });
 
+  
       await newAdminUser.save();
       console.log('Admin user seeded successfully.');
     }
@@ -251,6 +252,7 @@ async function changeProfilPassword(req, res) {
     res.status(500).json({ success: false, message: 'Error changing password' });
   }
 }
+
 
 module.exports = {
   AdminUser: AdminUser,

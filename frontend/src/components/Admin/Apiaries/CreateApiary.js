@@ -273,7 +273,7 @@ export default function CreateApiary() {
                                 >
                                     <option value="" disabled>Sélectionnez un propriétaire</option>
                                     {Array.isArray(users.data) && users.data.map((user) => (
-                                        user.Role !== 'Admin' && (
+                                        user.Role !== 'Admin' && user.Role !== 'Niveau Stratégique' && (
                                             <option key={user._id} value={user._id}>
                                                 {user.Firstname} {user.Lastname} (CIN: {user.Cin})
                                             </option>
