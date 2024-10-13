@@ -6,10 +6,8 @@ import thunk from 'redux-thunk'
 
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { createUserReducer, loginUserReducer, getAllUsersReducer, getUserByIdReducer, editUserReducer } from './reducers/userReducer'
-import { getAllApiariesReducer , createApiaryReducer, getApiaryByIdReducer, editApiaryReducer } from './reducers/apiaryReducer'
-import {getAllHivesReducer, getHiveByIdReducer, editHiveReducer, createHiveReducer} from './reducers/hiveReducer';
 
-
+import {createForageReducer, getForageByIdReducer, editForageReducer, getAllForagesReducer} from './reducers/forageReduer'
 
 const finalReducer = combineReducers({
 
@@ -20,18 +18,12 @@ const finalReducer = combineReducers({
     editUserReducer: editUserReducer,
     getAllUsersReducer: getAllUsersReducer,
 
-    //Apiary Reducer
-    getAllApiariesReducer : getAllApiariesReducer,
-    getApiaryByIdReducer: getApiaryByIdReducer,
-    editApiaryReducer: editApiaryReducer,
-    createApiaryReducer: createApiaryReducer,
-
-    //Hive Reducer
-    getAllHivesReducer: getAllHivesReducer,
-    getHiveByIdReducer: getHiveByIdReducer,
-    editHiveReducer: editHiveReducer,
-    createHiveReducer: createHiveReducer
-
+    //Forage Reducer
+    createForageReducer: createForageReducer,
+    getForageByIdReducer:getForageByIdReducer,
+    editForageReducer:editForageReducer,
+    getAllForagesReducer:getAllForagesReducer
+  
 
 
 })

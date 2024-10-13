@@ -1,16 +1,17 @@
-export const createHiveReducer = (state = {}, action) => {
+
+export const createForageReducer = (state = {}, action) => {
 
 
     switch (action.type) {
-        case 'HIVE_CREATE_REQUEST': return {
+        case 'FORAGE_CREATE_REQUEST': return {
             loading: true,
             ...state
         }
-        case 'HIVE_CREATE_SUCCESS': return {
+        case 'FORAGE_CREATE_SUCCESS': return {
             loading: false,
             success: true,
         }
-        case 'HIVE_CREATE_FAILED': return {
+        case 'FORAGE_CREATE_FAILED': return {
             error: action.payload,
             loading: false
         }
@@ -19,17 +20,17 @@ export const createHiveReducer = (state = {}, action) => {
 
 }
 
-export const getAllHivesReducer = (state = { hives: [] }, action) => {
+export const getAllForagesReducer = (state = { forages: [] }, action) => {
     switch (action.type) {
-        case 'GET_HIVES_REQUEST': return {
+        case 'GET_FORAGES_REQUEST': return {
             loading: true,
             ...state
         }
-        case 'GET_HIVES_SUCCESS': return {
+        case 'GET_FORAGES_SUCCESS': return {
             loading: false,
-            hives: action.payload
+            forages: action.payload
         }
-        case 'GET_HIVES_FAILED': return {
+        case 'GET_FORAGES_FAILED': return {
             error: action.payload,
             loading: false
         }
@@ -38,18 +39,18 @@ export const getAllHivesReducer = (state = { hives: [] }, action) => {
 }
 
 
-export const getHiveByIdReducer = (state = {}, action) => {
+export const getForageByIdReducer = (state = {}, action) => {
 
     switch (action.type) {
-        case 'GET_HIVEBYID_REQUEST': return {
+        case 'GET_FORAGEBYID_REQUEST': return {
             loading: true,
             ...state
         }
-        case 'GET_HIVEBYID_SUCCESS': return {
+        case 'GET_FORAGEBYID_SUCCESS': return {
             loading: false,
-            hive: action.payload
+            forage: action.payload
         }
-        case 'GET_HIVEBYID_FAILED': return {
+        case 'GET_FORAGEBYID_FAILED': return {
             error: action.payload,
             loading: false
         }
@@ -60,17 +61,17 @@ export const getHiveByIdReducer = (state = {}, action) => {
 
 
 
-export const editHiveReducer = (state = {}, action) => {
+export const editForageReducer = (state = {}, action) => {
     switch (action.type) {
-        case 'EDIT_HIVE_REQUEST': return {
+        case 'EDIT_FORAGE_REQUEST': return {
             editloading: true,
             ...state
         }
-        case 'EDIT_HIVE_SUCCESS': return {
+        case 'EDIT_FORAGE_SUCCESS': return {
             editloading: false,
             editsuccess: true,
         }
-        case 'EDIT_HIVE_FAILED': return {
+        case 'EDIT_FORAGES_FAILED': return {
             editerror: action.payload,
             editloading: false
         }

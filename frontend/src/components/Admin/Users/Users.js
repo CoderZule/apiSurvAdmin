@@ -37,7 +37,7 @@ export default function Users() {
     const filteredUsers = users.data ? users.data.filter(user => user._id !== currentUser._id) : [];
 
     return (
-        <div style={{ overflowX: 'auto', width: '100vw' }}>
+        <>
             <MaterialTable
                 columns={[
                     {
@@ -111,6 +111,6 @@ export default function Users() {
                 }}
                 onConfirm={handleDeleteUser}
             />
-        </div>
+        </>
     );
 }

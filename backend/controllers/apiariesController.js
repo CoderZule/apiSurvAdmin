@@ -75,8 +75,8 @@ async function getApiaryById(req, res) {
   
   async function deleteApiary(req, res) {
     try {
-      const { apiaryid } = req.body; 
-      const deletedApiary = await Apiary.findByIdAndDelete(apiaryid);
+      const { apiaryId } = req.params; 
+      const deletedApiary = await Apiary.findByIdAndDelete(apiaryId);
       
       if (!deletedApiary) {
         return res.status(404).json({ message: 'Apiary not found' });

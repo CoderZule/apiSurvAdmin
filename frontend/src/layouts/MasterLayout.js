@@ -18,7 +18,7 @@ const MasterLayout = () => {
                     <div id="content">
                         <Navbar/>
                         <div className="container-fluid">
-                            <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <div className="align-items-center justify-content-between mb-4">
                                 <Switch>
                                     {routes.map((route, idx) => (
                                         <Route

@@ -27,20 +27,15 @@ async function connectToDB(server) {
             io.emit('usersChange', change);
         });
 
-        
-        const apiariesChangeStream = db.collection('apiaries').watch();
-        apiariesChangeStream.on('change', (change) => {
-            console.log('Apiaries collection change:', change);
-            io.emit('apiariesChange', change);
+        const foragesChangeStream = db.collection('forages').watch();
+        foragesChangeStream.on('change', (change) => {
+            console.log('Forage collection change:', change);
+            io.emit('foragesChange', change);
         });
-
         
-        const hivesChangeStream = db.collection('hives').watch();
-        hivesChangeStream.on('change', (change) => {
-            console.log('Hives collection change:', change);
-            io.emit('hivesChange', change);
-        });
-
+       
+        
+    
     } catch (err) {
         console.log(err);
     }

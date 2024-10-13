@@ -135,7 +135,6 @@ export default function EditUser(props) {
                                 <select name="Role" className="form-select" value={Role} onChange={(e) => setRole(e.target.value)}>
                                     <option value="" disabled>Sélectionnez un rôle</option>
                                     <option value="Admin">Admin</option>
-                                    <option value="Apiculteur">Apiculteur</option>
                                     <option value="Assistance intermédiaire">Assistance intermédiaire</option>
                                     <option value="Niveau Stratégique">Niveau Stratégique</option>
                                 </select>

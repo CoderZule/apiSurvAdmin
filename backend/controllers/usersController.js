@@ -40,6 +40,62 @@ async function AdminUser() {
   }
 }
 
+
+const registerUser = async (req, res) => {
+  const { Firstname, Lastname, Phone, Cin, Email, Password, platform } = req.body;
+
+  if (!Firstname || !Lastname || !Phone || !Cin || !Email || !Password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const jwtSecret = generateRandomString(32);
+  if (!jwtSecret) {
+    console.error('JWT secret key is missing.');
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+
+  try {
+     const existingUser = await User.findOne({ Email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User with this email already exists' });
+    }
+
+     const hashedPassword = await bcrypt.hash(Password, 10);
+
+     const newUser = new User({
+      Firstname,
+      Lastname,
+      Phone,
+      Cin,
+      Email,
+      Password: hashedPassword, 
+      platform,
+      Role: 'Apiculteur',
+      FirstTimeLogin: true  
+    });
+
+    await newUser.save();
+
+     const token = jwt.sign({ userId: newUser._id }, jwtSecret, { expiresIn: '1h' });
+
+    const currentUser = {
+      Firstname: newUser.Firstname,
+      Lastname: newUser.Lastname,
+      Cin: newUser.Cin,
+      Phone: newUser.Phone,
+      Email: newUser.Email,
+      Role: newUser.Role,
+      FirstTimeLogin: newUser.FirstTimeLogin,
+      _id: newUser._id
+    };
+
+     res.status(201).json({ token, currentUser });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 async function loginUser(req, res) {
   const { Email, Password, platform } = req.body;  
   const jwtSecret = generateRandomString(32);
@@ -93,7 +149,8 @@ async function loginUser(req, res) {
 
 const fetchUsers = async (req, res) => {
   try {
-    const Users = await User.find();
+     const Users = await User.find({ Role: { $ne: 'Apiculteur' } });
+    
     res.json({ success: true, data: Users });
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -256,6 +313,7 @@ async function changeProfilPassword(req, res) {
 
 module.exports = {
   AdminUser: AdminUser,
+  registerUser: registerUser,
   loginUser: loginUser,
   fetchUsers: fetchUsers,
   createUser: createUser,
