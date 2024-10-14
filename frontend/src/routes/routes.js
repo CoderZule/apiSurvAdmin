@@ -6,8 +6,6 @@ import CreateUser from "../components/Admin/Users/CreateUser";
 import EditUser from "../components/Admin/Users/EditUser";
 import DeleteConfirmationDialogUser from "../components/Admin/Users/DeleteConfirmationDialogUser";
 
-import UserRequests from "../components/Admin/UserRequests/UserRequests";
-import UserPasswordReset from "../components/Admin/UserRequests/UserPasswordReset";
 
 import Forages from "../components/Admin/Forages/Forages";
 import CreateForage from "../components/Admin/Forages/CreateForage";
@@ -29,10 +27,7 @@ const routes = [
     { path: '/admin/user/edit/:_id', exact: true, name: 'EditUser', component: EditUser },
     { path: '/admin/user/delete/:_id', exact: true, name: 'DeleteUser', component: DeleteConfirmationDialogUser },
 
-    //User Requests  Routes
-    { path: '/admin/users_requests', exact: true, name: 'Forages', component: UserRequests },
-    { path: '/admin/users_requests/resetpassword/:_id', exact: true, name: 'EditForage', component: UserPasswordReset },
-
+ 
 
     //Forages Crud Routes
     { path: '/admin/forages', exact: true, name: 'Forages', component: Forages },
