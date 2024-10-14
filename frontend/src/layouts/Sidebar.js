@@ -44,14 +44,7 @@ const Sidebar = () => {
                 </div>
             </li>
 
-             <li className="nav-item">
-                <Link className="nav-link collapsed"  to="/admin/users_requests" data-toggle="collapse" data-target="#requests"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i className="fas fa-users" style={{ marginRight:'10px'}}></i>
-                    <span>Demandes</span>
-                </Link>
- 
-            </li>
+           
 
            
             <li className="nav-item">
