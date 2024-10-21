@@ -42,9 +42,13 @@ async function AdminUser() {
 
 
 const registerUser = async (req, res) => {
-  const { Firstname, Lastname, Phone, Cin, Email, Password, platform } = req.body;
+  //const { Firstname, Lastname, Phone, Cin, Email, Password, platform } = req.body;
 
-  if (!Firstname || !Lastname || !Phone || !Cin || !Email || !Password) {
+  const { Firstname, Lastname,  Email, Password, platform } = req.body;
+  // if (!Firstname || !Lastname || !Phone || !Cin || !Email || !Password) {
+  //   return res.status(400).json({ message: 'All fields are required' });
+  // }
+    if (!Firstname || !Lastname || !Email || !Password) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -65,8 +69,6 @@ const registerUser = async (req, res) => {
      const newUser = new User({
       Firstname,
       Lastname,
-      Phone,
-      Cin,
       Email,
       Password: hashedPassword, 
       platform,
